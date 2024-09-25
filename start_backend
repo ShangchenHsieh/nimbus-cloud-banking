@@ -1,0 +1,7 @@
+#! /bin/bash
+
+cd backend_django_client
+
+source ./venv/bin/activate
+
+#need to finish starting backend server

@@ -1,0 +1,98 @@
+/* Signup.css */
+
+.About-container {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    min-height: 100vh;
+  }
+  
+  .login {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-label {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  .form-control {
+    margin-bottom: 1rem;
+  }
+  
+  .form-control::placeholder {
+    color: #6c757d;
+    opacity: 1;
+  }
+  
+  .btn-block {
+    width: 100%;
+  }
+  
+  .invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: 0.5rem;
+    animation: shake 0.3s ease-in-out;
+  }
+  
+  .required-asterisk {
+    color: red;
+    margin-left: 0.25rem;
+  }
+  
+  .animated {
+    animation: shake 0.3s ease-in-out;
+  }
+  
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    75% {
+      transform: translateX(-5px);
+    }
+  }
+  .signup-btn {
+    padding: 8px 12px;
+    margin-left: auto; /* Move the button to the right */
+    margin-right: auto; /* Move the button to the left */
+    display: block; /* Ensure it occupies full width */
+    transition: 0.5s;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #000;
+    font-size: 16px;
+  
+    cursor: pointer;
+    width: 100px; /* Adjust width as needed */
+  }
+  
+  .signup-btn:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    background-color: #f3e9d4c2;
+    border-radius: 5px;
+  }
+  .animation-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  
+  .login .container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }

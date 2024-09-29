@@ -1,4 +1,0 @@
-#! /bin/bash
-
-cd frontend_react_client
-npm start

@@ -3,9 +3,11 @@ import Navbar from "./Navbar"
 
 const LandingPage = () => {
     return ( 
-        <Navbar />
+        <div>
+            <Navbar />
+            <h1>Welcome to Nimbus Online Banking Services</h1>
+        </div>
     )
-
-
+        
 }
 export default LandingPage

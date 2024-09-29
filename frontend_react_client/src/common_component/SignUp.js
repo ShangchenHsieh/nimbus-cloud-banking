@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import './styling/SignUp.css';
 // import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import animation from "../assets/upload_cloud.json";
+import animation from "../assets/cloud_outline.json";
 import Lottie from 'react-lottie';
  
 const SignUp = () => {
@@ -96,8 +96,8 @@ const SignUp = () => {
           <div className="container">
             <div className="row">
               <div className="col-md-8 m-auto">
-              <div className="animation-container">
-                  <Lottie options={defaultOptions} height={300} width={300 } speed={.4} />
+                <div className="animation-container">
+                  <Lottie options={defaultOptions} height={300} width={300 } speed={.6} />
                 </div>
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">

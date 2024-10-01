@@ -31,29 +31,29 @@ const SignUp = () => {
     validationErrors = {};
   };
 
-  // const submitRegisteration = async () => {
-  //   const requestOptions = {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({
-  //       first_name: formData.first_name,
-  //       last_name: formData.last_name,
-  //       phone: formData.phone,
-  //       username: formData.username,
-  //       password: formData.password,
-  //     }),
-  //   };
-  //   const response = await fetch('http://127.0.0.1:8000/owners', requestOptions);
-  //   const data = await response.json();
-  //   if (response.status === 409) {
-  //     setUsernameError(data.detail); 
-  //   } 
-  //   else {
-  //     // setToken(data.access_token);
-  //     localStorage.setItem('access_token', data.access_token);
-  //     navigate('/userdashboard')
-  //   }
-  // }
+  const submitRegisteration = async () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        phone: formData.phone,
+        username: formData.username,
+        password: formData.password,
+      }),
+    };
+    const response = await fetch('http://127.0.0.1:8000/owners', requestOptions);
+    const data = await response.json();
+    if (response.status === 409) {
+      setUsernameError(data.detail); 
+    } 
+    else {
+      // setToken(data.access_token);
+      localStorage.setItem('access_token', data.access_token);
+      navigate('/userdashboard')
+    }
+  }
 // 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -184,6 +184,11 @@ const SignUp = () => {
                       {errors.confirm_password && <div className="invalid-feedback">{errors.confirm_password}</div>}
                     </div>
                     <div className="invalid-feedback">{errorMessage}</div>
+                    <div className="form-group">
+                      <label htmlFor="password" className="form-label">
+                        
+                      </label>
+                    </div>
                     <input type="submit" className="signup-btn" value="Register" />
                   </form>
                 </div>

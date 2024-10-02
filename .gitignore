@@ -2,4 +2,3 @@ node_modules
 venv
 env
 backend_django_client/.env
-backend_django_client/backend_django_client/__pycache__/

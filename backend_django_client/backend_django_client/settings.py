@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Custom apps below
+    'authentication',
 ]
 
 
@@ -106,6 +108,8 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '3306'),  # Default MySQL port 3306
     }
 }
+AUTH_USER_MODEL = 'authentication.CustomUser'
+
 
 
 # Password validation

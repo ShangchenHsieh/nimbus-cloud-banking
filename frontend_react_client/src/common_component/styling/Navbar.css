@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     padding: 0 20px;
-    background-color: #fffdf9a2;
+    background-color: #f7f9fc;
     height: 60px;
     position: relative;
     color: #555;
@@ -44,7 +44,7 @@
 .navbar-options a:hover {
     background-color: #ecd39d;
     border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: #6c90ae;
 }
 
 .navbar-right {
@@ -60,7 +60,7 @@
 
 .navbar-login:hover {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    background-color: #f3e9d4c2;
+    background-color: #6c90ae;
 }
 
 .navbar-login a {
@@ -83,7 +83,7 @@
 
 .logout-btn:hover {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    background-color: #f3e9d4c2;
+    background-color: #6c90ae;
     border-radius: 5px;
 }
 
@@ -98,3 +98,21 @@
     border-radius: 50%;
     margin-right: 10px;
   }
+
+
+  /* Style for the Nimbus link */
+.nimbus-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color from the surrounding elements */
+  }
+  
+  .nimbus-link h3 {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  /* Optionally, you can add hover effects to match your design */
+  .nimbus-link:hover h3 {
+    color: #1e508d; /* Example hover color */
+  }
+  

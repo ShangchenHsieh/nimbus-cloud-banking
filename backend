@@ -4,4 +4,5 @@ cd backend_django_client
 
 source ./venv/bin/activate
 
+python3 manage.py runserver
 #need to finish starting backend server

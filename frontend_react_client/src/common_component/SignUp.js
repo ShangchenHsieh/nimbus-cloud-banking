@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Navbar from './Navbar';
 import './styling/SignUp.css';
-// import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import animation from "../assets/cloud_outline.json";
 import Lottie from 'react-lottie';
- 
+import Modal from 'react-modal';
+
 const SignUp = () => {
   const [formData, setFormData] = useState({
     first_name: '',
@@ -16,10 +16,11 @@ const SignUp = () => {
     confirm_password: '',
   });
   const navigate = useNavigate();
-  // const [, setToken] = useContext(UserContext);
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const [usernameError, setUsernameError] = useState('');
+  const [agreeToTerms, setAgreeToTerms] = useState(false); // State to track the checkbox
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal
   let validationErrors = {};
 
   const handleChange = (e) => {
@@ -27,7 +28,7 @@ const SignUp = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    setUsernameError(''); 
+    setUsernameError('');
     validationErrors = {};
   };
 
@@ -48,18 +49,15 @@ const SignUp = () => {
     const response = await fetch('http://127.0.0.1:8000/auth/register/', requestOptions);
     const data = await response.json();
     if (response.status === 409) {
-      setUsernameError(data.detail); 
-    } 
-    else {
-      // setToken(data.access_token);
+      setUsernameError(data.detail);
+    } else {
       localStorage.setItem('access_token', data.access_token);
-      navigate('/userdashboard')
+      navigate('/userdashboard');
     }
-  }
-// 
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    
 
     // Validate required fields
     if (!formData.first_name) validationErrors.first_name = 'First name is required';
@@ -68,12 +66,11 @@ const SignUp = () => {
     if (!formData.confirm_password) validationErrors.confirm_password = 'Please confirm your password';
     if (formData.password !== formData.confirm_password) {
       setErrorMessage('Password and Confirm Password do not match.');
-    }
-    else if (Object.keys(validationErrors).length > 0 || errorMessage.length === 1 || usernameError === 1) {
+    } else if (Object.keys(validationErrors).length > 0 || errorMessage.length === 1 || usernameError === 1) {
       setErrors(validationErrors);
-    } 
-    else 
-    {
+    } else if (!agreeToTerms) {
+      setErrorMessage('You must agree to the terms and conditions.');
+    } else {
       submitRegisteration();
     }
   };
@@ -83,8 +80,12 @@ const SignUp = () => {
     autoplay: true,
     animationData: animation,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen); // Toggles modal visibility
   };
 
   return (
@@ -95,11 +96,10 @@ const SignUp = () => {
           <div className="container">
             <div className="row">
               <div className="col-md-8 m-auto">
-                
                 <div className='signup-form-container'>
-                <div className="animation-container">
-                  <Lottie options={defaultOptions} height={300} width={300 } speed={.45} />
-                </div>
+                  <div className="animation-container">
+                    <Lottie options={defaultOptions} height={300} width={300} speed={.45} />
+                  </div>
                   <form onSubmit={handleSubmit}>
                     <div className="form-group">
                       <label htmlFor="first_name" className="form-label">
@@ -172,12 +172,12 @@ const SignUp = () => {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="password" className="form-label">
+                      <label htmlFor="confirm_password" className="form-label">
                         Confirm Password<span className="required-asterisk">*</span>
                       </label>
                       <input
                         type="password"
-                        className={`form-control form-control-lg ${errors.password ? 'is-invalid' : ''}`}
+                        className={`form-control form-control-lg ${errors.confirm_password ? 'is-invalid' : ''}`}
                         placeholder=""
                         name="confirm_password"
                         value={formData.confirm_password}
@@ -185,12 +185,21 @@ const SignUp = () => {
                       />
                       {errors.confirm_password && <div className="invalid-feedback">{errors.confirm_password}</div>}
                     </div>
-                    <div className="invalid-feedback">{errorMessage}</div>
+
                     <div className="form-group">
-                      <label htmlFor="password" className="form-label">
-                        
+                      <label className="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="agreeToTerms"
+                          checked={agreeToTerms}
+                          onChange={() => setAgreeToTerms(!agreeToTerms)}
+                        />
+                        I agree to the <span className="terms-link" onClick={toggleModal}>Terms & Conditions</span>
                       </label>
                     </div>
+
+                    <div className="invalid-feedback">{errorMessage}</div>
+
                     <input type="submit" className="signup-btn" value="Register" />
                   </form>
                 </div>
@@ -198,6 +207,18 @@ const SignUp = () => {
             </div>
           </div>
         </div>
+
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={toggleModal}
+          contentLabel="Terms and Conditions"
+          className="terms-modal"
+          overlayClassName="terms-modal-overlay"
+        >
+          <h2>Terms and Conditions</h2>
+          <p>Add some terms and conditions in this section to use our application.</p>
+          <button onClick={toggleModal}>Close</button>
+        </Modal>
       </div>
     </>
   );

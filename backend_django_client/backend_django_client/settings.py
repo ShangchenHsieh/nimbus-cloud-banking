@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os
-from dotenv import load_dotenv
+import os                           # for protecting AWS RDS sensetive credentials
+from dotenv import load_dotenv      # for protecting AWS RDS sensetive credentials
+from datetime import timedelta      # for setting JWT token lifetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,15 +34,36 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'rest_framework_simplejwt',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Custom apps below
+    'authentication',
+    'corsheaders',
 ]
 
+
+#   -- Custom imports --
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+
+#   -- End of custom imports --
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -49,6 +71,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",    # allow connection to React frontend on port 3000
 ]
 
 ROOT_URLCONF = 'backend_django_client.urls'
@@ -75,7 +101,7 @@ WSGI_APPLICATION = 'backend_django_client.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# loading 
+# loading variables from .env 
 load_dotenv()
 
 DATABASES = {
@@ -88,6 +114,8 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '3306'),  # Default MySQL port 3306
     }
 }
+AUTH_USER_MODEL = 'authentication.CustomUser'
+
 
 
 # Password validation

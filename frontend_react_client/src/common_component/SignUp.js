@@ -40,11 +40,13 @@ const SignUp = () => {
         first_name: formData.first_name,
         last_name: formData.last_name,
         phone: formData.phone,
-        username: formData.username,
+        // changed username to email as Django backend expects a 'email' field rather than 'username'
+        email: formData.username,
         password: formData.password,
       }),
     };
-    const response = await fetch('http://127.0.0.1:8000/owners', requestOptions);
+    // fetch request sent to correct Django URL
+    const response = await fetch('http://127.0.0.1:8000/auth/register/', requestOptions);
     const data = await response.json();
     if (response.status === 409) {
       setUsernameError(data.detail);

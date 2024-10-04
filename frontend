@@ -1,4 +1,4 @@
 #! /bin/bash
 
-cd frontend_react_client
-npm start
+cd frontend_vite_client
+npm run dev

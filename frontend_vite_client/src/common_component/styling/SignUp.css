@@ -1,0 +1,151 @@
+/* SignUp.css */
+
+/* Container Styling */
+.Signup-container {
+  background-color: #f7f9fc;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Signup form container */
+.signup-form-container {
+  background-color: white;
+  padding: 80px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Label */
+.form-label {
+  font-weight: 600;
+  color: #34495e;
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* Input Fields */
+.form-control {
+  width: 90%;
+  border-radius: 4px;
+  border: 1px solid #d1d8e0;
+  font-size: 14px;
+  transition: border 0.3s ease;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+}
+
+.form-control:focus {
+  border: 1px solid #3498db;
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+/* Error Styling */
+.invalid-feedback {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+/* Required Asterisk */
+.required-asterisk {
+  color: #e74c3c;
+}
+
+/* Submit Button */
+.signup-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Animation container */
+.animation-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Checkbox Label */
+.terms-link {
+  color: #3498db;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  font-size: 14px;
+  color: #34495e;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-label input {
+  margin-right: 10px;
+  width: auto;
+}
+
+/* Modal Styling */
+.terms-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 600px;
+  z-index: 1000;
+}
+
+.terms-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.terms-modal h2 {
+  color: #34495e;
+  margin-bottom: 20px;
+}
+
+.terms-modal p {
+  color: #7f8c8d;
+  font-size: 16px;
+}
+
+.terms-modal button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.terms-modal button:hover {
+  background-color: #2980b9;
+}

@@ -51,7 +51,9 @@ const SignUp = () => {
     if (response.status === 409) {
       setUsernameError(data.detail);
     } else {
-      localStorage.setItem('access_token', data.access_token);
+      console.log(data)
+      localStorage.setItem('access_token', data.access);
+      localStorage.setItem('refresh_token', data.refresh);
       navigate('/userdashboard');
     }
   };

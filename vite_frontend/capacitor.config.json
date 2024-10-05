@@ -1,0 +1,6 @@
+{
+  "appId": "com.nimbus-online-banking-services.app",
+  "appName": "Nimbus",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

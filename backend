@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd backend_django_client
+cd django_backend
 
 source ./venv/bin/activate
 

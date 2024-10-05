@@ -1,4 +1,4 @@
 #! /bin/bash
 
-cd frontend_vite_client
+cd vite_frontend
 npm run dev

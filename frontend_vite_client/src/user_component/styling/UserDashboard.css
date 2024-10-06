@@ -1,3 +1,9 @@
+@import url("https://fonts.google.com/share?selection.family=Hammersmith+One");
+
+body {
+   margin: 0px;
+}
+
 .title {
    color: #555;
    margin: 0px;
@@ -20,12 +26,8 @@
    margin: 0px;
 }
 
-.view-all-text {
-   color: #555;
-   text-align: center;
-}
-
 .userdashboard-container {
+   font-family: "Hammersmith One";
    min-height: calc(100vh - 20px - 60px);
    width: calc(100vw - 20px);
    background-color: #f7f9fc;
@@ -41,6 +43,26 @@
    display: flex;
    align-items: center;
    margin-bottom: 10px;
+}
+
+.account-selector {
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   color: #ffffff;
+   background-color: #003349;
+   border: 2px solid #018fcc;
+   border-radius: 10px;
+   padding: 2px 8px 2px 8px;
+   margin-left: auto;
+   margin-right: 12px;
+   transition: 0.3s;
+}
+
+.account-selector:hover {
+   color: #555;
+   background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
+   border: 2px solid #d1f4ff;
+   cursor: pointer;
 }
 
 .details-container {
@@ -70,6 +92,40 @@
    margin-bottom: 10px;
 }
 
+.account-balance-details-container {
+   height: calc(100% - 48px);
+   width: 100%;
+   display: flex;
+}
+
+.account-balance-title {
+   font-size: 100px;
+   color: #ffffff;
+   margin: 0px;
+   padding: 12px;
+}
+
+.account-balance-statement-button {
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   color: #555;
+   width: 250px;
+   background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
+   border: 2px solid #ffffff;
+   border-radius: 10px;
+   text-align: center;
+   padding: 8px;
+   margin: auto 0px 0px auto;
+   transition: 0.3s;
+}
+
+.account-balance-statement-button:hover {
+   color: #555;
+   background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
+   border: 2px solid #d1f4ff;
+   cursor: pointer;
+}
+
 .account-details-container {
    height: calc(100% - 230px);
    width: 100%;
@@ -88,12 +144,23 @@
    padding: 10px;
 }
 
-.transaction {
-   width: calc(100% - 48px);
-   background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
+.view-all-button {
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   color: #ffffff;
+   width: calc(100% - 24px);
+   background: linear-gradient(45deg, #003349 0%, #002e42 100%);
+   border: 2px solid #018fcc;
    border-radius: 10px;
-   border-color: #ffffff;
+   text-align: center;
+   padding: 4px;
+   margin: 0px 12px 0px 12px;
+   transition: 0.3s;
+}
+
+.view-all-button:hover {
+   color: #555;
+   background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
    border: 2px solid #d1f4ff;
-   padding: 12px;
-   margin: 0px 12px 12px 12px;
+   cursor: pointer;
 }

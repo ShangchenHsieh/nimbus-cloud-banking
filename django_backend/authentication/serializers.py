@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from .models import CustomUser
+from django.contrib.auth import authenticate
 
-class CustomUserSerializer(serializers.ModelSerializer):
+class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ['email', 'first_name', 'last_name', 'phone', 'password']
@@ -17,3 +18,23 @@ class CustomUserSerializer(serializers.ModelSerializer):
             phone=validated_data['phone']
         )
         return user
+    
+    
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+    
+    def validate(self, credentials):
+        # retuns CustomUser object if account is present in DB, returns None if not present in DB
+        user = authenticate(email=credentials['email'], password=credentials['password'])
+        
+        # raise Error if account it not in DB
+        if user is None:
+            raise serializers.ValidationError("Invalid log in credentials")
+        
+        # Return the existing validated user in a dict for further processing in LoginView
+        data = {
+        'user': user,
+        }
+        return data
+        

@@ -1,0 +1,30 @@
+@import url("https://fonts.google.com/share?selection.family=Hammersmith+One");
+
+.transaction-container {
+   font-family: "Hammersmith One";
+   width: calc(100% - 48px);
+   background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
+   border-radius: 10px;
+   border-color: #ffffff;
+   border: 2px solid #d1f4ff;
+   padding: 12px;
+   margin: 0px 12px 12px 12px;
+}
+
+.transaction-title {
+   font-size: 14px;
+   color: #555;
+   margin: 0px;
+}
+
+.transaction-text-positive {
+   font-size: 14px;
+   color: rgb(0, 219, 110);
+   margin: 0px;
+}
+
+.transaction-text-negative {
+   font-size: 14px;
+   color: rgb(243, 36, 0);
+   margin: 0px;
+}

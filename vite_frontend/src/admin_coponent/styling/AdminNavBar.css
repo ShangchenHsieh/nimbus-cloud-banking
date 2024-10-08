@@ -1,6 +1,7 @@
+
 @import url("https://fonts.google.com/share?selection.family=Hammersmith+One");
 
-.user-navbar {
+.admin-navbar {
    font-family: "Hammersmith One";
    display: flex;
    align-items: center;
@@ -16,42 +17,42 @@
    z-index: 1000; /* Ensure it's above other content */
 }
 
-.user-navbar-logo img {
+.admin-navbar-logo img {
    height: 100%;
    max-height: 50px;
    margin-left: 10px;
    margin-right: 10px;
 }
 
-.user-navbar-center {
+.admin-navbar-center {
    position: absolute;
    left: 50%;
    transform: translateX(-50%);
 }
 
-.user-navbar-left {
+.admin-navbar-left {
    flex: 1;
    display: flex;
    align-items: center;
 }
 
-.user-navbar-option {
+.admin-navbar-option {
    margin-left: 20px;
    padding: 10px;
 }
 
-.user-navbar-option:hover {
+.admin-navbar-option:hover {
    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
    background-color: #6c90ae;
 }
 
-.user-navbar-option a {
+.admin-navbar-option a {
    color: #333333;
    text-decoration: none;
    font-size: 16px;
 }
 
-.user-navbar-option {
+.admin-navbar-option {
    padding: 8px 12px;
    margin-left: auto;
    margin-right: 10px;

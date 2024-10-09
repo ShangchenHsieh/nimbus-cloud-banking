@@ -1,0 +1,147 @@
+/* Settings.css */
+
+.settings-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 30px;
+    padding-left: 20px;
+    background-color: #f7f9fc;
+}
+  
+.user-info-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+  
+.user-initials {
+    width: 70px;
+    height: 70px;
+    background-color: #3498db;
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+  
+.user-details h2 {
+    font-size: 24px;
+    margin: 0;
+    color: #34495e;
+}
+  
+.user-details p {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin: 5px 0 0;
+}
+  
+.dropdown-header {
+    font-size: 24px;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+  
+.dropdown-arrow {
+    font-size: 18px;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+  
+.dropdown-arrow.open {
+    transform: rotate(180deg); 
+}
+  
+.dropdown-container {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 40px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+  
+.settings-form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+  
+.settings-label {
+    font-weight: 600;
+    color: #34495e;
+    flex: 1;
+}
+  
+.settings-input {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #d1d8e0;
+    border-radius: 4px;
+    background-color: #f0f3f7;
+    margin-right: 10px;
+}
+  
+.edit-save-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+  
+.edit-save-btn:hover {
+    background-color: #2980b9;
+}
+  
+.data-container {
+    padding: 20px;
+    border-radius: 8px;
+}
+  
+.data-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+  
+.data-label {
+    font-weight: 600;
+    color: #34495e;
+    flex: 1;
+}
+  
+.download-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+  
+.download-btn:hover {
+    background-color: #2980b9;
+}
+  

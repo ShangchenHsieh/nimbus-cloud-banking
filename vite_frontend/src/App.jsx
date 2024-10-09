@@ -8,6 +8,7 @@ import QandA from "./common_component/QandA";
 import Login from "./common_component/Login";
 import UserDashboard from "./user_component/UserDashboard";
 import AdminDashboard from "./admin_coponent/AdminDashboard";
+import Settings from "./user_component/Settings.jsx";
 import News from "./common_component/News";
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/admindashboard" element={<AdminDashboard />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </Router>
   );

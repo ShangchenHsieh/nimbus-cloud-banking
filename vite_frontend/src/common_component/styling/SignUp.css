@@ -21,7 +21,7 @@
 /* Form Label */
 .form-label {
   font-weight: 600;
-  color: #34495e;
+  color: #1e508d;;
   display: block;
   margin-bottom: 10px;
   font-size: 16px;
@@ -39,7 +39,7 @@
 }
 
 .form-control:focus {
-  border: 1px solid #3498db;
+  border: 1px solid #1e508d;;
   outline: none;
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
@@ -58,7 +58,7 @@
 
 /* Submit Button */
 .signup-btn {
-  background-color: #3498db;
+  background-color: #1e508d;;
   color: white;
   border: none;
   padding: 15px;

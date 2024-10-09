@@ -8,6 +8,7 @@ import QandA from "./common_component/QandA";
 import Login from "./common_component/Login";
 import UserDashboard from "./user_component/UserDashboard";
 import AdminDashboard from "./admin_coponent/AdminDashboard";
+import News from "./common_component/News";
 function App() {
   return (
     <Router>
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="*" element={<div>404 Not Found</div>} />{" "}
         {/* Optional: Handle undefined routes */}
+        <Route path="/news" element={<News />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/Q&A" element={<QandA />} />
         <Route path="/about" element={<About />} />

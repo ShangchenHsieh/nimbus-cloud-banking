@@ -1,0 +1,81 @@
+:root {
+    --primary-color: #1e508d; /* 62b2c8  1e508d  4f6ed3*/
+    --secondary-color: #b2edff;
+    --text-dark: #333;
+    --text-light: #ffffff;
+    --background-light: #f7f9fc;
+}
+
+.about-container {
+    font-family: 'Hammersmith One', sans-serif;
+    padding: 20px;
+    background-color: var(--background-light);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.section-title {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.section-description {
+    color: var(--text-dark);
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.meet-team {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.team-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px; /* Further reduce the gap between the cards */
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 0 20px; /* Add padding to the container to avoid edge crowding */
+}
+
+.team-member {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border-radius: 10px;
+    padding: 10px; /* Reduce padding inside each card */
+    text-align: center;
+    width: 350px; /* Make the cards a bit wider to fit more closely */
+    margin-bottom: 15px; /* Reduce the bottom margin to pull rows closer */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.team-img {
+    border-radius: 80%;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.team-name {
+    color: var(--text-light);
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.team-role {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.team-bio {
+    color: var(--text-light);
+    font-size: 1rem;
+}

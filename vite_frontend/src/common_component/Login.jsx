@@ -73,6 +73,11 @@ const Login = () => {
   return (
     <>
       <Navbar />
+      {/* Bubbles */}
+      <div className="bubble bubble-1"></div>
+      <div className="bubble bubble-2"></div>
+      <div className="bubble bubble-3"></div>
+
       <div className="Login-container">
         <div className="login">
           <div className="container">

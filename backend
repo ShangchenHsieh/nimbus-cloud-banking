@@ -1,8 +1,13 @@
 #! /bin/bash
 
+echo "Message: directe to django_backend" 
 cd django_backend
 
-source ./venv/bin/activate
 
+echo "Message: activate virtual environment" 
+source ./venv/bin/activate
+echo "Message: virtual environment activated" 
+
+echo "Message: starting django server" 
 python3 manage.py runserver
-#need to finish starting backend server
+echo "Message: django server started"

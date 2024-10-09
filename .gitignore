@@ -1,8 +1,9 @@
 node_modules
 venv
-env
+django_backend/.env
 backend_django_client/.env
 *.pyc
+env
 __pycache__/
 db.sqlite3
 backend_django_client/.env

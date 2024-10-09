@@ -8,6 +8,8 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
+  position: relative;
+  overflow: hidden;
 }
 
 /* Signup form container */
@@ -16,12 +18,86 @@
   padding: 80px;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2; 
+}
+
+/* Blue Bubbles */
+.Signup-container::before,
+.Signup-container::after {
+  content: '';
+  position: absolute;
+  background-color: rgba(52, 152, 219, 0.07); 
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.Signup-container::before {
+  width: 400px;
+  height: 400px;
+  top: -150px;
+  left: -200px;
+  animation: moveBubbles 25s infinite alternate;
+}
+
+.Signup-container::after {
+  width: 500px;
+  height: 500px;
+  bottom: -200px;
+  right: -250px;
+  animation: moveBubbles 30s infinite alternate-reverse;
+}
+
+/* Additional bubbles */
+.Signup-container .bubble {
+  position: absolute;
+  background-color: rgba(52, 152, 219, 0.05);
+  border-radius: 50%;
+  z-index: 0; 
+  animation: moveBubbles 30s infinite linear;
+}
+
+.Signup-container .bubble.bubble-1 {
+  width: 150px;
+  height: 150px;
+  top: 50%;
+  left: 10%;
+  animation-duration: 35s;
+}
+
+.Signup-container .bubble.bubble-2 {
+  width: 200px;
+  height: 200px;
+  top: 20%;
+  right: 10%;
+  animation-duration: 40s;
+}
+
+.Signup-container .bubble.bubble-3 {
+  width: 120px;
+  height: 120px;
+  bottom: 10%;
+  left: 5%;
+  animation-duration: 30s;
+}
+
+/* Bubbles Animation */
+@keyframes moveBubbles {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(50px, -30px) scale(1.1);
+  }
+  100% {
+    transform: translate(-30px, 30px) scale(1);
+  }
 }
 
 /* Form Label */
 .form-label {
   font-weight: 600;
-  color: #34495e;
+  color: #1e508d;;
   display: block;
   margin-bottom: 10px;
   font-size: 16px;
@@ -39,7 +115,7 @@
 }
 
 .form-control:focus {
-  border: 1px solid #3498db;
+  border: 1px solid #1e508d;;
   outline: none;
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
@@ -58,7 +134,7 @@
 
 /* Submit Button */
 .signup-btn {
-  background-color: #3498db;
+  background-color: #1e508d;;
   color: white;
   border: none;
   padding: 15px;

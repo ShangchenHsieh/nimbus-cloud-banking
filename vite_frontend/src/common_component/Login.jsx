@@ -29,11 +29,12 @@ const Login = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: formData.username,
+        // updated to email to match backend field
+        email: formData.username,
         password: formData.password,
       }),
     };
-    const response = await fetch('http://127.0.0.1:8000/login', requestOptions);
+    const response = await fetch('http://127.0.0.1:8000/auth/login/', requestOptions);
     const data = await response.json();
 
     if (response.status === 401 || response.status === 400) {

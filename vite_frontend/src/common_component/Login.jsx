@@ -41,7 +41,8 @@ const Login = () => {
       setErrorMessage(data.detail); // Handle backend error message
     } else {
       // Assuming the backend returns an access token on success
-      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('access_token', data.access);
+      localStorage.setItem('refresh_token', data.refresh);
       navigate('/userdashboard');
     }
   };
@@ -73,17 +74,17 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      {/* Bubbles */}
-      <div className="bubble bubble-1"></div>
-      <div className="bubble bubble-2"></div>
-      <div className="bubble bubble-3"></div>
 
       <div className="Login-container">
+        <div className="bubble bubble-1"></div>
+        <div className="bubble bubble-2"></div>
+        <div className="bubble bubble-3"></div>
+
         <div className="login">
           <div className="container">
             <div className="row">
               <div className="col-md-8 m-auto">
-                
+
                 <div className='login-form-container'>
                   <div className="animation-container">
                     <Lottie options={defaultOptions} height={300} width={300} speed={.45} />

@@ -16,11 +16,11 @@ const AboutUs = () => {
                 </section>
 
                 <section className="meet-team">
-                    <h2 className="section-title">Meet Our Team</h2>
+                    <h2 className="section-title">Meet Our Developer</h2>
                     <div className="team-container">
                         <div className="team-member">
                             <img src={developer} alt="Developer 1" className="team-img" />
-                            <h3 className="team-name">Developer 1</h3>
+                            <h3 className="team-name">Alejandro Pacheco</h3>
                             <p className="team-role">Full Stack Developer</p>
                             <p className="team-bio">
                                 Some things about developer 1
@@ -28,40 +28,40 @@ const AboutUs = () => {
                         </div>
                         <div className="team-member">
                             <img src={developer} alt="Developer 2" className="team-img" />
-                            <h3 className="team-name">Developer2</h3>
-                            <p className="team-role">Frontend Engineer</p>
+                            <h3 className="team-name">Lee Rogers</h3>
+                            <p className="team-role">Full-stack Developer</p>
                             <p className="team-bio">
                                 Something about developer 2
                             </p>
                         </div>
                         <div className="team-member">
                             <img src={developer} alt="Developer 2" className="team-img" />
-                            <h3 className="team-name">Developer 3</h3>
-                            <p className="team-role">Frontend Engineer</p>
+                            <h3 className="team-name">Madison Kolley</h3>
+                            <p className="team-role">Full-stack Developer</p>
                             <p className="team-bio">
                                 Something about developer 3
                             </p>
                         </div>
                         <div className="team-member">
                             <img src={developer} alt="Developer 2" className="team-img" />
-                            <h3 className="team-name">Developer 4</h3>
-                            <p className="team-role">Frontend Engineer</p>
+                            <h3 className="team-name">Shangchen Hsieh</h3>
+                            <p className="team-role">Full-stack Developer</p>
                             <p className="team-bio">
-                                Something about developer 4
+                                This is our full-stack developer Sean! A fun fact about him, he is operated by coffee and tea. If you ever have a chance to meet him in person, buy him a coffee!
                             </p>
                         </div>
                         <div className="team-member">
                             <img src={developer} alt="Developer 2" className="team-img" />
-                            <h3 className="team-name">Developer 5</h3>
-                            <p className="team-role">Frontend Engineer</p>
+                            <h3 className="team-name">Tanisha Damle</h3>
+                            <p className="team-role">Full-stack Developer</p>
                             <p className="team-bio">
                                 Something about developer 5
                             </p>
                         </div>
                         <div className="team-member">
                             <img src={developer} alt="Developer 2" className="team-img" />
-                            <h3 className="team-name">Developer 6</h3>
-                            <p className="team-role">Frontend Engineer</p>
+                            <h3 className="team-name">Yossef Eini</h3>
+                            <p className="team-role">Full-stack Developer</p>
                             <p className="team-bio">
                                 Something about developer 6
                             </p>

@@ -51,7 +51,7 @@ const SignUp = () => {
     if (response.status === 409) {
       setUsernameError(data.detail);
     } else {
-      console.log(data)
+
       localStorage.setItem('access_token', data.access);
       localStorage.setItem('refresh_token', data.refresh);
       navigate('/userdashboard');
@@ -94,11 +94,12 @@ const SignUp = () => {
     <>
       <Navbar />
       {/* Bubbles */}
-      <div className="bubble bubble-1"></div>
-      <div className="bubble bubble-2"></div>
-      <div className="bubble bubble-3"></div>
 
       <div className="Signup-container">
+        <div className="bubble bubble-1"></div>
+        <div className="bubble bubble-2"></div>
+        <div className="bubble bubble-3"></div>
+
         <div className="login">
           <div className="container">
             <div className="row">

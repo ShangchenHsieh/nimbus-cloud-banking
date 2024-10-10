@@ -7,14 +7,14 @@ export const UserContext = createContext();
 export const UserProvider = (props) => {
     const [accessToken, setAccessToken] = useState(localStorage.getItem("access_token"));
     const [refreshToken, setRefreshToken] = useState(localStorage.getItem("refresh_token"));
-    const navigate = useNavigate();
+
 
     useEffect(() => {
-        if(!accessToken || !refreshToken) {
+        if (!accessToken || !refreshToken) {
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
-           
-            navigate('/');
+
+
         }
     }, [accessToken, refreshToken]);
 

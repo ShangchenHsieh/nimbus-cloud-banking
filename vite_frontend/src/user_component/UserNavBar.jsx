@@ -11,12 +11,15 @@ const UserNavbar = () => {
             </div>
             <h3>Nimbus</h3>
          </div>
-         <div className="user-navbar-center"></div>
+
+         <div className="user-navbar-center">
+         </div>
+
          <div className="user-navbar-option">
             <Link to="">Help</Link>
          </div>
          <div className="user-navbar-option">
-            <Link to="">Settings</Link>
+            <Link to="/settings">Settings</Link>
          </div>
          <div className="user-navbar-option">
             <Link to="/">Logout</Link>

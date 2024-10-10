@@ -56,26 +56,44 @@
 
 
 .team-img {
-    border-radius: 80%;
-    width: 150px;
-    height: 150px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    width: 200px; /* Set a fixed width for uniformity */
+    height: 250px; /* Set a fixed height for uniformity */
+    border-radius: 15; 
+    
+    border: 3px solid #ddd; /* Subtle border for a polished look */
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    object-fit: cover; /* Ensure the image covers the entire area */
+    margin-bottom: 15px; /* Space between the image and text */
+}
+
+/* Optional hover effect */
+.team-img:hover {
+    border-color: #4a90e2; /* Change border color on hover */
+    transform: scale(1.05); /* Slightly scale up the image on hover */
+    transition: border-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
 
 .team-name {
-    color: var(--text-light);
-    font-size: 1.5rem;
-    margin-bottom: 5px;
+    color: #1e1a1a; /* Darker gray for professional look */
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-shadow: none; /* Remove shadow for a cleaner look */
 }
 
 .team-role {
-    color: var(--text-light);
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+    color: #555; /* Medium gray for roles */
+    font-size: 1.1rem;
+    margin-bottom: 12px;
 }
 
 .team-bio {
-    color: var(--text-light);
+    color: #666; /* Slightly lighter gray for the bio text */
     font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.8); /* Soft translucent background */
+    padding: 10px;
+    border-radius: 6px;
+    line-height: 1.6; /* Increased line height for readability */
+    text-shadow: none; /* Keep the text sharp */
 }
+

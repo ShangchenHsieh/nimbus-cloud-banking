@@ -16,7 +16,7 @@ const AdminNavbar = () => {
             <Link to="">Help</Link>
          </div>
          <div className="admin-navbar-option">
-            <Link to="">Settings</Link>
+            <Link to="/settings">Settings</Link>
          </div>
          <div className="admin-navbar-option">
             <Link to="/">Logout</Link>

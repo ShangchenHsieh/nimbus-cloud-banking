@@ -7,6 +7,6 @@
 body {
     font-family: var(--font-family); /* Use the CSS variable for the font family */
     margin: 0; /* Remove default body margin */
-    padding: 0; /* Remove default body padding */
+    
     background-color: #f7f9fc; /* Set a default background color if needed */
 }

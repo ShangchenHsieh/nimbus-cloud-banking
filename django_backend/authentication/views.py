@@ -23,9 +23,12 @@ from rest_framework.permissions import AllowAny
 # Supports RefreshToken management.
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from rest_framework.permissions import IsAuthenticated
+
+
 from .serializers import RegisterSerializer
 from .serializers import LoginSerializer
-
+from .serializers import UserProfileSerializer
 
 class RegisterView(APIView):
     """
@@ -105,4 +108,30 @@ class LoginView(APIView):
             }, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class UserProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user 
+
+        if not user:
+            return Response({'error': 'User not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        # use seriaklizer
+        serializer = UserProfileSerializer(user)
+        print(f"User data: {serializer.data}")
         
+        if serializer.data:
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response({'error': 'Cannot retrieve user data'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request):
+        user = request.user
+        serializer = UserProfileSerializer(user, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()  
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

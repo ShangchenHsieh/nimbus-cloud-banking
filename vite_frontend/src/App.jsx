@@ -11,6 +11,7 @@ import AdminDashboard from "./admin_coponent/AdminDashboard";
 import Settings from "./user_component/Settings.jsx";
 import News from "./common_component/News";
 import { UserProvider } from "./user_context/UserContext.jsx";
+import Help from "./user_component/Help.jsx";
 function App() {
   return (
     <UserProvider>
@@ -27,6 +28,7 @@ function App() {
           <Route path="/userdashboard" element={<UserDashboard />} />
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/help" element={<Help />} />
         </Routes>
       </Router>
     </UserProvider>

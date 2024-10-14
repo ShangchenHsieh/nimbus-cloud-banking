@@ -9,6 +9,7 @@ import Login from "./common_component/Login";
 import UserDashboard from "./user_component/UserDashboard";
 import AdminDashboard from "./admin_coponent/AdminDashboard";
 import Settings from "./user_component/Settings.jsx";
+import SearchATMs from "./user_component/searchATMs.jsx";
 import News from "./common_component/News";
 import { UserProvider } from "./user_context/UserContext.jsx";
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/userdashboard" element={<UserDashboard />} />
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/maps" element={<SearchATMs />} />
         </Routes>
       </Router>
     </UserProvider>

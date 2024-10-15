@@ -8,10 +8,44 @@ const UserDashboard = () => {
    const [accountBalance, setAccountBalance] = useState(0);
    const [loading, setLoading] = useState(true);
    const [selectedAccountType, setSelectedAccountType] = useState("checking");
+   const [accountTypes, setAccountTypes] = useState([]);
 
    const handleAccountTypeChange = (event) => {
       setSelectedAccountType(event.target.value);
    };
+
+   useEffect(() => {
+      const fetchAccountTypes = async () => {
+         const token = localStorage.getItem('access_token');
+         if (!token) {
+           console.error("No access token found");
+           return;
+         }
+
+         const requestOptions = {
+           method: 'GET',
+           headers: {
+             'Content-Type': 'application/json',
+             'Authorization': `Bearer ${token}`,
+           },
+         };
+
+         try {
+           const response = await fetch('http://127.0.0.1:8000/account/account-types/', requestOptions);
+           
+           if (!response.ok) {
+             throw new Error(`Error ${response.status}: ${response.statusText}`);
+           }
+
+           const data = await response.json();
+           setAccountTypes(data);
+         } catch (error) {
+           console.error('Error fetching account types:', error);
+         }
+      };
+
+      fetchAccountTypes();
+   }, []);
 
    useEffect(() => {
       const fetchBalance = async () => {
@@ -56,8 +90,9 @@ const UserDashboard = () => {
                <h3 className="title-bright">Hello!</h3>
                <p className="text-bright">Here's your account summary</p>
                <select className="account-selector" onChange={handleAccountTypeChange} value={selectedAccountType}>
-                  <option value="checking">Checking</option>
-                  <option value="savings">Savings</option>
+                  {accountTypes.map((type) => (
+                     <option key={type} value={type}>{type.charAt(0).toUpperCase() + type.slice(1)}</option>
+                  ))}
                </select>
             </div>
             <div className="details-container">

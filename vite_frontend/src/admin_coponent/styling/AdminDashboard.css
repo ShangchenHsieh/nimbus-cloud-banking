@@ -63,7 +63,7 @@ body {
 }
 
 .user-account-details-container {
-   height: calc(100% - 230px);
+   height: calc(100% - 330px);
    width: 100%;
    background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -72,8 +72,15 @@ body {
    margin-bottom: 10px;
 }
 
+.user-account-holder-details-container {
+   height: calc(100% - 52px);
+   background-color: #f9fbfc;
+   border: 2px solid #ebeff0;
+   border-radius: 10px;
+}
+
 .user-activity-container {
-   height: 200px;
+   height: 300px;
    width: 100%;
    background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);

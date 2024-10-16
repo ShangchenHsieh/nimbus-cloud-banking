@@ -135,6 +135,88 @@ body {
    padding: 10px;
 }
 
+.account-details-text {
+   color: #555;
+   margin: 0px;
+   padding: 0px 12px 0px 12px;
+}
+
+.account-details-details-container {
+   height: calc(100% - 48px);
+   display: flex;
+}
+
+.account-details-left-container {
+   height: 100%;
+   width: 100%;
+}
+
+.account-holder-details-container {
+   height: calc(100% - 214px);
+   background-color: #f9fbfc;
+   border: 2px solid #ebeff0;
+   border-radius: 10px;
+   margin-bottom: 10px;
+   margin-right: 10px;
+}
+
+.account-payment-details-container {
+   height: 200px;
+   background-color: #f9fbfc;
+   border: 2px solid #ebeff0;
+   border-radius: 10px;
+   margin-right: 10px;
+}
+
+.payments-container {
+   height: calc(100% - 58px);
+   display: flex;
+   padding: 0px 10px 0px 10px;
+}
+
+.payments-container div:not(:last-child) {
+   margin-right: 10px;
+}
+
+.account-details-right-container {
+   height: 100%;
+   width: 130px;
+   background-color: #f9fbfc;
+   border: 2px solid #ebeff0;
+   border-radius: 10px;
+}
+
+.monthly-report-chart {
+   height: calc(100% - 82px);
+   border-radius: 10px;
+   margin: 0px 10px;
+   transition: 0.3s;
+}
+
+.monthly-report-chart:hover {
+   transform: scale(1.03);
+   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.monthly-report-chart div {
+   color: #555;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.monthly-report-chart div:first-child {
+   border-radius: 10px 10px 0px 0px;
+}
+
+.monthly-report-chart div:not(:first-child):not(:last-child) {
+   border-radius: 0px;
+}
+
+.monthly-report-chart div:last-child {
+   border-radius: 0px 0px 10px 10px;
+}
+
 .recent-transactions-container {
    min-height: 100%;
    width: 300px;

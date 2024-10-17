@@ -7,6 +7,36 @@
 body {
     font-family: var(--font-family); /* Use the CSS variable for the font family */
     margin: 0; /* Remove default body margin */
-    
     background-color: #f7f9fc; /* Set a default background color if needed */
+}
+
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.content {
+    display: flex; /* Use flexbox to align items side by side */
+    align-items: center; /* Center items vertically */
+}
+
+.landing-left {
+    display: flex;
+    flex-direction: column; /* Stack text vertically */
+    align-items: flex-start; /* Align text to the left */
+}
+
+.landing-left h1 {
+    font-size: 100px;
+    margin: 0; /* Remove default margin */
+}
+
+.landing-container img {
+    max-width: 250px; /* Adjust image size as needed */
+}
+
+.comfortaa-font {
+    font-family: 'Comfortaa', sans-serif;
 }

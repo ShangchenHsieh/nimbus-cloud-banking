@@ -177,6 +177,7 @@
 }
 
 /* Modal Styling */
+/* Modal Styling */
 .terms-modal {
   position: fixed;
   top: 50%;
@@ -188,6 +189,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 80%;
   max-width: 600px;
+  max-height: 80vh; /* Set a max height */
+  overflow-y: auto; /* Enable vertical scroll if content exceeds modal height */
   z-index: 1000;
 }
 
@@ -200,6 +203,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
+
 
 .terms-modal h2 {
   color: #34495e;

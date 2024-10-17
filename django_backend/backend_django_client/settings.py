@@ -15,6 +15,9 @@ import os                           # for protecting AWS RDS sensetive credentia
 from dotenv import load_dotenv      # for protecting AWS RDS sensetive credentials
 from datetime import timedelta      # for setting JWT token lifetime
 
+import pymysql
+pymysql.install_as_MySQLdb()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

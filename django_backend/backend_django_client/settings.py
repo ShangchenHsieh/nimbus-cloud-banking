@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Custom apps below
     'authentication',
+    'bank_account',
     'corsheaders',
 ]
 

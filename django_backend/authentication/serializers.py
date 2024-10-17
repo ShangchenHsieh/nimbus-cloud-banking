@@ -2,6 +2,8 @@ from rest_framework import serializers
 from .models import CustomUser
 from django.contrib.auth import authenticate
 
+from bank_account.models import BankAccount, account_number_generator
+
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -17,6 +19,14 @@ class RegisterSerializer(serializers.ModelSerializer):
             last_name=validated_data['last_name'],
             phone=validated_data['phone']
         )
+        # Automatically create an associated checkings account upon user registration
+        BankAccount.objects.create(
+            user=user,
+            account_type = 'checking',
+            status = 'active',
+            account_number = account_number_generator()
+        )
+        
         return user
     
     

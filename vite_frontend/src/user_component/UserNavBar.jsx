@@ -16,7 +16,10 @@ const UserNavbar = () => {
          </div>
 
          <div className="user-navbar-option">
-            <Link to="">Help</Link>
+            <Link to="/userdashboard">Dashboard</Link>
+         </div>
+         <div className="user-navbar-option">
+            <Link to="/help">Help</Link>
          </div>
          <div className="user-navbar-option">
             <Link to="/settings">Settings</Link>

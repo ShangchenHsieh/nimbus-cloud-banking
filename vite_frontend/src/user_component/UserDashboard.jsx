@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import UserNavbar from "./UserNavBar";
 import UserTransaction from "./UserTransaction";
-import UserPayment from "./UserPayment";
+import UserPayment from "./UserPaymentOption";
 import "./styling/UserDashboard.css";
 import React, { useState, useEffect } from "react";
-
+import UserPaymentOption from "./UserPaymentOption";
 
 const UserDashboard = () => {
    const [accountBalance, setAccountBalance] = useState(0);
@@ -18,31 +17,36 @@ const UserDashboard = () => {
 
    useEffect(() => {
       const fetchAccountTypes = async () => {
-         const token = localStorage.getItem('access_token');
+         const token = localStorage.getItem("access_token");
          if (!token) {
-           console.error("No access token found");
-           return;
+            console.error("No access token found");
+            return;
          }
 
          const requestOptions = {
-           method: 'GET',
-           headers: {
-             'Content-Type': 'application/json',
-             'Authorization': `Bearer ${token}`,
-           },
+            method: "GET",
+            headers: {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${token}`,
+            },
          };
 
          try {
-           const response = await fetch('http://127.0.0.1:8000/account/account-types/', requestOptions);
-           
-           if (!response.ok) {
-             throw new Error(`Error ${response.status}: ${response.statusText}`);
-           }
+            const response = await fetch(
+               "http://127.0.0.1:8000/account/account-types/",
+               requestOptions
+            );
 
-           const data = await response.json();
-           setAccountTypes(data);
+            if (!response.ok) {
+               throw new Error(
+                  `Error ${response.status}: ${response.statusText}`
+               );
+            }
+
+            const data = await response.json();
+            setAccountTypes(data);
          } catch (error) {
-           console.error('Error fetching account types:', error);
+            console.error("Error fetching account types:", error);
          }
       };
 
@@ -51,37 +55,42 @@ const UserDashboard = () => {
 
    useEffect(() => {
       const fetchBalance = async () => {
-        const token = localStorage.getItem('access_token');
-        if (!token) {
-          console.error("No access token found");
-          return;
-        }
-    
-        const requestOptions = {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-        };
-    
-        try {
-          const response = await fetch(`http://127.0.0.1:8000/account/balance/${selectedAccountType}/`, requestOptions);
-          
-          if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`);
-          }
-    
-          const data = await response.json();
-          setAccountBalance(data.balance || 0);
-          setLoading(false);
-        } catch (error) {
-          console.error('Error fetching balance:', error);
-        }
+         const token = localStorage.getItem("access_token");
+         if (!token) {
+            console.error("No access token found");
+            return;
+         }
+
+         const requestOptions = {
+            method: "GET",
+            headers: {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${token}`,
+            },
+         };
+
+         try {
+            const response = await fetch(
+               `http://127.0.0.1:8000/account/balance/${selectedAccountType}/`,
+               requestOptions
+            );
+
+            if (!response.ok) {
+               throw new Error(
+                  `Error ${response.status}: ${response.statusText}`
+               );
+            }
+
+            const data = await response.json();
+            setAccountBalance(data.balance || 0);
+            setLoading(false);
+         } catch (error) {
+            console.error("Error fetching balance:", error);
+         }
       };
-    
+
       fetchBalance();
-    }, [selectedAccountType]);
+   }, [selectedAccountType]);
 
    //const accountBalance = 500; // Placeholder balance value
    return (
@@ -91,9 +100,15 @@ const UserDashboard = () => {
             <div className="welcome-container">
                <h3 className="title-bright">Hello!</h3>
                <p className="text-bright">Here's your account summary</p>
-               <select className="account-selector" onChange={handleAccountTypeChange} value={selectedAccountType}>
+               <select
+                  className="account-selector"
+                  onChange={handleAccountTypeChange}
+                  value={selectedAccountType}
+               >
                   {accountTypes.map((type) => (
-                     <option key={type} value={type}>{type.charAt(0).toUpperCase() + type.slice(1)}</option>
+                     <option key={type} value={type}>
+                        {type.charAt(0).toUpperCase() + type.slice(1)}
+                     </option>
                   ))}
                </select>
             </div>
@@ -105,7 +120,12 @@ const UserDashboard = () => {
                         <h3 className="account-balance-title">
                            {loading ? "Loading..." : `$${accountBalance}`}
                         </h3>
-                        <button className="account-balance-statement-button">
+                        <button
+                           className="account-balance-statement-button"
+                           onClick={(e) =>
+                              (window.location.href = "/userstatement")
+                           }
+                        >
                            View Statement
                         </button>
                      </div>
@@ -132,10 +152,15 @@ const UserDashboard = () => {
                            <div className="account-payment-details-container">
                               <h3 className="title">Payment Services</h3>
                               <div className="payments-container">
-                                 <UserPayment title="Pay"></UserPayment>
-                                 <UserPayment title="Transfer"></UserPayment>
-                                 <UserPayment title="Deposit"></UserPayment>
-                                 <UserPayment title="Withdraw"></UserPayment>
+                                 <UserPaymentOption
+                                    title="Pay"
+                                    action={(e) =>
+                                       (window.location.href = "/userpayment")
+                                    }
+                                 ></UserPaymentOption>
+                                 <UserPaymentOption title="Transfer"></UserPaymentOption>
+                                 <UserPaymentOption title="Deposit"></UserPaymentOption>
+                                 <UserPaymentOption title="Withdraw"></UserPaymentOption>
                               </div>
                            </div>
                         </div>
@@ -156,7 +181,7 @@ const UserDashboard = () => {
                                     backgroundColor: "#b3eeff",
                                  }}
                               >
-                                 Transfers
+                                 <p className="text">Transfers</p>
                               </div>
                               <div
                                  style={{
@@ -164,7 +189,7 @@ const UserDashboard = () => {
                                     backgroundColor: "#80e3ff",
                                  }}
                               >
-                                 Deposits
+                                 <p className="text">Deposits</p>
                               </div>
                               <div
                                  style={{
@@ -172,7 +197,7 @@ const UserDashboard = () => {
                                     backgroundColor: "#4dd8ff",
                                  }}
                               >
-                                 Withdrawals
+                                 <p className="text">Withdrawals</p>
                               </div>
                            </div>
                         </div>

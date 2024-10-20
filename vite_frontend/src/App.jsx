@@ -14,30 +14,34 @@ import News from "./common_component/News";
 import { UserProvider } from "./user_context/UserContext.jsx";
 import Help from "./user_component/Help.jsx";
 import UserTransactions from "./user_component/UserTransactions.jsx";
+import UserStatement from "./user_component/UserStatement.jsx";
+import UserPayment from "./user_component/UserPayment.jsx";
 function App() {
-  return (
-    <UserProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="*" element={<div>404 Not Found</div>} />{" "}
-          {/* Handle undefined routes */}
-          <Route path="/news" element={<News />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/Q&A" element={<QandA />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/userdashboard" element={<UserDashboard />} />
-          <Route path="/admindashboard" element={<AdminDashboard />} />
-          <Route path="/usertransactions" element={<UserTransactions />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/maps" element={<SearchATMs />} />
-          <Route path="/help" element={<Help />} />
-        </Routes>
-      </Router>
-    </UserProvider>
-  );
+   return (
+      <UserProvider>
+         <Router>
+            <Routes>
+               <Route path="/" element={<LandingPage />} />
+               <Route path="*" element={<div>404 Not Found</div>} />{" "}
+               {/* Handle undefined routes */}
+               <Route path="/news" element={<News />} />
+               <Route path="/signup" element={<SignUp />} />
+               <Route path="/Q&A" element={<QandA />} />
+               <Route path="/about" element={<About />} />
+               <Route path="/contact" element={<Contact />} />
+               <Route path="/login" element={<Login />} />
+               <Route path="/userdashboard" element={<UserDashboard />} />
+               <Route path="/usertransactions" element={<UserTransactions />} />
+               <Route path="/userstatement" element={<UserStatement />} />
+               <Route path="/userpayment" element={<UserPayment />} />
+               <Route path="/admindashboard" element={<AdminDashboard />} />
+               <Route path="/settings" element={<Settings />} />
+               <Route path="/maps" element={<SearchATMs />} />
+               <Route path="/help" element={<Help />} />
+            </Routes>
+         </Router>
+      </UserProvider>
+   );
 }
 
 export default App;

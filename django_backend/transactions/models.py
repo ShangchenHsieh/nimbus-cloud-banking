@@ -65,7 +65,8 @@ class Transaction(models.Model):
     # To be implemented
     
 class InternalAccountTransfer(Transaction):
-    other_bank_account = models.ForeignKey(BankAccount, on_delete=models.CASCADE)
+    # Set to on ON DELETE SET NULL such that when an account involved in a transaction is deleted, that record remains in DB for the other account involved
+    other_bank_account = models.ForeignKey(BankAccount, on_delete=models.SET_NULL, null=True)
     
     def update_balance(self):
         if self.status == 'pending':

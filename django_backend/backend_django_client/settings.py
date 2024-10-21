@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # Custom apps below
     'authentication',
     'bank_account',
+    'transactions',
     'corsheaders',
 ]
 

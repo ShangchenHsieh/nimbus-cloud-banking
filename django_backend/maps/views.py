@@ -20,8 +20,6 @@ class MapsView(APIView):
     load_dotenv()
     API_KEY = os.getenv('MAPS_API_KEY')
     gmaps = gm.Client(key=API_KEY)
-    # starting_address = "San Jose State University"
-
 
     def get_lat_lng(self, starting_address):
         """
@@ -47,7 +45,7 @@ class MapsView(APIView):
         Searches for Chase ATMs nearby the location in the given radius
 
         Args:
-            location (lng, lat): starting location coordinates
+            location (tuple = lng, lat): starting location coordinates
             mile_radius (int, float): radius in miles
 
         Returns:
@@ -62,10 +60,12 @@ class MapsView(APIView):
             radius=meters,
             keyword="Chase ATM"
         )
+
         ATM_results = []
         for result in ATMs_nearby['results']:
-            # print(f"Place Id: {result['place_id']}, Name: {result['name']}, Address: {result['vicinity']}")
             atm_info = {
+                'lat': result['geometry']['location']['lat'],
+                'lng': result['geometry']['location']['lng'],
                 'place_id': result['place_id'],
                 'name': result['name'],
                 'address': result['vicinity']
@@ -94,9 +94,6 @@ class MapsView(APIView):
                     return JsonResponse({'error': 'Could not geocode the address'})
             else:
                 return JsonResponse({'error': 'Could not get starting address'})
-
-
-
 
 
 

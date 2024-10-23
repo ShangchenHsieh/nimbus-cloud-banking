@@ -87,8 +87,8 @@ class InternalAccountTransfer(Transaction):
                     raise ValueError("Transaction type not specified")
                 bank_account.save()                
                 
-class CheckImageDepositTransaction(Transaction):
-    bank_account = models.ForeignKey(BankAccount, on_delete=models.CASCADE, related_name='check_deposits')
+class DepositTransaction(Transaction):
+    bank_account = models.ForeignKey(BankAccount, on_delete=models.CASCADE, related_name='deposits')
 
     def update_balance(self):
         if self.status == 'pending':
@@ -96,6 +96,17 @@ class CheckImageDepositTransaction(Transaction):
                 bank_account = BankAccount.objects.select_for_update().get(id=self.bank_account.id)
                 bank_account.balance += self.amount
                 bank_account.save()
-                
+
+
+class WithdrawalTransaction(Transaction):
+    bank_account = models.ForeignKey(BankAccount, on_delete=models.CASCADE, related_name='withdrawals')
+
+    def update_balance(self):
+        if self.status == 'pending':
+            with transaction.atomic():
+                bank_account = BankAccount.objects.select_for_update().get(id=self.bank_account.id)
+                bank_account.balance -= self.amount
+                bank_account.save()
+                             
 # class ExternalAccountTransfer(Transaction):
     # To be implemented 

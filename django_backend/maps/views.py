@@ -86,7 +86,7 @@ class MapsView(APIView):
             if starting_address:
                 location = self.get_lat_lng(starting_address)
                 if location:
-                    nearby_ATMs = self.get_nearby_ATMs(location, 5)
+                    nearby_ATMs = self.get_nearby_ATMs(location, 3)
                     for result in nearby_ATMs:
                         print(result)
                     return JsonResponse({'message': 'Address received', 'ATMs': nearby_ATMs})

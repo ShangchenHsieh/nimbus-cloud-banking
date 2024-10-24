@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import UserNavbar from "./UserNavBar";
+import MapCard from "./MapCard";
+import './styling/MapCard.css';
 import { useJsApiLoader, GoogleMap, InfoWindow, LoadScript, MarkerF } from '@react-google-maps/api';
 
 
@@ -33,7 +35,7 @@ const SearchATMs = () => {
 
    const mapContainerStyle = {
       height: '500px',
-      width: '100%',
+      width: '75%',
    };
 
    let mapCenter = { lat: 37.3352, lng: -121.8811 };
@@ -57,37 +59,47 @@ const SearchATMs = () => {
             />
             <button type="submit">Search</button>
          </form>
-
-         <div>
-         {atmLocations.length > 0 && (
-         <LoadScript googleMapsApiKey={apiKey}>
-               <GoogleMap
-                  mapContainerStyle={mapContainerStyle}
-                  center={mapCenter}
-                  zoom={14}
-               >
-                  {atmLocations.map((atm, index) => (
-                     <MarkerF
-                        key={index}
-                        position={{ lat: atm.lat, lng: atm.lng }}
-                        title={atm.address}
-                        onClick={() => setCurrentATM(atm)}
-                     />
-                  ))}
-                  {currentATM && (
-                     <InfoWindow
-                        position={{ lat: currentATM.lat, lng: currentATM.lng }}
-                        onCloseClick={() => setCurrentATM(null)}
-                     >
-                        <div>
-                           <h2>{currentATM.name}</h2>
-                           <p>{currentATM.address}</p>
-                        </div>
-                     </InfoWindow>
-                  )}
-               </GoogleMap>
-            </LoadScript>
-         )}
+         <div className="maps-page-container">
+            <div className="map-element">
+               {atmLocations.length > 0 && (
+                  <LoadScript googleMapsApiKey={apiKey}>
+                        <GoogleMap
+                           mapContainerStyle={mapContainerStyle}
+                           center={mapCenter}
+                           zoom={14}
+                        >
+                        {atmLocations.map((atm, index) => (
+                           <MarkerF
+                              key={index}
+                              position={{ lat: atm.lat, lng: atm.lng }}
+                              title={atm.address}
+                              onClick={() => setCurrentATM(atm)}
+                           />
+                        ))}   
+                        {currentATM && (
+                           <InfoWindow
+                              position={{ lat: currentATM.lat, lng: currentATM.lng }}
+                              onCloseClick={() => setCurrentATM(null)}
+                           >
+                              <div>
+                                 <h3>{currentATM.name}</h3>
+                                 <p>{currentATM.address}</p>
+                              </div>
+                           </InfoWindow>
+                        )}   
+                        </GoogleMap>
+                     </LoadScript>
+               )}
+            </div>
+         <div className="map-cards">
+            {atmLocations.map((atm, index) => (
+               <MapCard 
+                  key={index} 
+                  atm={atm} 
+                  onClick={() => setCurrentATM(atm)}
+               />
+            ))}
+         </div>
          </div>
       </>
    );

@@ -106,7 +106,7 @@ class ProcessWithdrawalSerializer(serializers.ModelSerializer):
         withdraw = WithdrawalTransaction.objects.create(
                 bank_account=account_number,      
                 amount=amount,
-                transaction_type='deposit',
+                transaction_type='withdrawal',
             )
         return withdraw
         

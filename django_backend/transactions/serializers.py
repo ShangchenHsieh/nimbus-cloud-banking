@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import InternalAccountTransfer
+
+from .models import InternalAccountTransfer, WithdrawalTransaction, DepositTransaction
 from django.db import transaction
 from bank_account.models import BankAccount
 
@@ -51,3 +52,67 @@ class ProcessInternalTransferSerializer(serializers.ModelSerializer):
             )
         
         return sending_transfer
+    
+class ProcessDepositSerializer(serializers.ModelSerializer): 
+    
+    # incoming data validation
+    account_number = serializers.CharField(max_length=10)
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2)
+    
+    # data fields and model 
+    class Meta: 
+        model = DepositTransaction
+        fields = ['account_number', 'amount']
+    
+    
+    def create(self, validated_data):
+        account_number = validated_data['account_number']
+        amount = validated_data['amount']
+        
+        
+        try:
+            account_number = BankAccount.objects.get(account_number=account_number)
+        except BankAccount.DoesNotExist:
+            raise serializers.ValidationError("Account number is invalid or may not exist.")
+        if amount <= 0: 
+            raise serializers.ValidationError("Deposit amount must be greater than zero.")
+        deposit = DepositTransaction.objects.create(
+                bank_account=account_number,      
+                amount=amount,
+                transaction_type='deposit',
+            )
+        return deposit
+    
+class ProcessWithdrawalSerializer(serializers.ModelSerializer): 
+    
+    account_number = serializers.CharField(max_length=10)
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2)
+    
+    class Meta: 
+        model = WithdrawalTransaction
+        fields = ['account_number', 'amount']
+    
+    
+    def create(self, validated_data):
+        account_number = validated_data['account_number']
+        amount = validated_data['amount']
+        try:
+            account_number = BankAccount.objects.get(account_number=account_number)
+        except BankAccount.DoesNotExist:
+            raise serializers.ValidationError("Account number is invalid or may not exist.")
+        if amount <= 0: 
+            raise serializers.ValidationError("Withdrawal amount must be greater than zero.")
+        if amount > account_number.balance:
+            raise serializers.ValidationError("Withdrawal Amount exceeds account balance")
+        withdraw = WithdrawalTransaction.objects.create(
+                bank_account=account_number,      
+                amount=amount,
+                transaction_type='withdrawal',
+            )
+        return withdraw
+        
+    
+    
+class TestSerializer(serializers.ModelSerializer): 
+    def test():
+        return {'message': 'success!'}

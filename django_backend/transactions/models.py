@@ -60,14 +60,12 @@ class Transaction(models.Model):
 
 # class ATMTransaction(Transaction):
     # To be implemented  
-    
-# class CheckImageDepositTransaction(Transaction):
-    # To be implemented
-    
+
+        
 class InternalAccountTransfer(Transaction):
     # Set to on ON DELETE SET NULL such that when an account involved in a transaction is deleted, that record remains in DB for the other account involved
     other_bank_account = models.ForeignKey(BankAccount, on_delete=models.SET_NULL, null=True)
-    
+    bank_account = models.ForeignKey(BankAccount, on_delete=models.CASCADE, related_name='internal_transfer')
     def update_balance(self):
         if self.status == 'pending':
             # transaction.atomic() is not our 'Transaction' class but rather a database transaction or unit of change in the database
@@ -91,5 +89,26 @@ class InternalAccountTransfer(Transaction):
                 bank_account.save()                
                 
 
+class DepositTransaction(Transaction):
+    bank_account = models.ForeignKey(BankAccount, on_delete=models.CASCADE, related_name='deposits')
+
+    def update_balance(self):
+        if self.status == 'pending':
+            with transaction.atomic():
+                bank_account = BankAccount.objects.select_for_update().get(id=self.bank_account.id)
+                bank_account.balance += self.amount
+                bank_account.save()
+
+
+class WithdrawalTransaction(Transaction):
+    bank_account = models.ForeignKey(BankAccount, on_delete=models.CASCADE, related_name='withdrawals')
+
+    def update_balance(self):
+        if self.status == 'pending':
+            with transaction.atomic():
+                bank_account = BankAccount.objects.select_for_update().get(id=self.bank_account.id)
+                bank_account.balance -= self.amount
+                bank_account.save()
+                             
 # class ExternalAccountTransfer(Transaction):
-    # To be implemented
+    # To be implemented 

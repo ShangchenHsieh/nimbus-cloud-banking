@@ -26,7 +26,7 @@ class ProcessInternalTransferView(APIView):
     
     
 class ProcessDepositView(APIView): 
-    permission_classes = []
+    permission_classes = [] # add IsAuthenticated after demo
     
     def post(self, request): 
         serializer = ProcessDepositSerializer(data=request.data)
@@ -49,7 +49,7 @@ class ProcessDepositView(APIView):
     
     
 class ProcessWithdrawalView(APIView): 
-    permission_classes = []
+    permission_classes = [] # add IsAuthenticated after demo
     
     def post(self, request): 
         serializer = ProcessWithdrawalSerializer(data=request.data)

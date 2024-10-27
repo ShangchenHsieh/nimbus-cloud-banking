@@ -1,24 +1,27 @@
 :root {
-    --primary-color: #1e508d; /* 62b2c8  1e508d  4f6ed3*/
-    --secondary-color: #b2edff;
-    --text-dark: #333;
-    --text-light: #ffffff;
-    --background-light: #f7f9fc;
+    --primary-color: #1e508d; /* Main theme color */
+    --secondary-color: #f0f4f8; /* Light background color */
+    --text-dark: #333; /* Dark text */
+    --text-light: #ffffff; /* Light text */
+    --accent-color: #4a90e2; /* Accent color */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
 .about-container {
     font-family: 'Hammersmith One', sans-serif;
     padding: 20px;
-    background-color: var(--background-light);
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: var(--secondary-color); /* Light background */
+    box-shadow: 0px 4px 12px var(--shadow-color); /* Subtle shadow */
     border-radius: 10px;
     margin: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .section-title {
     color: var(--primary-color);
     font-size: 1.8rem;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -36,64 +39,57 @@
 
 .team-container {
     display: flex;
-    justify-content: center;
-    gap: 25px; /* Further reduce the gap between the cards */
+    justify-content: space-between; /* Ensures even spacing between team members */
+    gap: 25px;
     flex-wrap: wrap;
-    align-items: flex-start;
-    padding: 0 20px; /* Add padding to the container to avoid edge crowding */
+    padding: 0 20px;
 }
 
 .team-member {
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    background-color: var(--primary-color); /* Solid color for background */
+    color: var(--text-light); /* White text for contrast */
     border-radius: 10px;
-    padding: 10px; /* Reduce padding inside each card */
+    padding: 20px; /* Increased padding for breathing room */
     text-align: center;
-    width: 350px; /* Make the cards a bit wider to fit more closely */
-    margin-bottom: 15px; /* Reduce the bottom margin to pull rows closer */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Reduced card width */
+    margin-bottom: 20px; /* Adjust spacing between cards */
+    box-shadow: 0px 4px 12px var(--shadow-color); /* Soft shadow for depth */
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-
+.team-member:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0px 8px 16px var(--shadow-color); /* Enhanced shadow on hover */
+}
 
 .team-img {
-    width: 200px; /* Set a fixed width for uniformity */
-    height: 250px; /* Set a fixed height for uniformity */
-    border-radius: 15; 
-    
-    border: 3px solid #ddd; /* Subtle border for a polished look */
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
-    object-fit: cover; /* Ensure the image covers the entire area */
-    margin-bottom: 15px; /* Space between the image and text */
-}
-
-/* Optional hover effect */
-.team-img:hover {
-    border-color: #4a90e2; /* Change border color on hover */
-    transform: scale(1.05); /* Slightly scale up the image on hover */
-    transition: border-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    width: 200px;
+    height: 250px;
+    border-radius: 8px; /* Subtle border radius */
+    border: 3px solid #ddd;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+    margin-bottom: 15px;
 }
 
 .team-name {
-    color: #1e1a1a; /* Darker gray for professional look */
-    font-size: 1.4rem;
-    font-weight: 600;
+    color: var(--text-light); /* White text for contrast */
+    font-size: 1.3rem;
+    font-weight: bold;
     margin-bottom: 8px;
-    text-shadow: none; /* Remove shadow for a cleaner look */
 }
 
 .team-role {
-    color: #555; /* Medium gray for roles */
+    color: #ccc; /* Lighter text for the role */
     font-size: 1.1rem;
     margin-bottom: 12px;
 }
 
 .team-bio {
-    color: #666; /* Slightly lighter gray for the bio text */
+    color: var(--text-light); /* White text */
     font-size: 1rem;
-    background-color: rgba(255, 255, 255, 0.8); /* Soft translucent background */
+    background-color: rgba(255, 255, 255, 0.1); /* Light translucent overlay */
     padding: 10px;
     border-radius: 6px;
-    line-height: 1.6; /* Increased line height for readability */
-    text-shadow: none; /* Keep the text sharp */
+    line-height: 1.6;
 }
-

@@ -117,7 +117,7 @@ class UserProfileView(APIView):
         if not user:
             return Response({'error': 'User not authenticated'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        # use seriaklizer
+        # use serializer
         serializer = UserProfileSerializer(user)
         print(f"User data: {serializer.data}")
         

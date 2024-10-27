@@ -1,34 +1,115 @@
-.title-bright {
-   color: #ffffff;
+.title {
+   color: #555;
    margin: 0px;
    padding: 12px;
 }
 
-.text-bright {
-   color: #ffffff;
+.text {
+   font-size: 16px;
+   color: #555;
    margin: 0px;
-   padding: 0px 12px 0px 12px;
+}
+
+.text-left {
+   font-size: 16px;
+   color: #555;
+   margin: 0px;
+}
+
+.text-right {
+   font-size: 16px;
+   color: #555;
+   margin: 0px;
+   margin-left: auto;
+}
+
+.userpayment-container {
+   font-family: "Hammersmith One";
+   width: calc(100vw - 40px);
+   height: calc(100vh - 100px);
+   background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
+   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+   border-radius: 10px;
+   padding: 10px;
+   margin: 10px;
+}
+
+.userpayment-details-container {
+   height: calc(100% - 48px);
+   display: flex;
 }
 
 .payment-container {
-   height: 100%;
-   width: calc(100% * (1 / 3));
-   background: linear-gradient(45deg, #003349 0%, #002e42 100%);
-   border: 2px solid #018fcc;
+   width: calc(100% - 300px);
+   display: flex;
+}
+
+.selector {
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   color: #555;
+   width: 250px;
+   background-color: #f9fbfc;
+   border: 2px solid #ebeff0;
    border-radius: 10px;
+   padding: 8px;
+   margin-left: 12px;
+   margin-right: 12px;
    transition: 0.3s;
 }
 
-.payment-container:hover {
+.selector:hover {
+   color: #555;
    background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
    border: 2px solid #d1f4ff;
    cursor: pointer;
 }
 
-.payment-container:hover .title-bright {
-   color: #555;
+.pay-now-button {
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   color: #ffffff;
+   width: 250px;
+   background: linear-gradient(45deg, #003349 0%, #002e42 100%);
+   border: 2px solid #018fcc;
+   border-radius: 10px;
+   text-align: center;
+   padding: 8px;
+   margin: auto 0px 0px auto;
+   margin-right: 10px;
+   transition: 0.3s;
 }
 
-.payment-container:hover .text-bright {
+.pay-now-button:hover {
    color: #555;
+   background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
+   border: 2px solid #d1f4ff;
+   cursor: pointer;
+}
+
+.breakdown-container {
+   width: 300px;
+   background-color: #f9fbfc;
+   border: 2px solid #ebeff0;
+   border-radius: 10px;
+}
+
+.payment-breakdown-container {
+   width: 300px;
+   position: fixed;
+   bottom: 18px;
+}
+
+.item {
+   display: flex;
+   padding: 0px 12px 0px 12px;
+   margin-bottom: 12px;
+}
+
+.line {
+   background-color: transparent;
+   border-color: #555;
+   border-radius: 10px;
+   margin: 0px 12px 0px 12px;
+   margin-bottom: 12px;
 }

@@ -36,8 +36,7 @@ class MapsView(APIView):
             loc = geocode_res[0]['geometry']['location']
             lat_lng = (loc['lat'], loc['lng'])
         else:
-            print("Error: could not produce latitude & longitude for the address")
-            return None
+            return JsonResponse({'error': 'Could not produce latitude & longitude for the address'})
         return lat_lng 
 
     def get_nearby_ATMs(self, location, mile_radius):

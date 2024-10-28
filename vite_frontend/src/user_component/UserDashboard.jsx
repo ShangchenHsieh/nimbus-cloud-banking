@@ -5,6 +5,16 @@ import "./styling/UserDashboard.css";
 import React, { useState, useEffect } from "react";
 import UserPaymentOption from "./UserPaymentOption";
 
+
+
+const formatTransactionAmount = (type, amount) => {
+   if (type === "withdrawal" || type === "transfer out") {
+      return `-$${amount}`;
+   }
+   return `$${amount}`;
+};
+
+
 const UserDashboard = () => {
    const [accountBalance, setAccountBalance] = useState(0);
    const [accountNumber, setAccountNumber] = useState("");;
@@ -15,7 +25,9 @@ const UserDashboard = () => {
 
 
    const handleAccountTypeChange = (event) => {
-      setSelectedAccountType(event.target.value);
+      const newAccountType = event.target.value;
+      setSelectedAccountType(newAccountType);
+      localStorage.setItem("selectedAccountType", newAccountType)
    };
 
    useEffect(() => {
@@ -270,8 +282,9 @@ const UserDashboard = () => {
                         key={transaction.id}
                         id={transaction.id}
                         amount={transaction.amount}
+                        transactionType={transaction.transaction_type}
                      />
-                  ))}
+                     ))}
                      <div>
                         <button
                            className="view-all-button"

@@ -129,6 +129,25 @@ class ProcessWithdrawalSerializer(serializers.ModelSerializer):
             )
         return withdraw
         
+class DisplayDepositTransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DepositTransaction
+        fields = ['id', 'transaction_date', 'provider', 'amount']
+
+class DisplayWithdrawalTransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WithdrawalTransaction
+        fields = ['id', 'transaction_date', 'provider', 'amount']
+
+class DisplayInternalAccountTransferSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InternalAccountTransfer
+        fields = ['id', 'transaction_date', 'provider', 'amount']
+        
+        
+        
+        
+        
     
     
 class TestSerializer(serializers.ModelSerializer): 

@@ -132,17 +132,17 @@ class ProcessWithdrawalSerializer(serializers.ModelSerializer):
 class DisplayDepositTransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = DepositTransaction
-        fields = ['id', 'transaction_date', 'provider', 'amount']
+        fields = ['id', 'transaction_date', 'provider', 'amount', 'transaction_type']
 
 class DisplayWithdrawalTransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = WithdrawalTransaction
-        fields = ['id', 'transaction_date', 'provider', 'amount']
+        fields = ['id', 'transaction_date', 'provider', 'amount', 'transaction_type']
 
 class DisplayInternalAccountTransferSerializer(serializers.ModelSerializer):
     class Meta:
         model = InternalAccountTransfer
-        fields = ['id', 'transaction_date', 'provider', 'amount']
+        fields = ['id', 'transaction_date', 'provider', 'amount', 'transaction_type']
         
         
         

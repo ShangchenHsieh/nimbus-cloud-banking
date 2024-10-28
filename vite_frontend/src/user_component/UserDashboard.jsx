@@ -4,6 +4,16 @@ import UserPayment from "./UserPaymentOption";
 import "./styling/UserDashboard.css";
 import React, { useState, useEffect } from "react";
 import UserPaymentOption from "./UserPaymentOption";
+
+
+
+const formatTransactionAmount = (type, amount) => {
+   if (type === "withdrawal" || type === "transfer out") {
+      return `-$${amount}`;
+   }
+   return `$${amount}`;
+};
+
 import atmIcon from '../assets/atm.png'
 import checkIcon from '../assets/check.png'
 import { Link } from "react-router-dom";
@@ -44,7 +54,9 @@ const UserDashboard = () => {
 
 
    const handleAccountTypeChange = (event) => {
-      setSelectedAccountType(event.target.value);
+      const newAccountType = event.target.value;
+      setSelectedAccountType(newAccountType);
+      localStorage.setItem("selectedAccountType", newAccountType)
    };
    const handleDepositClick = () => {
       setShowDepositModal(true);
@@ -430,6 +442,7 @@ const UserDashboard = () => {
                            key={transaction.id}
                            id={transaction.id}
                            amount={transaction.amount}
+                           transactionType={transaction.transaction_type}
                         />
                      ))}
                      <div>

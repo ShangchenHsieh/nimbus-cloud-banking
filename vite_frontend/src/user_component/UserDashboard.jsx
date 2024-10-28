@@ -7,9 +7,12 @@ import UserPaymentOption from "./UserPaymentOption";
 
 const UserDashboard = () => {
    const [accountBalance, setAccountBalance] = useState(0);
+   const [accountNumber, setAccountNumber] = useState("");;
    const [loading, setLoading] = useState(true);
    const [selectedAccountType, setSelectedAccountType] = useState("checking");
    const [accountTypes, setAccountTypes] = useState([]);
+   const [recentTransactions, setRecentTransactions] = useState([]);
+
 
    const handleAccountTypeChange = (event) => {
       setSelectedAccountType(event.target.value);
@@ -54,7 +57,7 @@ const UserDashboard = () => {
    }, []);
 
    useEffect(() => {
-      const fetchBalance = async () => {
+      const fetchAccountInfo = async () => {
          const token = localStorage.getItem("access_token");
          if (!token) {
             console.error("No access token found");
@@ -71,7 +74,7 @@ const UserDashboard = () => {
 
          try {
             const response = await fetch(
-               `http://127.0.0.1:8000/account/balance/${selectedAccountType}/`,
+               `http://127.0.0.1:8000/account/account-info/${selectedAccountType}/`,
                requestOptions
             );
 
@@ -84,13 +87,68 @@ const UserDashboard = () => {
             const data = await response.json();
             setAccountBalance(data.balance || 0);
             setLoading(false);
+            setAccountNumber(data.account_number);
          } catch (error) {
             console.error("Error fetching balance:", error);
          }
       };
 
-      fetchBalance();
+      fetchAccountInfo();
    }, [selectedAccountType]);
+
+
+
+   useEffect(() => {
+      const fetchRecentTransactions = async () => {
+         const token = localStorage.getItem("access_token");
+         if (!token) {
+            console.error("No access token found");
+            return;
+         }
+   
+         const requestOptions = {
+            method: "GET",
+            headers: {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${token}`,
+            },
+         };
+   
+         try {
+            const response = await fetch(
+               `http://127.0.0.1:8000/transactions/user-transactions/${accountNumber}/`,
+               requestOptions
+            );
+   
+            if (!response.ok) {
+               throw new Error(
+                  `Error ${response.status}: ${response.statusText}`
+               );
+            }
+   
+            const data = await response.json();
+   
+            // combining all transactions into a single list
+            const combinedTransactions = [
+               ...data.deposits,
+               ...data.withdrawals,
+               ...data.transfers,
+            ];
+
+            // sort by most recent date
+            combinedTransactions.sort((a, b) => new Date(b.transaction_date) - new Date(a.transaction_date));
+   
+            // Set the two most recent transactions
+            setRecentTransactions(combinedTransactions.slice(0, 2));
+         } catch (error) {
+            console.error("Error fetching recent transactions:", error);
+         }
+      };
+   
+      if (accountNumber) {
+         fetchRecentTransactions();
+      }
+   }, [accountNumber, selectedAccountType]);
 
    //const accountBalance = 500; // Placeholder balance value
    return (
@@ -207,9 +265,13 @@ const UserDashboard = () => {
                <div className="details-right-container">
                   <div className="recent-transactions-container">
                      <h3 className="title">Recent Transactions</h3>
-                     {/*REPLACE -- Dynamically add transactions when available*/}
-                     <UserTransaction id="124" amount="123"></UserTransaction>
-                     <UserTransaction id="123" amount="-123"></UserTransaction>
+                     {recentTransactions.map((transaction) => (
+                        <UserTransaction
+                        key={transaction.id}
+                        id={transaction.id}
+                        amount={transaction.amount}
+                     />
+                  ))}
                      <div>
                         <button
                            className="view-all-button"

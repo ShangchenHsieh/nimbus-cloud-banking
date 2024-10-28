@@ -22,6 +22,9 @@ const UserNavbar = () => {
             <Link to="/help">Help</Link>
          </div>
          <div className="user-navbar-option">
+            <Link to="/maps">Locations</Link>
+         </div>
+         <div className="user-navbar-option">
             <Link to="/settings">Settings</Link>
          </div>
          <div className="user-navbar-option">

@@ -9,13 +9,14 @@ import Login from "./common_component/Login";
 import UserDashboard from "./user_component/UserDashboard";
 import AdminDashboard from "./admin_coponent/AdminDashboard";
 import Settings from "./user_component/Settings.jsx";
-import SearchATMs from "./user_component/searchATMs.jsx";
+import SearchATMs from "./user_component/SearchATMs.jsx";
 import News from "./common_component/News";
 import { UserProvider } from "./user_context/UserContext.jsx";
 import Help from "./user_component/Help.jsx";
 import UserTransactions from "./user_component/UserTransactions.jsx";
 import UserStatement from "./user_component/UserStatement.jsx";
 import UserPayment from "./user_component/UserPayment.jsx";
+import UserTransfer from "./user_component/UserTransfer.jsx";
 function App() {
    return (
       <UserProvider>
@@ -34,6 +35,7 @@ function App() {
                <Route path="/usertransactions" element={<UserTransactions />} />
                <Route path="/userstatement" element={<UserStatement />} />
                <Route path="/userpayment" element={<UserPayment />} />
+               <Route path="/usertransfer" element={<UserTransfer />} />
                <Route path="/admindashboard" element={<AdminDashboard />} />
                <Route path="/settings" element={<Settings />} />
                <Route path="/maps" element={<SearchATMs />} />

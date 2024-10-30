@@ -20,6 +20,7 @@ const UserDashboard = () => {
       phone: "",
       email: "",
    });
+   const [showDepositModal, setshowDepositModal] = useState(false);
 
    const handleAccountTypeChange = (event) => {
       setSelectedAccountType(event.target.value);

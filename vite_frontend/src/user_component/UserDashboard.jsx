@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import UserPaymentOption from "./UserPaymentOption";
 
 
-
+// function to handle display of transactions
 const formatTransactionAmount = (type, amount) => {
    if (type === "withdrawal" || type === "transfer out") {
       return `-$${amount}`;
@@ -25,9 +25,7 @@ const UserDashboard = () => {
 
 
    const handleAccountTypeChange = (event) => {
-      const newAccountType = event.target.value;
-      setSelectedAccountType(newAccountType);
-      localStorage.setItem("selectedAccountType", newAccountType)
+      setSelectedAccountType(event.target.value);
    };
 
    useEffect(() => {
@@ -100,6 +98,7 @@ const UserDashboard = () => {
             setAccountBalance(data.balance || 0);
             setLoading(false);
             setAccountNumber(data.account_number);
+            localStorage.setItem("currentAccountNumber", data.account_number);
          } catch (error) {
             console.error("Error fetching balance:", error);
          }

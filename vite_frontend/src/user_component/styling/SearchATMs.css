@@ -1,0 +1,74 @@
+.search-title-bright {
+   color: #ffffff;
+   margin: 0px;
+   padding: 12px;
+}
+
+.search-bar {
+   width: calc(100% - 40px);
+   background: linear-gradient(45deg, #00c3ff 0%, #b2edff 100%);
+   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+   border-radius: 10px;
+   padding: 10px;
+   margin: 10px;
+   display: flex;
+   align-items: center;
+}
+
+.search {
+   display: flex;
+   margin-left: auto;
+   align-items: center;
+}
+
+.search-input {
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   padding: 8px;
+   margin-right: 10px;
+   background-color: #ffffff;
+   border: 2px solid #f7f9fc;
+   border-radius: 10px;
+}
+
+.search-button {
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   color: #ffffff;
+   background: linear-gradient(45deg, #003349 0%, #002e42 100%);
+   padding: 8px;
+   border: 2px solid #018fcc;
+   border-radius: 10px;
+   transition: 0.3s;
+}
+
+.search-button:hover {
+   color: #555;
+   background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
+   border: 2px solid #d1f4ff;
+   cursor: pointer;
+}
+
+.maps-page-container {
+   height: calc(100vh - 70px);
+   width: 100%;
+}
+
+.map-container {
+   height: calc(100% - 90px);
+   width: calc(100% - 20px);
+   background-color: transparent;
+   border-radius: 10px;
+   margin: 10px;
+   display: flex;
+}
+
+.map-cards-container {
+   width: 300px;
+   background-color: #f9fbfc;
+   border: 2px solid #ebeff0;
+   border-radius: 10px;
+   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+   padding: 10px;
+   overflow-y: scroll;
+}

@@ -14,7 +14,14 @@ const UserDashboard = () => {
    const [loading, setLoading] = useState(true);
    const [selectedAccountType, setSelectedAccountType] = useState("checking");
    const [accountTypes, setAccountTypes] = useState([]);
-   const [showDepositModal, setShowDepositModal] = useState(false);
+   const [userData, setUserData] = useState({
+      first_name: "",
+      last_name: "",
+      phone: "",
+      email: "",
+   });
+   const [showDepositModal, setshowDepositModal] = useState(false);
+
 
    const handleAccountTypeChange = (event) => {
       setSelectedAccountType(event.target.value);
@@ -117,6 +124,50 @@ const UserDashboard = () => {
       fetchBalance();
    }, [selectedAccountType]);
 
+   // Fetch user data from the backend
+   useEffect(() => {
+      const fetchUserData = async () => {
+         const token = localStorage.getItem("access_token");
+         if (!token) {
+            console.error("No access token found");
+            return;
+         }
+
+         const requestOptions = {
+            method: "GET",
+            headers: {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${token}`,
+            },
+         };
+
+         try {
+            const response = await fetch(
+               "http://127.0.0.1:8000/auth/user/",
+               requestOptions
+            );
+
+            if (!response.ok) {
+               throw new Error(
+                  `Error ${response.status}: ${response.statusText}`
+               );
+            }
+
+            const data = await response.json();
+            setUserData({
+               first_name: data.first_name,
+               last_name: data.last_name,
+               phone: data.phone,
+               email: data.email,
+            });
+         } catch (error) {
+            console.error("Error fetching user data:", error);
+         }
+      };
+
+      fetchUserData();
+   }, []);
+
    //const accountBalance = 500; // Placeholder balance value
    return (
       <>
@@ -162,16 +213,14 @@ const UserDashboard = () => {
                            <div className="account-holder-details-container">
                               <h3 className="title">Account Holder</h3>
                               <p className="account-details-text">
-                                 Name: Ava Cado
+                                 Name: {userData.first_name}{" "}
+                                 {userData.last_name}
                               </p>
                               <p className="account-details-text">
-                                 Phone: +1 (555) 555-5555
+                                 Phone: {userData.phone}
                               </p>
                               <p className="account-details-text">
-                                 Email: ava.cado@example.com
-                              </p>
-                              <p className="account-details-text">
-                                 Address: 123 Example Street, San Jose, CA
+                                 Email: {userData.email}
                               </p>
                            </div>
                            <div className="account-payment-details-container">

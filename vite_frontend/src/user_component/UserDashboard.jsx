@@ -14,16 +14,13 @@ const UserDashboard = () => {
    const [loading, setLoading] = useState(true);
    const [selectedAccountType, setSelectedAccountType] = useState("checking");
    const [accountTypes, setAccountTypes] = useState([]);
-<<<<<<< HEAD
    const [userData, setUserData] = useState({
       first_name: "",
       last_name: "",
       phone: "",
       email: "",
    });
-=======
    const [showDepositModal, setShowDepositModal] = useState(false);
->>>>>>> 1015d15 (Oct 30 pulled from tanisha)
 
    const handleAccountTypeChange = (event) => {
       setSelectedAccountType(event.target.value);

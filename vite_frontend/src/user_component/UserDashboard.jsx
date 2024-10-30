@@ -4,22 +4,50 @@ import UserPayment from "./UserPaymentOption";
 import "./styling/UserDashboard.css";
 import React, { useState, useEffect } from "react";
 import UserPaymentOption from "./UserPaymentOption";
-
+import atmIcon from '../assets/atm.png'
+import checkIcon from '../assets/check.png'
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const UserDashboard = () => {
+   const navigate = useNavigate();
    const [accountBalance, setAccountBalance] = useState(0);
    const [loading, setLoading] = useState(true);
    const [selectedAccountType, setSelectedAccountType] = useState("checking");
    const [accountTypes, setAccountTypes] = useState([]);
+<<<<<<< HEAD
    const [userData, setUserData] = useState({
       first_name: "",
       last_name: "",
       phone: "",
       email: "",
    });
+=======
+   const [showDepositModal, setShowDepositModal] = useState(false);
+>>>>>>> 1015d15 (Oct 30 pulled from tanisha)
 
    const handleAccountTypeChange = (event) => {
       setSelectedAccountType(event.target.value);
    };
+   const handleDepositClick = () => {
+      setShowDepositModal(true);
+   };
+
+   const closeDepositModal = () => {
+      setShowDepositModal(false);
+   };
+   const handleAtmDeposit = () => {
+      navigate("/deposit");
+      closeDepositModal();
+   };
+
+   const handleCheckDeposit = () => {
+      navigate('/deposit');
+      closeDepositModal();
+   };
+
+   const handleWithdraw = () => {
+      navigate('/withdraw')
+   }
 
    useEffect(() => {
       const fetchAccountTypes = async () => {
@@ -207,8 +235,8 @@ const UserDashboard = () => {
                                     }
                                  ></UserPaymentOption>
                                  <UserPaymentOption title="Transfer"></UserPaymentOption>
-                                 <UserPaymentOption title="Deposit"></UserPaymentOption>
-                                 <UserPaymentOption title="Withdraw"></UserPaymentOption>
+                                 <UserPaymentOption title="Deposit" action={handleDepositClick}></UserPaymentOption>
+                                 <UserPaymentOption title="Withdraw" action={handleWithdraw}></UserPaymentOption>
                               </div>
                            </div>
                         </div>
@@ -272,6 +300,31 @@ const UserDashboard = () => {
                </div>
             </div>
          </div>
+         {/* Deposit Model */}
+         {showDepositModal && (
+            <div className="deposit-modal">
+               <div className="modal-content">
+                  <button className="close-button" onClick={closeDepositModal}>X</button>
+                  <h3>Select Deposit Option</h3>
+                  <div className="deposit-options">
+                     <div className="deposit-card check-deposit">
+                        <img src={atmIcon} alt="ATM Icon" className="icon" />
+                        <h4>ATM Deposit</h4>
+                        <p>Deposit cash quickly at any ATM.</p>
+                        <button onClick={handleCheckDeposit}>Select</button>
+                     </div>
+                     <div className="deposit-card check-deposit">
+                        <img src={checkIcon} alt="Check Icon" className="icon" />
+                        <h4>Check Deposit</h4>
+                        <p>Deposit checks to your account.</p>
+                        <button onClick={handleCheckDeposit}>Select</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         )}
+
+
       </>
    );
 };

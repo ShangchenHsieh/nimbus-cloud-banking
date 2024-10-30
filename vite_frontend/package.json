@@ -18,8 +18,9 @@
     "@capacitor/ios": "6.1.2",
     "@capacitor/keyboard": "6.0.2",
     "@capacitor/status-bar": "6.0.1",
+
     "@react-google-maps/api": "^2.20.3",
-    "@react-google-maps/api": "^2.20.3",
+   
     "dotenv": "^16.4.5",
     "dotenv-save": "^1.2.0",
     "jwt-decode": "^4.0.0",

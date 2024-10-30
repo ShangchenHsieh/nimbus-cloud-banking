@@ -1,3 +1,4 @@
+
 .title {
    color: #555;
    margin: 0px;
@@ -10,16 +11,13 @@
    margin: 0px;
 }
 
-.text-left {
+.text-left, .text-right {
    font-size: 16px;
    color: #555;
    margin: 0px;
 }
 
 .text-right {
-   font-size: 16px;
-   color: #555;
-   margin: 0px;
    margin-left: auto;
 }
 
@@ -53,8 +51,7 @@
    border: 2px solid #ebeff0;
    border-radius: 10px;
    padding: 8px;
-   margin-left: 12px;
-   margin-right: 12px;
+   margin: 0 12px;
    transition: 0.3s;
 }
 
@@ -73,7 +70,6 @@
    background: linear-gradient(45deg, #003349 0%, #002e42 100%);
    border: 2px solid #018fcc;
    border-radius: 10px;
-   text-align: center;
    padding: 8px;
    margin: auto 0px 0px auto;
    margin-right: 10px;
@@ -102,7 +98,7 @@
 
 .item {
    display: flex;
-   padding: 0px 12px 0px 12px;
+   padding: 0px 12px;
    margin-bottom: 12px;
 }
 
@@ -110,6 +106,68 @@
    background-color: transparent;
    border-color: #555;
    border-radius: 10px;
-   margin: 0px 12px 0px 12px;
+   margin: 0px 12px;
    margin-bottom: 12px;
+}
+
+.modal-overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: rgba(0, 0, 0, 0.5);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 1000;
+}
+
+.modal-content {
+   background: #fff;
+   padding: 20px;
+   border-radius: 10px;
+   width: 300px;
+   text-align: center;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+   margin: 0;
+   padding-bottom: 10px;
+   font-size: 18px;
+   color: #333;
+}
+
+.modal-buttons {
+   display: flex;
+   justify-content: space-around;
+   margin-top: 20px;
+}
+
+.modal-button {
+   padding: 8px 16px;
+   border: none;
+   border-radius: 5px;
+   font-size: 14px;
+   cursor: pointer;
+   transition: background 0.3s;
+}
+
+.modal-button.confirm {
+   background: #28a745;
+   color: #fff;
+}
+
+.modal-button.confirm:hover {
+   background: #218838;
+}
+
+.modal-button.cancel {
+   background: #dc3545;
+   color: #fff;
+}
+
+.modal-button.cancel:hover {
+   background: #c82333;
 }

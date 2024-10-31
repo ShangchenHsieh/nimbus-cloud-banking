@@ -5,15 +5,6 @@ import "./styling/UserDashboard.css";
 import React, { useState, useEffect } from "react";
 import UserPaymentOption from "./UserPaymentOption";
 
-
-// function to handle display of transactions
-const formatTransactionAmount = (type, amount) => {
-   if (type === "withdrawal" || type === "transfer out") {
-      return `-$${amount}`;
-   }
-   return `$${amount}`;
-};
-
 import atmIcon from '../assets/atm.png'
 import checkIcon from '../assets/check.png'
 import { Link } from "react-router-dom";
@@ -36,6 +27,15 @@ const activityData = [
    { month: "Dec", activity: 600 },
 ];
 
+
+// function to handle display of transactions
+const formatTransactionAmount = (type, amount) => {
+   if (type === "withdrawal" || type === "transfer out") {
+      return `-$${amount}`;
+   }
+   return `$${amount}`;
+};
+
 const UserDashboard = () => {
    const navigate = useNavigate();
    const [accountBalance, setAccountBalance] = useState(0);
@@ -54,12 +54,15 @@ const UserDashboard = () => {
    const [showDepositModal, setShowDepositModal] = useState(false);
 
 
+
+
    const handleAccountTypeChange = (event) => {
       setSelectedAccountType(event.target.value);
    };
    const handleDepositClick = () => {
       setShowDepositModal(true);
    };
+
 
    const closeDepositModal = () => {
       setShowDepositModal(false);
@@ -69,14 +72,17 @@ const UserDashboard = () => {
       closeDepositModal();
    };
 
+
    const handleCheckDeposit = () => {
       navigate('/deposit');
       closeDepositModal();
    };
 
+
    const handleWithdraw = () => {
       navigate('/withdraw')
    }
+
 
    useEffect(() => {
       const fetchAccountTypes = async () => {
@@ -86,6 +92,7 @@ const UserDashboard = () => {
             return;
          }
 
+
          const requestOptions = {
             method: "GET",
             headers: {
@@ -94,17 +101,20 @@ const UserDashboard = () => {
             },
          };
 
+
          try {
             const response = await fetch(
                "http://127.0.0.1:8000/account/account-types/",
                requestOptions
             );
 
+
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
+
 
             const data = await response.json();
             setAccountTypes(data);
@@ -113,8 +123,10 @@ const UserDashboard = () => {
          }
       };
 
+
       fetchAccountTypes();
    }, []);
+
 
    useEffect(() => {
       const fetchAccountInfo = async () => {
@@ -124,6 +136,7 @@ const UserDashboard = () => {
             return;
          }
 
+
          const requestOptions = {
             method: "GET",
             headers: {
@@ -132,17 +145,20 @@ const UserDashboard = () => {
             },
          };
 
+
          try {
             const response = await fetch(
                `http://127.0.0.1:8000/account/account-info/${selectedAccountType}/`,
                requestOptions
             );
 
+
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
+
 
             const data = await response.json();
             setAccountBalance(data.balance || 0);
@@ -157,7 +173,7 @@ const UserDashboard = () => {
       fetchAccountInfo();
    }, [selectedAccountType]);
 
-   // Fetch user data from the backend
+
    useEffect(() => {
       const fetchUserData = async () => {
          const token = localStorage.getItem("access_token");
@@ -165,6 +181,7 @@ const UserDashboard = () => {
             console.error("No access token found");
             return;
          }
+
 
          const requestOptions = {
             method: "GET",
@@ -174,17 +191,20 @@ const UserDashboard = () => {
             },
          };
 
+
          try {
             const response = await fetch(
                "http://127.0.0.1:8000/auth/user/",
                requestOptions
             );
 
+
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
+
 
             const data = await response.json();
             setUserData({
@@ -198,9 +218,9 @@ const UserDashboard = () => {
          }
       };
 
+
       fetchUserData();
    }, []);
-
 
 
    useEffect(() => {
@@ -209,7 +229,6 @@ const UserDashboard = () => {
          if (!token) {
             console.error("No access token found");
             return;
-         }
 
          const requestOptions = {
             method: "GET",
@@ -240,8 +259,10 @@ const UserDashboard = () => {
                ...data.transfers,
             ];
 
+
             // sort by most recent date
             combinedTransactions.sort((a, b) => new Date(b.transaction_date) - new Date(a.transaction_date));
+
 
             // Set the two most recent transactions
             setRecentTransactions(combinedTransactions.slice(0, 2));
@@ -254,6 +275,7 @@ const UserDashboard = () => {
          fetchRecentTransactions();
       }
    }, [accountNumber, selectedAccountType]);
+
 
 
 
@@ -444,6 +466,7 @@ const UserDashboard = () => {
                            amount={transaction.amount}
                            transactionType={transaction.transaction_type}
                         />
+
                      ))}
                      <div>
                         <button
@@ -486,8 +509,11 @@ const UserDashboard = () => {
          )}
 
 
+
+
       </>
    );
 };
+
 
 export default UserDashboard;

@@ -60,6 +60,7 @@ class Transaction(models.Model):
 
 # class ATMTransaction(Transaction):
     # To be implemented  
+
         
 class InternalAccountTransfer(Transaction):
     # Set to on ON DELETE SET NULL such that when an account involved in a transaction is deleted, that record remains in DB for the other account involved
@@ -87,6 +88,7 @@ class InternalAccountTransfer(Transaction):
                     raise ValueError("Transaction type not specified")
                 bank_account.save()                
                 
+
 class DepositTransaction(Transaction):
     bank_account = models.ForeignKey(BankAccount, on_delete=models.CASCADE, related_name='deposits')
 

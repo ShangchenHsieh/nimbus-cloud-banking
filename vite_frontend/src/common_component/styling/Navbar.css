@@ -15,7 +15,7 @@
 }
 
 /* Add padding to the body or main content to avoid overlapping with navbar */
-body, .main-content {
+.body, .main-content {
     padding-top: 60px; /* Equal to the navbar height */
 }
 

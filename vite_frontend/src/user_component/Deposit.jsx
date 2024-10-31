@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import UserNavbar from "./UserNavBar";
-import './styling/Formstyle.css'
+// import './styling/Formstyle.css'
 import { jwtDecode } from "jwt-decode";
 import { UserContext } from '../user_context/UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -57,10 +57,19 @@ const Deposit = () => {
 
     const handleDeposit = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('access_token');
+        console.log("Access Token:", token); // Log the access token
+        if (!token) {
+            console.error("No access token found");
+            return;
+        }
         try {
             const response = await fetch('http://127.0.0.1:8000/transactions/deposit', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
                 body: JSON.stringify({ account_number: accountNumber, amount: parseFloat(amount) })
             });
             if (!response.ok) {

@@ -4,7 +4,7 @@
     --font-family: 'Hammersmith One', sans-serif; /* Define a CSS variable for easier reuse */
 }
 
-body {
+.body {
     font-family: var(--font-family); /* Use the CSS variable for the font family */
     margin: 0; /* Remove default body margin */
     background-color: #f7f9fc; /* Set a default background color if needed */

@@ -20,7 +20,7 @@ const UserDashboard = () => {
       phone: "",
       email: "",
    });
-   const [showDepositModal, setshowDepositModal] = useState(false);
+   const [showDepositModal, setShowDepositModal] = useState(false);
 
 
    const handleAccountTypeChange = (event) => {

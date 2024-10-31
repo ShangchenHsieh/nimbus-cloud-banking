@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './styling/Help.css';
-import UserNavBar from './UserNavBar';  
+import UserNavBar from './UserNavBar';
 import Modal from 'react-modal';
 
 const Help = () => {
@@ -36,14 +36,17 @@ const Help = () => {
 
   return (
     <>
-      <UserNavBar />  
+      <UserNavBar />
+      <div>
+
+      </div>
 
       <div className="help-page">
         <div className="common-concerns">
           <h1>Common Concerns</h1>
           <p>Troubleshooting ideas and other concerns can go here.</p>
         </div>
-        
+
         {/* Live Chat Button */}
         <button className="live-chat-button" onClick={openModal}>
           Live Chat
@@ -54,7 +57,7 @@ const Help = () => {
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           className="chat-modal"
-          overlayClassName={`chat-overlay ${isModalOpen ? 'open' : ''}`}  
+          overlayClassName={`chat-overlay ${isModalOpen ? 'open' : ''}`}
         >
           <div className="chat-header">
             <button className="close-button" onClick={closeModal}>

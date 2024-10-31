@@ -1,5 +1,5 @@
 /* General form container styling */
-form {
+.form {
     max-width: 400px;
     margin: 0 auto;
     padding: 2rem;
@@ -10,7 +10,7 @@ form {
 }
 
 /* Heading for form */
-h2 {
+.h2 {
     text-align: center;
     margin-bottom: 1.5rem;
     color: #333;
@@ -19,8 +19,8 @@ h2 {
 }
 
 /* Input fields styling */
-input[type="text"],
-input[type="number"] {
+.input[type="text"],
+.input[type="number"] {
     width: 100%;
     padding: 0.75rem;
     margin-bottom: 1rem;
@@ -31,14 +31,14 @@ input[type="number"] {
     transition: border-color 0.3s;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus {
+.input[type="text"]:focus,
+.input[type="number"]:focus {
     border-color: #007bff;
     outline: none;
 }
 
 /* Submit button styling */
-button[type="submit"] {
+.button[type="submit"] {
     width: 100%;
     padding: 0.75rem;
     border: none;
@@ -50,12 +50,12 @@ button[type="submit"] {
     transition: background-color 0.3s;
 }
 
-button[type="submit"]:hover {
+.button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
 /* Message styling */
-p {
+.p {
     text-align: center;
     margin-top: 1rem;
     font-size: 1rem;

@@ -51,10 +51,19 @@ const Withdraw = () => {
 
     const handleWithdraw = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('access_token');
+        console.log("Access Token:", token); // Log the access token
+        if (!token) {
+            console.error("No access token found");
+            return;
+        }
 
         const response = await fetch('http://127.0.0.1:8000/transactions/withdrawal', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
             body: JSON.stringify({ account_number: accountNumber, amount: parseFloat(amount) })
         });
         if (!response.ok) {

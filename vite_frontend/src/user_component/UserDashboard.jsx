@@ -4,16 +4,32 @@ import UserPayment from "./UserPaymentOption";
 import "./styling/UserDashboard.css";
 import React, { useState, useEffect } from "react";
 import UserPaymentOption from "./UserPaymentOption";
-import atmIcon from '../assets/atm.png'
-import checkIcon from '../assets/check.png'
+import atmIcon from '../assets/atm.png';
+import checkIcon from '../assets/check.png';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
+// function to handle display of transactions
+const formatTransactionAmount = (type, amount) => {
+   if (type === "withdrawal" || type === "transfer out") {
+      return `-$${amount}`;
+   }
+   return `$${amount}`;
+};
+
+
 const UserDashboard = () => {
    const navigate = useNavigate();
    const [accountBalance, setAccountBalance] = useState(0);
+   const [accountNumber, setAccountNumber] = useState("");;
    const [loading, setLoading] = useState(true);
    const [selectedAccountType, setSelectedAccountType] = useState("checking");
    const [accountTypes, setAccountTypes] = useState([]);
+
+
+   const [recentTransactions, setRecentTransactions] = useState([]);
+
+
    const [userData, setUserData] = useState({
       first_name: "",
       last_name: "",
@@ -23,12 +39,15 @@ const UserDashboard = () => {
    const [showDepositModal, setShowDepositModal] = useState(false);
 
 
+
+
    const handleAccountTypeChange = (event) => {
       setSelectedAccountType(event.target.value);
    };
    const handleDepositClick = () => {
       setShowDepositModal(true);
    };
+
 
    const closeDepositModal = () => {
       setShowDepositModal(false);
@@ -38,14 +57,17 @@ const UserDashboard = () => {
       closeDepositModal();
    };
 
+
    const handleCheckDeposit = () => {
       navigate('/deposit');
       closeDepositModal();
    };
 
+
    const handleWithdraw = () => {
       navigate('/withdraw')
    }
+
 
    useEffect(() => {
       const fetchAccountTypes = async () => {
@@ -55,6 +77,7 @@ const UserDashboard = () => {
             return;
          }
 
+
          const requestOptions = {
             method: "GET",
             headers: {
@@ -63,17 +86,20 @@ const UserDashboard = () => {
             },
          };
 
+
          try {
             const response = await fetch(
                "http://127.0.0.1:8000/account/account-types/",
                requestOptions
             );
 
+
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
+
 
             const data = await response.json();
             setAccountTypes(data);
@@ -82,16 +108,19 @@ const UserDashboard = () => {
          }
       };
 
+
       fetchAccountTypes();
    }, []);
 
+
    useEffect(() => {
-      const fetchBalance = async () => {
+      const fetchAccountInfo = async () => {
          const token = localStorage.getItem("access_token");
          if (!token) {
             console.error("No access token found");
             return;
          }
+
 
          const requestOptions = {
             method: "GET",
@@ -101,11 +130,13 @@ const UserDashboard = () => {
             },
          };
 
+
          try {
             const response = await fetch(
-               `http://127.0.0.1:8000/account/balance/${selectedAccountType}/`,
+               `http://127.0.0.1:8000/account/account-info/${selectedAccountType}/`,
                requestOptions
             );
+
 
             if (!response.ok) {
                throw new Error(
@@ -113,18 +144,22 @@ const UserDashboard = () => {
                );
             }
 
+
             const data = await response.json();
             setAccountBalance(data.balance || 0);
             setLoading(false);
+            setAccountNumber(data.account_number);
+            localStorage.setItem("currentAccountNumber", data.account_number);
          } catch (error) {
             console.error("Error fetching balance:", error);
          }
       };
 
-      fetchBalance();
+
+      fetchAccountInfo();
    }, [selectedAccountType]);
 
-   // Fetch user data from the backend
+
    useEffect(() => {
       const fetchUserData = async () => {
          const token = localStorage.getItem("access_token");
@@ -133,6 +168,7 @@ const UserDashboard = () => {
             return;
          }
 
+
          const requestOptions = {
             method: "GET",
             headers: {
@@ -141,17 +177,20 @@ const UserDashboard = () => {
             },
          };
 
+
          try {
             const response = await fetch(
                "http://127.0.0.1:8000/auth/user/",
                requestOptions
             );
 
+
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
+
 
             const data = await response.json();
             setUserData({
@@ -165,8 +204,65 @@ const UserDashboard = () => {
          }
       };
 
+
       fetchUserData();
    }, []);
+
+
+   useEffect(() => {
+      const fetchRecentTransactions = async () => {
+         const token = localStorage.getItem("access_token");
+         if (!token) {
+            console.error("No access token found");
+            return;
+         }
+   
+         const requestOptions = {
+            method: "GET",
+            headers: {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${token}`,
+            },
+         };
+         try {
+            const response = await fetch(
+               `http://127.0.0.1:8000/transactions/user-transactions/${accountNumber}/`,
+               requestOptions
+            );
+             
+            if (!response.ok) {
+               throw new Error(
+                  `Error ${response.status}: ${response.statusText}`
+               );
+            }
+   
+            const data = await response.json();
+   
+            // combining all transactions into a single list
+            const combinedTransactions = [
+               ...data.deposits,
+               ...data.withdrawals,
+               ...data.transfers,
+            ];
+
+
+            // sort by most recent date
+            combinedTransactions.sort((a, b) => new Date(b.transaction_date) - new Date(a.transaction_date));
+   
+            // Set the two most recent transactions
+            setRecentTransactions(combinedTransactions.slice(0, 2));
+         } catch (error) {
+            console.error("Error fetching recent transactions:", error);
+         }
+      };
+   
+      if (accountNumber) {
+         fetchRecentTransactions();
+      }
+   }, [accountNumber, selectedAccountType]);
+
+
+
 
    //const accountBalance = 500; // Placeholder balance value
    return (
@@ -281,9 +377,14 @@ const UserDashboard = () => {
                <div className="details-right-container">
                   <div className="recent-transactions-container">
                      <h3 className="title">Recent Transactions</h3>
-                     {/*REPLACE -- Dynamically add transactions when available*/}
-                     <UserTransaction id="124" amount="123"></UserTransaction>
-                     <UserTransaction id="123" amount="-123"></UserTransaction>
+                     {recentTransactions.map((transaction) => (
+                        <UserTransaction
+                        key={transaction.id}
+                        id={transaction.id}
+                        amount={transaction.amount}
+                        transactionType={transaction.transaction_type}
+                     />
+                     ))}
                      <div>
                         <button
                            className="view-all-button"
@@ -323,8 +424,11 @@ const UserDashboard = () => {
          )}
 
 
+
+
       </>
    );
 };
+
 
 export default UserDashboard;

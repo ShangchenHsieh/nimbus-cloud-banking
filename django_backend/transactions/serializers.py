@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import InternalAccountTransfer, WithdrawalTransaction, DepositTransaction
 from django.db import transaction
 from bank_account.models import BankAccount
@@ -128,6 +129,25 @@ class ProcessWithdrawalSerializer(serializers.ModelSerializer):
                 transaction_type='withdrawal',
             )
         return withdraw
+        
+class DisplayDepositTransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DepositTransaction
+        fields = ['id', 'transaction_date', 'provider', 'amount', 'transaction_type']
+
+class DisplayWithdrawalTransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WithdrawalTransaction
+        fields = ['id', 'transaction_date', 'provider', 'amount', 'transaction_type']
+
+class DisplayInternalAccountTransferSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InternalAccountTransfer
+        fields = ['id', 'transaction_date', 'provider', 'amount', 'transaction_type']
+        
+        
+        
+        
         
     
     

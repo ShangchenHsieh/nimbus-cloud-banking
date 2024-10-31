@@ -8,6 +8,10 @@ import UserPaymentOption from "./UserPaymentOption";
 
 
 
+
+
+
+
 // function to handle display of transactions
 const formatTransactionAmount = (type, amount) => {
    if (type === "withdrawal" || type === "transfer out") {
@@ -17,10 +21,13 @@ const formatTransactionAmount = (type, amount) => {
 };
 
 
+
+
 import atmIcon from '../assets/atm.png';
 import checkIcon from '../assets/check.png';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 
 const UserDashboard = () => {
    const navigate = useNavigate();
@@ -30,7 +37,9 @@ const UserDashboard = () => {
    const [selectedAccountType, setSelectedAccountType] = useState("checking");
    const [accountTypes, setAccountTypes] = useState([]);
 
+
    const [recentTransactions, setRecentTransactions] = useState([]);
+
 
    const [userData, setUserData] = useState({
       first_name: "",
@@ -41,12 +50,15 @@ const UserDashboard = () => {
    const [showDepositModal, setshowDepositModal] = useState(false);
 
 
+
+
    const handleAccountTypeChange = (event) => {
       setSelectedAccountType(event.target.value);
    };
    const handleDepositClick = () => {
       setShowDepositModal(true);
    };
+
 
    const closeDepositModal = () => {
       setShowDepositModal(false);
@@ -56,14 +68,17 @@ const UserDashboard = () => {
       closeDepositModal();
    };
 
+
    const handleCheckDeposit = () => {
       navigate('/deposit');
       closeDepositModal();
    };
 
+
    const handleWithdraw = () => {
       navigate('/withdraw')
    }
+
 
    useEffect(() => {
       const fetchAccountTypes = async () => {
@@ -73,6 +88,7 @@ const UserDashboard = () => {
             return;
          }
 
+
          const requestOptions = {
             method: "GET",
             headers: {
@@ -81,17 +97,20 @@ const UserDashboard = () => {
             },
          };
 
+
          try {
             const response = await fetch(
                "http://127.0.0.1:8000/account/account-types/",
                requestOptions
             );
 
+
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
+
 
             const data = await response.json();
             setAccountTypes(data);
@@ -100,8 +119,10 @@ const UserDashboard = () => {
          }
       };
 
+
       fetchAccountTypes();
    }, []);
+
 
    useEffect(() => {
       const fetchAccountInfo = async () => {
@@ -111,6 +132,7 @@ const UserDashboard = () => {
             return;
          }
 
+
          const requestOptions = {
             method: "GET",
             headers: {
@@ -119,17 +141,20 @@ const UserDashboard = () => {
             },
          };
 
+
          try {
             const response = await fetch(
                `http://127.0.0.1:8000/account/account-info/${selectedAccountType}/`,
                requestOptions
             );
 
+
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
+
 
             const data = await response.json();
             setAccountBalance(data.balance || 0);
@@ -141,8 +166,10 @@ const UserDashboard = () => {
          }
       };
 
+
       fetchAccountInfo();
    }, [selectedAccountType]);
+
 
    useEffect(() => {
       const fetchUserData = async () => {
@@ -152,6 +179,7 @@ const UserDashboard = () => {
             return;
          }
 
+
          const requestOptions = {
             method: "GET",
             headers: {
@@ -160,17 +188,20 @@ const UserDashboard = () => {
             },
          };
 
+
          try {
             const response = await fetch(
                "http://127.0.0.1:8000/auth/user/",
                requestOptions
             );
 
+
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
+
 
             const data = await response.json();
             setUserData({
@@ -184,8 +215,10 @@ const UserDashboard = () => {
          }
       };
 
+
       fetchUserData();
    }, []);
+
 
    useEffect(() => {
       const fetchRecentTransactions = async () => {
@@ -223,6 +256,7 @@ const UserDashboard = () => {
                ...data.transfers,
             ];
 
+
             // sort by most recent date
             combinedTransactions.sort((a, b) => new Date(b.transaction_date) - new Date(a.transaction_date));
    
@@ -237,6 +271,8 @@ const UserDashboard = () => {
          fetchRecentTransactions();
       }
    }, [accountNumber, selectedAccountType]);
+
+
 
 
    //const accountBalance = 500; // Placeholder balance value
@@ -399,8 +435,11 @@ const UserDashboard = () => {
          )}
 
 
+
+
       </>
    );
 };
+
 
 export default UserDashboard;

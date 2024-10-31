@@ -9,13 +9,17 @@ import Login from "./common_component/Login";
 import UserDashboard from "./user_component/UserDashboard";
 import AdminDashboard from "./admin_coponent/AdminDashboard";
 import Settings from "./user_component/Settings.jsx";
-import SearchATMs from "./user_component/searchATMs.jsx";
+import SearchATMs from "./user_component/SearchATMs.jsx";
 import News from "./common_component/News";
 import { UserProvider } from "./user_context/UserContext.jsx";
 import Help from "./user_component/Help.jsx";
 import UserTransactions from "./user_component/UserTransactions.jsx";
 import UserStatement from "./user_component/UserStatement.jsx";
 import UserPayment from "./user_component/UserPayment.jsx";
+import UserTransfer from "./user_component/UserTransfer.jsx";
+import Deposit from './user_component/Deposit.jsx'
+import Withdrawal from "./user_component/Withdrawal.jsx";
+import.meta.env.VITE_API_KEY
 function App() {
    return (
       <UserProvider>
@@ -30,10 +34,15 @@ function App() {
                <Route path="/about" element={<About />} />
                <Route path="/contact" element={<Contact />} />
                <Route path="/login" element={<Login />} />
+
+               {/* Need to be protected*/}
                <Route path="/userdashboard" element={<UserDashboard />} />
                <Route path="/usertransactions" element={<UserTransactions />} />
+               <Route path="/deposit" element={<Deposit />} />
+               <Route path="/withdraw" element={<Withdrawal />} />
                <Route path="/userstatement" element={<UserStatement />} />
                <Route path="/userpayment" element={<UserPayment />} />
+               <Route path="/usertransfer" element={<UserTransfer />} />
                <Route path="/admindashboard" element={<AdminDashboard />} />
                <Route path="/settings" element={<Settings />} />
                <Route path="/maps" element={<SearchATMs />} />

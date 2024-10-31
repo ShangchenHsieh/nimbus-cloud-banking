@@ -24,3 +24,13 @@ class AccountTypesView(APIView):
         # retrieves a list of all accounts associated with the user in a list such as ['checking', 'savings']
         accounts = BankAccount.objects.filter(user=user).values_list('account_type', flat=True)
         return Response(accounts)
+    
+class AcccountNumView(APIView): 
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, user_id): 
+        id = user_id
+        account_numbers = BankAccount.objects.filter(user=id).values_list('account_number', flat=True)
+        return Response({"account_number": account_numbers})
+        
+   

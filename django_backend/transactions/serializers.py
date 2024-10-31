@@ -18,40 +18,59 @@ class ProcessInternalTransferSerializer(serializers.ModelSerializer):
         source_account_number = validated_data['source_account_number']
         destination_account_number = validated_data['destination_account_number']
         amount = validated_data['amount']
-        # provider can be empty, thus use get() and return None if 'provider' key is not found in dictionary
         provider = validated_data.get('provider', None)
         
+        # Fetch source and destination accounts
         try:
             source_account = BankAccount.objects.get(account_number=source_account_number)
         except BankAccount.DoesNotExist:
+            print("source doesnt exist.")
             raise serializers.ValidationError("Source account number is invalid or may not exist.")
         
         try:
             destination_account = BankAccount.objects.get(account_number=destination_account_number)
         except BankAccount.DoesNotExist:
+            print("Invalid dest.")
             raise serializers.ValidationError("Destination account number is invalid or may not exist.")
-            
-        if source_account == destination_account:
-            raise serializers.ValidationError("Souce and destination accounts cannot be the same account")
         
-        # NOTICE: creating two transfer records, one for the account that is sending the money, another for the account that is receiveing the money
+        # Ensure source and destination accounts are different
+        if source_account == destination_account:
+            print("same acc.")
+            raise serializers.ValidationError("Source and destination accounts cannot be the same account.")
+        
+        # Check sufficient balance in source account
+        if source_account.balance < amount:
+            print("Insufficient funds for the transfer.")
+            raise serializers.ValidationError("Insufficient funds in the source account.")
+        
+        # Perform atomic transfer
         with transaction.atomic():
+            # Deduct from source account and create sending record
+            source_account.balance -= amount
+            source_account.save()
             sending_transfer = InternalAccountTransfer.objects.create(
                 bank_account=source_account,
                 other_bank_account=destination_account,
                 amount=amount,
                 provider=provider,
                 transaction_type='transfer out',
+                status='completed'
             )
-            recieving_transfer = InternalAccountTransfer.objects.create(
+            
+            # Add to destination account and create receiving record
+            destination_account.balance += amount
+            destination_account.save()
+            receiving_transfer = InternalAccountTransfer.objects.create(
                 bank_account=destination_account,
                 other_bank_account=source_account,
                 amount=amount,
                 provider=provider,
                 transaction_type='transfer in',
+                status='completed'
             )
         
         return sending_transfer
+
     
 class ProcessDepositSerializer(serializers.ModelSerializer): 
     

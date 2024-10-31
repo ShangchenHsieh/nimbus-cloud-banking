@@ -4,7 +4,10 @@ import UserPayment from "./UserPaymentOption";
 import "./styling/UserDashboard.css";
 import React, { useState, useEffect } from "react";
 import UserPaymentOption from "./UserPaymentOption";
-
+import atmIcon from '../assets/atm.png';
+import checkIcon from '../assets/check.png';
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // function to handle display of transactions
 const formatTransactionAmount = (type, amount) => {
@@ -16,17 +19,55 @@ const formatTransactionAmount = (type, amount) => {
 
 
 const UserDashboard = () => {
+   const navigate = useNavigate();
    const [accountBalance, setAccountBalance] = useState(0);
    const [accountNumber, setAccountNumber] = useState("");;
    const [loading, setLoading] = useState(true);
    const [selectedAccountType, setSelectedAccountType] = useState("checking");
    const [accountTypes, setAccountTypes] = useState([]);
+
+
    const [recentTransactions, setRecentTransactions] = useState([]);
+
+
+   const [userData, setUserData] = useState({
+      first_name: "",
+      last_name: "",
+      phone: "",
+      email: "",
+   });
+   const [showDepositModal, setShowDepositModal] = useState(false);
+
+
 
 
    const handleAccountTypeChange = (event) => {
       setSelectedAccountType(event.target.value);
    };
+   const handleDepositClick = () => {
+      setShowDepositModal(true);
+   };
+
+
+   const closeDepositModal = () => {
+      setShowDepositModal(false);
+   };
+   const handleAtmDeposit = () => {
+      navigate("/deposit");
+      closeDepositModal();
+   };
+
+
+   const handleCheckDeposit = () => {
+      navigate('/deposit');
+      closeDepositModal();
+   };
+
+
+   const handleWithdraw = () => {
+      navigate('/withdraw')
+   }
+
 
    useEffect(() => {
       const fetchAccountTypes = async () => {
@@ -36,6 +77,7 @@ const UserDashboard = () => {
             return;
          }
 
+
          const requestOptions = {
             method: "GET",
             headers: {
@@ -44,17 +86,20 @@ const UserDashboard = () => {
             },
          };
 
+
          try {
             const response = await fetch(
                "http://127.0.0.1:8000/account/account-types/",
                requestOptions
             );
 
+
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
+
 
             const data = await response.json();
             setAccountTypes(data);
@@ -63,8 +108,10 @@ const UserDashboard = () => {
          }
       };
 
+
       fetchAccountTypes();
    }, []);
+
 
    useEffect(() => {
       const fetchAccountInfo = async () => {
@@ -74,6 +121,7 @@ const UserDashboard = () => {
             return;
          }
 
+
          const requestOptions = {
             method: "GET",
             headers: {
@@ -82,17 +130,20 @@ const UserDashboard = () => {
             },
          };
 
+
          try {
             const response = await fetch(
                `http://127.0.0.1:8000/account/account-info/${selectedAccountType}/`,
                requestOptions
             );
 
+
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
+
 
             const data = await response.json();
             setAccountBalance(data.balance || 0);
@@ -104,9 +155,58 @@ const UserDashboard = () => {
          }
       };
 
+
       fetchAccountInfo();
    }, [selectedAccountType]);
 
+
+   useEffect(() => {
+      const fetchUserData = async () => {
+         const token = localStorage.getItem("access_token");
+         if (!token) {
+            console.error("No access token found");
+            return;
+         }
+
+
+         const requestOptions = {
+            method: "GET",
+            headers: {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${token}`,
+            },
+         };
+
+
+         try {
+            const response = await fetch(
+               "http://127.0.0.1:8000/auth/user/",
+               requestOptions
+            );
+
+
+            if (!response.ok) {
+               throw new Error(
+                  `Error ${response.status}: ${response.statusText}`
+               );
+            }
+
+
+            const data = await response.json();
+            setUserData({
+               first_name: data.first_name,
+               last_name: data.last_name,
+               phone: data.phone,
+               email: data.email,
+            });
+         } catch (error) {
+            console.error("Error fetching user data:", error);
+         }
+      };
+
+
+      fetchUserData();
+   }, []);
 
 
    useEffect(() => {
@@ -124,13 +224,12 @@ const UserDashboard = () => {
                Authorization: `Bearer ${token}`,
             },
          };
-   
          try {
             const response = await fetch(
                `http://127.0.0.1:8000/transactions/user-transactions/${accountNumber}/`,
                requestOptions
             );
-   
+             
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
@@ -146,6 +245,7 @@ const UserDashboard = () => {
                ...data.transfers,
             ];
 
+
             // sort by most recent date
             combinedTransactions.sort((a, b) => new Date(b.transaction_date) - new Date(a.transaction_date));
    
@@ -160,6 +260,9 @@ const UserDashboard = () => {
          fetchRecentTransactions();
       }
    }, [accountNumber, selectedAccountType]);
+
+
+
 
    //const accountBalance = 500; // Placeholder balance value
    return (
@@ -206,16 +309,14 @@ const UserDashboard = () => {
                            <div className="account-holder-details-container">
                               <h3 className="title">Account Holder</h3>
                               <p className="account-details-text">
-                                 Name: Ava Cado
+                                 Name: {userData.first_name}{" "}
+                                 {userData.last_name}
                               </p>
                               <p className="account-details-text">
-                                 Phone: +1 (555) 555-5555
+                                 Phone: {userData.phone}
                               </p>
                               <p className="account-details-text">
-                                 Email: ava.cado@example.com
-                              </p>
-                              <p className="account-details-text">
-                                 Address: 123 Example Street, San Jose, CA
+                                 Email: {userData.email}
                               </p>
                            </div>
                            <div className="account-payment-details-container">
@@ -228,8 +329,8 @@ const UserDashboard = () => {
                                     }
                                  ></UserPaymentOption>
                                  <UserPaymentOption title="Transfer"></UserPaymentOption>
-                                 <UserPaymentOption title="Deposit"></UserPaymentOption>
-                                 <UserPaymentOption title="Withdraw"></UserPaymentOption>
+                                 <UserPaymentOption title="Deposit" action={handleDepositClick}></UserPaymentOption>
+                                 <UserPaymentOption title="Withdraw" action={handleWithdraw}></UserPaymentOption>
                               </div>
                            </div>
                         </div>
@@ -298,8 +399,36 @@ const UserDashboard = () => {
                </div>
             </div>
          </div>
+         {/* Deposit Model */}
+         {showDepositModal && (
+            <div className="deposit-modal">
+               <div className="modal-content">
+                  <button className="close-button" onClick={closeDepositModal}>X</button>
+                  <h3>Select Deposit Option</h3>
+                  <div className="deposit-options">
+                     <div className="deposit-card check-deposit">
+                        <img src={atmIcon} alt="ATM Icon" className="icon" />
+                        <h4>ATM Deposit</h4>
+                        <p>Deposit cash quickly at any ATM.</p>
+                        <button onClick={handleCheckDeposit}>Select</button>
+                     </div>
+                     <div className="deposit-card check-deposit">
+                        <img src={checkIcon} alt="Check Icon" className="icon" />
+                        <h4>Check Deposit</h4>
+                        <p>Deposit checks to your account.</p>
+                        <button onClick={handleCheckDeposit}>Select</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         )}
+
+
+
+
       </>
    );
 };
+
 
 export default UserDashboard;

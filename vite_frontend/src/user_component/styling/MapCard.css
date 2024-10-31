@@ -1,0 +1,35 @@
+.location-title-bright {
+   color: #ffffff;
+   margin: 0px;
+   padding: 12px 12px 0px 12px;
+}
+
+.location-text-bright {
+   color: #ffffff;
+   margin: 0px;
+   padding: 12px 0px 12px 12px;
+}
+
+.map-card {
+   font-size: 14px;
+   color: #ffffff;
+   background: linear-gradient(45deg, #003349 0%, #002e42 100%);
+   border: 2px solid #018fcc;
+   border-radius: 10px;
+   margin-bottom: 10px;
+   transition: 0.3s;
+}
+
+.map-card:hover {
+   background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
+   border: 2px solid #d1f4ff;
+   cursor: pointer;
+}
+
+.map-card:hover .location-title-bright {
+   color: #555;
+}
+
+.map-card:hover .location-text-bright {
+   color: #555;
+}

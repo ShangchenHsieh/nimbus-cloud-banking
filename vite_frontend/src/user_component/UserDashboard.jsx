@@ -8,6 +8,23 @@ import atmIcon from '../assets/atm.png'
 import checkIcon from '../assets/check.png'
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+
+const activityData = [
+   { month: "Jan", activity: 400 },
+   { month: "Feb", activity: 300 },
+   { month: "Mar", activity: 200 },
+   { month: "Apr", activity: 278 },
+   { month: "May", activity: 189 },
+   { month: "Jun", activity: 239 },
+   { month: "Jul", activity: 349 },
+   { month: "Aug", activity: 200 },
+   { month: "Sep", activity: 300 },
+   { month: "Oct", activity: 400 },
+   { month: "Nov", activity: 500 },
+   { month: "Dec", activity: 600 },
+];
+
 const UserDashboard = () => {
    const navigate = useNavigate();
    const [accountBalance, setAccountBalance] = useState(0);
@@ -206,6 +223,7 @@ const UserDashboard = () => {
                         </button>
                      </div>
                   </div>
+
                   <div className="account-details-container">
                      <h3 className="title">Account Details</h3>
                      <div className="account-details-details-container">
@@ -223,6 +241,7 @@ const UserDashboard = () => {
                                  Email: {userData.email}
                               </p>
                            </div>
+
                            <div className="account-payment-details-container">
                               <h3 className="title">Payment Services</h3>
                               <div className="payments-container">
@@ -276,8 +295,21 @@ const UserDashboard = () => {
                            </div>
                         </div>
                      </div>
+                     <div className="activity-card">
+                        <h3>Monthly Report</h3>
+                        <ResponsiveContainer width="95%" height={300}>
+                           <LineChart data={activityData}>
+                              <CartesianGrid strokeDasharray="3 3" />
+                              <XAxis dataKey="month" />
+                              <YAxis />
+                              <Tooltip />
+                              <Line type="monotone" dataKey="activity" stroke="#8884d8" strokeWidth={2} />
+                           </LineChart>
+                        </ResponsiveContainer>
+                     </div>
                   </div>
                </div>
+
                <div className="details-right-container">
                   <div className="recent-transactions-container">
                      <h3 className="title">Recent Transactions</h3>
@@ -296,6 +328,8 @@ const UserDashboard = () => {
                      </div>
                   </div>
                </div>
+
+
             </div>
          </div>
          {/* Deposit Model */}

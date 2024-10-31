@@ -223,59 +223,6 @@ const UserDashboard = () => {
    }, []);
 
 
-   useEffect(() => {
-      const fetchRecentTransactions = async () => {
-         const token = localStorage.getItem("access_token");
-         if (!token) {
-            console.error("No access token found");
-            return;
-
-         const requestOptions = {
-            method: "GET",
-            headers: {
-               "Content-Type": "application/json",
-               Authorization: `Bearer ${token}`,
-            },
-         };
-
-         try {
-            const response = await fetch(
-               `http://127.0.0.1:8000/transactions/user-transactions/${accountNumber}/`,
-               requestOptions
-            );
-
-            if (!response.ok) {
-               throw new Error(
-                  `Error ${response.status}: ${response.statusText}`
-               );
-            }
-
-            const data = await response.json();
-
-            // combining all transactions into a single list
-            const combinedTransactions = [
-               ...data.deposits,
-               ...data.withdrawals,
-               ...data.transfers,
-            ];
-
-
-            // sort by most recent date
-            combinedTransactions.sort((a, b) => new Date(b.transaction_date) - new Date(a.transaction_date));
-
-
-            // Set the two most recent transactions
-            setRecentTransactions(combinedTransactions.slice(0, 2));
-         } catch (error) {
-            console.error("Error fetching recent transactions:", error);
-         }
-      };
-
-      if (accountNumber) {
-         fetchRecentTransactions();
-      }
-   }, [accountNumber, selectedAccountType]);
-
 
 
 

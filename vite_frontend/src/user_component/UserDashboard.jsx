@@ -35,6 +35,23 @@ const activityData = [
    { month: "Dec", activity: 600 },
 ];
 
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+
+const activityData = [
+   { month: "Jan", activity: 400 },
+   { month: "Feb", activity: 300 },
+   { month: "Mar", activity: 200 },
+   { month: "Apr", activity: 278 },
+   { month: "May", activity: 189 },
+   { month: "Jun", activity: 239 },
+   { month: "Jul", activity: 349 },
+   { month: "Aug", activity: 200 },
+   { month: "Sep", activity: 300 },
+   { month: "Oct", activity: 400 },
+   { month: "Nov", activity: 500 },
+   { month: "Dec", activity: 600 },
+];
+
 const UserDashboard = () => {
    const navigate = useNavigate();
    const [accountBalance, setAccountBalance] = useState(0);

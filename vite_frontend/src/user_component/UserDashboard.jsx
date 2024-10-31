@@ -4,13 +4,10 @@ import UserPayment from "./UserPaymentOption";
 import "./styling/UserDashboard.css";
 import React, { useState, useEffect } from "react";
 import UserPaymentOption from "./UserPaymentOption";
-
-
-
-
-
-
-
+import atmIcon from '../assets/atm.png';
+import checkIcon from '../assets/check.png';
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // function to handle display of transactions
 const formatTransactionAmount = (type, amount) => {
@@ -19,14 +16,6 @@ const formatTransactionAmount = (type, amount) => {
    }
    return `$${amount}`;
 };
-
-
-
-
-import atmIcon from '../assets/atm.png';
-import checkIcon from '../assets/check.png';
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 
 const UserDashboard = () => {
@@ -47,7 +36,7 @@ const UserDashboard = () => {
       phone: "",
       email: "",
    });
-   const [showDepositModal, setshowDepositModal] = useState(false);
+   const [showDepositModal, setShowDepositModal] = useState(false);
 
 
 

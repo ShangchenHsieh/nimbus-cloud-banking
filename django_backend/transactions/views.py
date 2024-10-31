@@ -6,6 +6,7 @@ from rest_framework import status
 from bank_account.models import BankAccount
 from .models import DepositTransaction, WithdrawalTransaction, InternalAccountTransfer
 
+
 class ProcessInternalTransferView(APIView):
     permission_classes = [IsAuthenticated]
     
@@ -28,7 +29,7 @@ class ProcessInternalTransferView(APIView):
     
     
 class ProcessDepositView(APIView): 
-    permission_classes = [] # add IsAuthenticated after demo
+    permission_classes = [IsAuthenticated] # add IsAuthenticated after demo
     
     def post(self, request): 
         serializer = ProcessDepositSerializer(data=request.data)
@@ -51,7 +52,7 @@ class ProcessDepositView(APIView):
     
     
 class ProcessWithdrawalView(APIView): 
-    permission_classes = [] # add IsAuthenticated after demo
+    permission_classes = [IsAuthenticated] # add IsAuthenticated after demo
     
     def post(self, request): 
         serializer = ProcessWithdrawalSerializer(data=request.data)
@@ -99,7 +100,30 @@ class GetTransactionsView(APIView):
         return Response(response_data, status=status.HTTP_200_OK)
     
     
-class Test(APIView):
-    def get(self, request): 
-        data = {'name': 'sean',}
-        return Response(data, status=status.HTTP_200_OK)
+
+class SourceAccountView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """
+        Retrieve the source account number of the authenticated user.
+        """
+        try:
+            # Fetch the user's primary source account
+            source_account = BankAccount.objects.get(user=request.user)
+            return Response({"account_number": source_account.account_number}, status=status.HTTP_200_OK)
+        except BankAccount.DoesNotExist:
+            return Response({"error": "Source account not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+class GetSourceAccountView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            # Assuming each user has one primary bank account
+            source_account = BankAccount.objects.get(user=request.user)
+            return Response({"source_account_number": source_account.account_number}, status=status.HTTP_200_OK)
+        except BankAccount.DoesNotExist:
+            return Response({"error": "Source account not found for the current user."}, status=status.HTTP_404_NOT_FOUND)

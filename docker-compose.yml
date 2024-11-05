@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: ./django_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./django_backend:/app
+    environment:
+      - DB_NAME= ${DB_NAME}
+      - DB_USER= ${DB_USER}
+      - DB_PASSWORD= ${DB_PASSWORD}
+      - DB_HOST= ${DB_HOST}
+      - DB_PORT= ${DB_PORT}
+      - MAPS_API_KEY= ${MAPS_API_KEY}
+    depends_on:
+      - vite
+
+  vite:
+    build:
+      context: ./vite_frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://django:8000

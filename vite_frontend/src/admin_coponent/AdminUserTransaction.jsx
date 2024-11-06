@@ -1,6 +1,6 @@
-import "./styling/AdminTransaction.css";
+import "./styling/AdminUserTransaction.css";
 
-const AdminTransaction = (props) => {
+const AdminUserTransaction = (props) => {
    return (
       <>
          <div className="transaction-container">
@@ -21,4 +21,4 @@ const AdminTransaction = (props) => {
    );
 };
 
-export default AdminTransaction;
+export default AdminUserTransaction;

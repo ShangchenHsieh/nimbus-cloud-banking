@@ -1,21 +1,101 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserNavbar from "./UserNavBar";
 import "./styling/UserPayment.css";
 
 const UserPayment = () => {
    const [isModalOpen, setIsModalOpen] = useState(false);
+   const [paymentStatus, setPaymentStatus] = useState("");
+   const [accountNumber, setAccountNumber] = useState(""); // State to hold the account number
+   const [error, setError] = useState(""); // State to hold error messages
+
+   // Fetch the user's account number on component mount
+   useEffect(() => {
+      const fetchAccountNumber = async () => {
+         const token = localStorage.getItem("access_token");
+         if (!token) {
+            setError("User not authenticated.");
+            return;
+         }
+
+         const requestOptions = {
+            method: "GET",
+            headers: {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${token}`,
+            },
+         };
+
+         try {
+            const response = await fetch(
+               "http://127.0.0.1:8000/transactions/source-account/",
+               requestOptions
+            );
+
+            if (!response.ok) {
+               throw new Error("Failed to fetch source account number.");
+            }
+
+            const data = await response.json();
+            console.log("Fetched account number:", data.account_number);
+            setAccountNumber(data.account_number);
+         } catch (error) {
+            setError("Error fetching source account number.");
+            console.error("Error fetching source account number:", error);
+         }
+      };
+
+      fetchAccountNumber();
+   }, []);
 
    const openModal = () => {
       setIsModalOpen(true);
+      setPaymentStatus(""); // Reset status message when opening modal
+      setError(""); // Reset error message
    };
 
    const closeModal = () => {
       setIsModalOpen(false);
    };
 
-   const confirmPayment = () => {
-      console.log("Payment confirmed");
-      closeModal();
+   const confirmPayment = async () => {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+         setError("User not authenticated.");
+         return;
+      }
+
+      const requestOptions = {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+         },
+         body: JSON.stringify({
+            account_number: accountNumber, // Use the retrieved account number
+            amount: 40.00, // The amount to withdraw
+         }),
+      };
+
+      try {
+         const response = await fetch(
+            "http://127.0.0.1:8000/transactions/withdrawal",
+            requestOptions
+         );
+
+         const data = await response.json();
+
+         if (!response.ok) {
+            // If there's an error related to insufficient funds or any other reason
+            setPaymentStatus(data.error || "Insufficient funds");
+            return; // Prevent closing the modal
+         } else {
+            console.log("Payment confirmed");
+            setPaymentStatus("Payment successful!");
+         }
+      } catch (error) {
+         console.error("Error confirming payment:", error);
+         setPaymentStatus("An error occurred. Please try again.");
+      }
    };
 
    return (
@@ -71,6 +151,8 @@ const UserPayment = () => {
                         Cancel
                      </button>
                   </div>
+                  {paymentStatus && <p className="payment-status">{paymentStatus}</p>} {/* Display payment status */}
+                  {error && <p className="error-message">{error}</p>} {/* Display error message */}
                </div>
             </div>
          )}

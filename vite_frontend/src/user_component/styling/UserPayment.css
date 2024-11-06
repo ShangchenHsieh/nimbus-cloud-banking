@@ -1,4 +1,3 @@
-
 .title {
    color: #555;
    margin: 0px;
@@ -170,4 +169,16 @@
 
 .modal-button.cancel:hover {
    background: #c82333;
+}
+
+.payment-status {
+   margin-top: 10px;
+   font-weight: bold;
+   color: green; /* Change text color to green for success messages */
+}
+
+.error-message {
+   margin-top: 10px;
+   font-weight: bold;
+   color: red; /* Assuming you want error messages to be in red */
 }

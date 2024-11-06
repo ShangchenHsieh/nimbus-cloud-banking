@@ -9,12 +9,12 @@ services:
     volumes:
       - ./django_backend:/app
     environment:
-      - DB_NAME= ${DB_NAME}
-      - DB_USER= ${DB_USER}
-      - DB_PASSWORD= ${DB_PASSWORD}
-      - DB_HOST= ${DB_HOST}
-      - DB_PORT= ${DB_PORT}
-      - MAPS_API_KEY= ${MAPS_API_KEY}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - MAPS_API_KEY=${MAPS_API_KEY}
     depends_on:
       - vite
 

@@ -1,0 +1,37 @@
+.adminusercard-title-bright {
+   font-size: 16px;
+   color: #ffffff;
+   margin: 0px;
+   padding: 12px 12px 0px 12px;
+}
+
+.adminusercard-text-bright {
+   font-size: 14px;
+   color: #ffffff;
+   margin: 0px;
+   padding: 12px 0px 12px 12px;
+}
+
+.adminusercard-container {
+   font-family: "Hammersmith One";
+   width: calc(100% - 24px);
+   background: linear-gradient(45deg, #003349 0%, #002e42 100%);
+   border: 2px solid #018fcc;
+   border-radius: 10px;
+   margin: 0px 12px 12px 12px;
+   transition: 0.3s;
+}
+
+.adminusercard-container:hover {
+   background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
+   border: 2px solid #d1f4ff;
+   cursor: pointer;
+}
+
+.adminusercard-container:hover .adminusercard-title-bright {
+   color: #555;
+}
+
+.adminusercard-container:hover .adminusercard-text-bright {
+   color: #555;
+}

@@ -50,8 +50,9 @@
 }
 
 .maps-page-container {
+   padding: 70px;
    height: calc(100vh - 70px);
-   width: 100%;
+   width: 95%;
 }
 
 .map-container {

@@ -9,13 +9,14 @@
 
 .about-container {
     font-family: 'Hammersmith One', sans-serif;
-    padding: 20px;
+    
     background-color: var(--secondary-color); /* Light background */
     box-shadow: 0px 4px 12px var(--shadow-color); /* Subtle shadow */
     border-radius: 10px;
     margin: 10px;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 70px;
 }
 
 .section-title {

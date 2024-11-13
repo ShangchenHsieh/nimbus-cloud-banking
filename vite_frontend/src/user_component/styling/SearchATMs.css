@@ -50,7 +50,8 @@
 }
 
 .maps-page-container {
-   padding: 70px;
+   padding-top: 70px;
+   padding-left: 35px;
    height: calc(100vh - 70px);
    width: 95%;
 }

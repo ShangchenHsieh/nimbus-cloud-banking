@@ -11,6 +11,10 @@ const AdminUserCard = (props) => {
                Phone: {props.phone}
                <br></br>
                Email: {props.email}
+               <br></br>
+               Account Type: {props.accountType}
+               <br></br>
+               Account Number: {props.accountNumber}
             </p>
          </div>
       </>

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import BankAccount, account_number_generator
+from authentication.models import CustomUser
 
 class AccountInfoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,3 +23,17 @@ class CreateAccountSerializer(serializers.ModelSerializer):
         )
         account.save()
         return account
+    
+class UserAndAccountDetailsSerializer(serializers.ModelSerializer):
+    user_id = serializers.IntegerField(source="user.id")
+    first_name = serializers.CharField(source="user.first_name")
+    last_name = serializers.CharField(source="user.last_name")
+    phone = serializers.CharField(source="user.phone")
+    email = serializers.EmailField(source="user.email")
+
+    class Meta:
+        model = BankAccount
+        fields = [
+            'user_id', 'first_name', 'last_name', 'phone', 'email',
+            'account_type', 'account_number', 'balance', 'status'
+        ]

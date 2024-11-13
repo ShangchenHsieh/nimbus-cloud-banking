@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .serializers import AccountInfoSerializer, CreateAccountSerializer
+from .serializers import AccountInfoSerializer, CreateAccountSerializer, UserAndAccountDetailsSerializer
 from .models import BankAccount
 from rest_framework import status
 
@@ -49,3 +49,11 @@ class CreateAccountView(APIView):
                 "account_type": account.account_type,
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class AllUserAndAccountsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        accounts = BankAccount.objects.select_related('user').all()
+        serializer = UserAndAccountDetailsSerializer(accounts, many=True)
+        return Response(serializer.data)

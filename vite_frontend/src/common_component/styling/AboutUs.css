@@ -5,6 +5,7 @@
     --text-light: #ffffff; /* Light text */
     --accent-color: #4a90e2; /* Accent color */
     --shadow-color: rgba(0, 0, 0, 0.1); /* Soft shadow */
+    --font-family: 'Hammersmith One', sans-serif; /* Define a CSS variable for easier reuse */
 }
 
 .about-container {

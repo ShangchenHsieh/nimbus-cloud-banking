@@ -27,6 +27,7 @@ const activityData = [
    { month: "Dec", activity: 600 },
 ];
 
+const allAccountTypes = ["checking", "savings", "retirement"];
 
 // function to handle display of transactions
 const formatTransactionAmount = (type, amount) => {
@@ -44,6 +45,10 @@ const UserDashboard = () => {
    const [selectedAccountType, setSelectedAccountType] = useState("checking");
    const [accountTypes, setAccountTypes] = useState([]);
    const [recentTransactions, setRecentTransactions] = useState([]);
+   const [showAddAccountModal, setShowAddAccountModal] = useState(false);
+   const [selectedAccountOpenType, setSelectedAccountOpenType] = useState("");
+
+
 
    const [userData, setUserData] = useState({
       first_name: "",
@@ -55,10 +60,25 @@ const UserDashboard = () => {
 
 
 
+   const availableAccountTypes = allAccountTypes.filter(
+      (type) => !accountTypes.includes(type)
+   );
+
 
    const handleAccountTypeChange = (event) => {
-      setSelectedAccountType(event.target.value);
+      const selectedValue = event.target.value;
+
+      if (selectedValue === "add-account") {
+         setShowAddAccountModal(true);
+      } else {
+         setSelectedAccountType(selectedValue);
+      }
    };
+
+   const closeAddAccountModal = () => {
+      setShowAddAccountModal(false);
+   }
+
    const handleDepositClick = () => {
       setShowDepositModal(true);
    };
@@ -84,6 +104,43 @@ const UserDashboard = () => {
    }
 
 
+   const createAccount = async (accountType) => {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+         console.error("No access token found");
+         return;
+      }
+
+      const requestOptions = {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+         },
+         body: JSON.stringify({ account_type: accountType }),
+      };
+
+      try {
+         const response = await fetch(
+            "http://127.0.0.1:8000/account/create-account/",
+            requestOptions
+         );
+
+         if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+         }
+
+         const data = await response.json();
+         console.log("Account created successfully:", data);
+
+         setAccountTypes((prevAccountTypes) => [...prevAccountTypes, accountType]);
+         closeAddAccountModal();
+      } catch (error) {
+         console.error("Error creating account:", error);
+      }
+   };
+
+
    useEffect(() => {
       const fetchAccountTypes = async () => {
          const token = localStorage.getItem("access_token");
@@ -100,7 +157,6 @@ const UserDashboard = () => {
                Authorization: `Bearer ${token}`,
             },
          };
-
 
          try {
             const response = await fetch(
@@ -296,6 +352,9 @@ const UserDashboard = () => {
                         {type.charAt(0).toUpperCase() + type.slice(1)}
                      </option>
                   ))}
+                  {availableAccountTypes.length > 0 && (
+                     <option value="add-account">+(Add New Account)</option>
+                  )}
                </select>
             </div>
             <div className="details-container">
@@ -454,6 +513,28 @@ const UserDashboard = () => {
                </div>
             </div>
          )}
+         {/* Open Account Model */}
+         {showAddAccountModal && (
+            <div className="add-account-modal">
+               <div className="modal-content">
+                  <button className="close-button" onClick={closeAddAccountModal}>X</button>
+                  <h3>Add New Account</h3>
+                  <select 
+                     value={selectedAccountOpenType} 
+                     onChange={(e) => setSelectedAccountOpenType(e.target.value)}
+                  >
+                     <option value="" disabled>Select Account Type</option>
+                     {availableAccountTypes.map((type) => (
+                        <option key={type} value={type}>
+                           {type.charAt(0).toUpperCase() + type.slice(1)}
+                        </option>
+                     ))}
+                  </select>
+                  <button onClick={() => createAccount(selectedAccountOpenType.toLowerCase())}>Create Account</button>
+               </div>
+            </div>
+         )}
+
 
 
 

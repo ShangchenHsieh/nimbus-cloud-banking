@@ -32,7 +32,7 @@
    width: calc(100vw - 20px);
    background-color: #f7f9fc;
    padding: 10px;
-   margin-top: 60px;    /* Added this line temporarily to fix navbar blocking the account selector*/
+   padding-top: 70px;
 }
 
 .welcome-container {

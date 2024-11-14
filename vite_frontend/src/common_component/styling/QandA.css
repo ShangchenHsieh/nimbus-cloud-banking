@@ -45,7 +45,7 @@
 }
 
 .Q {
-   background: linear-gradient(45deg, #1e508d 0%, #b2edff 100%);
+   background: linear-gradient(45deg, #275da0 0%, #54d7ff 100%);
    border-radius: 10px;
    padding: 10px;
    margin-bottom: 10px;
@@ -54,4 +54,32 @@
 .A {
    padding: 22px;
    margin-bottom: 10px;
+}
+
+.filter-container {
+   display: flex;
+   justify-content: center;
+   gap: 10px; /* Adjust spacing between buttons as needed */
+   margin-top: 20px; /* Optional: add some space above the buttons */
+}
+
+.filter-container button {
+   padding: 10px 20px;
+   border: none;
+   border-radius: 5px;
+   background-color: #00a3d5; /* Button background color */
+   color: white;
+   cursor: pointer;
+   font-size: 20px;
+   font-weight: bold;
+   transition: background-color 0.3s;
+}
+
+.filter-container button:hover {
+   background-color: #0056b3; /* Hover color */
+}
+
+h1 {
+   text-align: center;
+   margin-top: 20px;
 }

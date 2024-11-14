@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Navbar from "./Navbar";
 import './styling/LandingPage.css';
 import icon from "../assets/icon.png";
@@ -10,7 +11,7 @@ const LandingPage = () => {
                 <img src={icon} alt="Logo" />
                 <div className="landing-left">
                     <h1 style={{ marginLeft: '10px', marginTop: '35px', padding: '0px', position: 'relative', bottom: '-25px', color: '#0099cc', fontWeight: 'bold' }}> Nimbus</h1>
-                    <h2 style={{ marginLeft: '10px', fontSize: '45px', marginBottom: '50px', position: 'relative', padding: '0px'}}> Next-gen banking solutions</h2>
+                    <h2 style={{ marginLeft: '10px', fontSize: '45px', marginBottom: '50px', position: 'relative', padding: '0px'}}> Next-gen banking solution</h2>
                 </div>
             </div>
             <h1 style={{fontSize: '50px', position: 'relative', padding: '0px', top: '-40px', fontWeight: 'bold'}}>Welcome to Nimbus Online Banking Services</h1>
@@ -20,8 +21,11 @@ const LandingPage = () => {
                 <p style = {{position: 'relative', padding: '0px', fontSize: '32px', top: '-160px'}}>When you create a new checking</p>
                 <p style = {{position: 'relative', padding: '0px', fontSize: '32px', top: '-160px'}}>with us. For new customers only</p>
                 <p style = {{position: 'relative', padding: '0px', fontSize: '10px', top: '-160px'}}>Terms and conditions apply</p>
-
+                <div className="recBanner" style = {{position: 'relative', padding: '0px', top: '-190px', right: '-500px'}}>
+                    <Link to="/login" style={{fontSize: '40px', fontWeight: 'bold', color: 'white', textDecoration: 'none'}}>Get it today</Link>
+                </div>
             </div>
+            
             <div className="why">
                 <div className="why-left">
                     <h1 style ={{fontWeight: 'bold'}}>Why Nimbus?</h1>
@@ -40,6 +44,9 @@ const LandingPage = () => {
                 </div>
             </div>
             <div className="checkingBanner">
+                <div className="recBanner" style = {{position: 'relative', padding: '0px', top: '130px', right: '-500px'}}>
+                    <Link to="/login" style={{fontSize: '35px', fontWeight: 'bold', color: 'white', textDecoration: 'none'}}>Open an account</Link>
+                </div>
                 <img className="checking-image" src="https://i.imgur.com/8Z11JsI.png" style={{ position: 'relative', padding: '0px', marginTop: '12px', top: '30px' }}/>
                 <p style={{ position: 'relative', padding: '0px', fontSize: '50px', top: '-10px', fontWeight: 'bold' }}>Our checking account</p>
 
@@ -63,6 +70,9 @@ const LandingPage = () => {
                 </div>
             </div>
             <div className="savingsBanner">
+                <div className="recBanner" style = {{position: 'relative', padding: '0px', top: '130px', right: '-500px'}}>
+                    <Link to="/login" style={{fontSize: '34px', fontWeight: 'bold', color: 'white', textDecoration: 'none'}}>Start saving today</Link>
+                </div>
                 <img className="savings-image" src="https://i.imgur.com/3NvCQYa.png" alt="Savings Account" style={{ position: 'relative', padding: '0px', marginTop: '12px', top: '35px' }} />
                 <p style={{ position: 'relative', padding: '0px', fontSize: '50px', top: '-15px', fontWeight: 'bold'}}>Our savings account</p>
 
@@ -97,17 +107,31 @@ const LandingPage = () => {
                     <p style={{fontWeight: 'bold'}}>Download our app to seamlessly manage all your accounts on the go. Our mobile app helps you keep in touch with your money.</p>
                 </div>
                 <div className="mobile-right">
-                    <p>image of the mobile client here when we have</p>
+                    <img src= "https://i.imgur.com/it3L0gS.png" style = {{position: 'relative', padding: '0px' , height: '300px', width: '450px', right: '-80px', top: '48px'}}></img>
                 </div>
             </div>
             <div className = "ATM">
                 <div className ="ATM-left">
                     <img src = "https://i.imgur.com/L8CHJtx.png" style={{position: 'relative', padding: '0px', width: '145px', height: 'auto', top: '10px', right: '-140px'}}></img>
-                    <p>picture of ATM and button to search for atms here</p>
+                    <div className="mapsBanner" style = {{position: 'relative', padding: '0px', right: '-140px', top: '10px'}}>
+                    <Link to="/maps" style={{fontSize: '22px', fontWeight: 'bold', color: 'white', textDecoration: 'none'}}>Give it a try</Link>
+                    </div>
                 </div>
                 <div className = "ATM-right">
                     <p style = {{position: 'relative', padding: '0px', fontWeight: 'bold', fontSize: '40px' , top: '-20px', right: '-40px'}}> Need to pay in cash? </p>
                     <p style = {{position: 'relative', padding: '0px', fontWeight: 'bold', fontSize: '30px', top: '-20px'}}>Thanks to our partner chase, you can pay no ATM fees in over 15,000 locations</p>
+                </div>
+            </div>
+            <div className = "questions">
+                <p style = {{position: 'relative', padding: '0px', top: '-10px', textDecoration: 'none', fontSize: '50px'}}>Questions? Concerns?</p>
+                <p style = {{position: 'relative', padding: '0px', top: '-100px', textDecoration: 'none', fontSize: '55px', fontWeight: 'bold'}}>We are Here to help you</p>
+                <p style = {{position: 'relative', padding: '0px', top: '-150px', textDecoration: 'none', fontSize: '28px'}} >Access our information bank full of common questions and answers</p>
+                <div className="recBanner" style = {{position: 'relative', padding: '0px', height: '75px', width: '220px', top: '-160px'}}>
+                    <Link to="/Q&A" style={{fontSize: '22px', fontWeight: 'bold', color: 'white', textDecoration: 'none'}} >Get your answers</Link>
+                </div>
+                <p style = {{position: 'relative', padding: '0px', top: '-170px', textDecoration: 'none', fontSize: '28px'}}>Still having questions? join the live chat to have them answered</p>
+                <div className="recBanner" style = {{position: 'relative', padding: '0px', height: '75px', width: '220px', top: '-180px'}} >
+                    <Link to="/help" style={{fontSize: '22px', fontWeight: 'bold', color: 'white', textDecoration: 'none'}}>find help here</Link>
                 </div>
             </div>
         </div>

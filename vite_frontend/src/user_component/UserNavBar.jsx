@@ -9,7 +9,10 @@ const UserNavbar = () => {
             <div className="user-navbar-logo">
                <img src={icon} alt="Logo" />
             </div>
-            <h3>Nimbus</h3>
+            <Link to="/" className="nimbus-link">
+            <h3 style ={{position: 'relative', padding: '0px', top: '20px', color: '#0099cc', fontWeight: 'bold'}}>Nimbus</h3>
+            <h4 style = {{fontSize: '13px'}}>Next-Gen banking solution</h4>
+        </Link>
          </div>
 
          <div className="user-navbar-center">

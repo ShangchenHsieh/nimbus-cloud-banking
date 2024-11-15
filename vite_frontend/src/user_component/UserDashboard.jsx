@@ -56,7 +56,9 @@ const UserDashboard = () => {
       phone: "",
       email: "",
    });
-   const [showDepositModal, setShowDepositModal] = useState(false);
+
+
+
 
 
 
@@ -79,23 +81,11 @@ const UserDashboard = () => {
       setShowAddAccountModal(false);
    }
 
+
+
    const handleDepositClick = () => {
-      setShowDepositModal(true);
-   };
-
-
-   const closeDepositModal = () => {
-      setShowDepositModal(false);
-   };
-   const handleAtmDeposit = () => {
-      navigate("/deposit");
-      closeDepositModal();
-   };
-
-
-   const handleCheckDeposit = () => {
       navigate('/deposit');
-      closeDepositModal();
+
    };
 
 
@@ -490,37 +480,14 @@ const UserDashboard = () => {
 
             </div>
          </div>
-         {/* Deposit Model */}
-         {showDepositModal && (
-            <div className="deposit-modal">
-               <div className="modal-content">
-                  <button className="close-button" onClick={closeDepositModal}>X</button>
-                  <h3>Select Deposit Option</h3>
-                  <div className="deposit-options">
-                     <div className="deposit-card check-deposit">
-                        <img src={atmIcon} alt="ATM Icon" className="icon" />
-                        <h4>ATM Deposit</h4>
-                        <p>Deposit cash quickly at any ATM.</p>
-                        <button onClick={handleCheckDeposit}>Select</button>
-                     </div>
-                     <div className="deposit-card check-deposit">
-                        <img src={checkIcon} alt="Check Icon" className="icon" />
-                        <h4>Check Deposit</h4>
-                        <p>Deposit checks to your account.</p>
-                        <button onClick={handleCheckDeposit}>Select</button>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         )}
          {/* Open Account Model */}
          {showAddAccountModal && (
             <div className="add-account-modal">
                <div className="modal-content">
                   <button className="close-button" onClick={closeAddAccountModal}>X</button>
                   <h3>Add New Account</h3>
-                  <select 
-                     value={selectedAccountOpenType} 
+                  <select
+                     value={selectedAccountOpenType}
                      onChange={(e) => setSelectedAccountOpenType(e.target.value)}
                   >
                      <option value="" disabled>Select Account Type</option>

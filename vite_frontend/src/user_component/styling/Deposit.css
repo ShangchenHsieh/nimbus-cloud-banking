@@ -10,6 +10,18 @@
     border-radius: 10px;
     margin-top: 120px;
  }
+ /* Hide the arrows in Chrome, Safari, Edge, and Opera */
+.no-arrows::-webkit-inner-spin-button,
+.no-arrows::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide the arrows in Firefox */
+.no-arrows {
+    -moz-appearance: textfield;
+}
+
  
  /* Title */
  .deposit-title {

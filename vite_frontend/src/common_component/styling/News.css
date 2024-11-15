@@ -1,57 +1,105 @@
 /* News.css */
 
+/* General container styling */
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 70px;
-    font-family: Arial, sans-serif;
+    padding: 50px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7fa;
 }
 
 .h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     color: #333;
+    font-size: 2.5em;
+    font-weight: bold;
 }
 
+/* Styling for the list of articles */
 .ul {
     list-style: none;
     padding: 0;
 }
 
 .li {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 10px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+/* Hover effects */
 .li:hover {
     transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-.a {
-    text-decoration: none;
-    color: #007bff;
+/* Title styling */
+.li h2 {
+    font-size: 1.8em;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.a:hover {
-    text-decoration: underline;
-}
-
-.news-image {
-    border-radius: 8px;
-    margin: 10px 0;
-    max-width: 100%;
-    height: auto;
+/* Date and author styling */
+.pub-date {
+    font-size: 0.95em;
+    color: #999;
+    margin-bottom: 10px;
 }
 
 .p {
     color: #666;
+    line-height: 1.5;
 }
 
-.pub-date {
-    font-size: 0.9em;
-    color: #999;
+/* Image styling */
+.news-image {
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    margin: 15px 0;
+}
+
+/* Styling for the "read more" link */
+.a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.a:hover {
+    color: #0056b3;
+}
+
+/* Loading indicator */
+.loading {
+    text-align: center;
+    font-size: 1.2em;
+    color: #007bff;
+    margin-top: 30px;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    .li {
+        padding: 20px;
+    }
+
+    .li h2 {
+        font-size: 1.5em;
+    }
 }

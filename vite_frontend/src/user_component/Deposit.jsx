@@ -9,6 +9,7 @@ const Deposit = () => {
     const [accountNumber, setAccountNumber] = useState('');
     const [amount, setAmount] = useState('');
     const [message, setMessage] = useState('');
+    const [checkNum, setCheckNum] = useState('');
     const [checkImage, setCheckImage] = useState(null); // State to hold the check image
     const navigate = useNavigate();
 
@@ -96,6 +97,14 @@ const Deposit = () => {
                         value={accountNumber}
                         readOnly
                     />
+                    <input
+                        type="number"
+                        placeholder="Check Number"
+                        value={checkNum}
+                        onChange={(e) => setCheckNum(e.target.value)}
+                        className="no-arrows"
+                    />
+
                     <input
                         type="number"
                         placeholder="Amount"

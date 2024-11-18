@@ -5,12 +5,19 @@ import "./styling/UserDashboard.css";
 import React, { useState, useEffect } from "react";
 import UserPaymentOption from "./UserPaymentOption";
 
-import atmIcon from '../assets/atm.png'
-import checkIcon from '../assets/check.png'
+import atmIcon from "../assets/atm.png";
+import checkIcon from "../assets/check.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-
+import {
+   LineChart,
+   Line,
+   XAxis,
+   YAxis,
+   CartesianGrid,
+   Tooltip,
+   ResponsiveContainer,
+} from "recharts";
 
 const activityData = [
    { month: "Jan", activity: 400 },
@@ -40,15 +47,13 @@ const formatTransactionAmount = (type, amount) => {
 const UserDashboard = () => {
    const navigate = useNavigate();
    const [accountBalance, setAccountBalance] = useState(0);
-   const [accountNumber, setAccountNumber] = useState("");;
+   const [accountNumber, setAccountNumber] = useState("");
    const [loading, setLoading] = useState(true);
    const [selectedAccountType, setSelectedAccountType] = useState("checking");
    const [accountTypes, setAccountTypes] = useState([]);
    const [recentTransactions, setRecentTransactions] = useState([]);
    const [showAddAccountModal, setShowAddAccountModal] = useState(false);
    const [selectedAccountOpenType, setSelectedAccountOpenType] = useState("");
-
-
 
    const [userData, setUserData] = useState({
       first_name: "",
@@ -57,15 +62,9 @@ const UserDashboard = () => {
       email: "",
    });
 
-
-
-
-
-
    const availableAccountTypes = allAccountTypes.filter(
       (type) => !accountTypes.includes(type)
    );
-
 
    const handleAccountTypeChange = (event) => {
       const selectedValue = event.target.value;
@@ -79,20 +78,15 @@ const UserDashboard = () => {
 
    const closeAddAccountModal = () => {
       setShowAddAccountModal(false);
-   }
-
-
-
-   const handleDepositClick = () => {
-      navigate('/deposit');
-
    };
 
+   const handleDepositClick = () => {
+      navigate("/deposit");
+   };
 
    const handleWithdraw = () => {
-      navigate('/withdraw')
-   }
-
+      navigate("/withdraw");
+   };
 
    const createAccount = async (accountType) => {
       const token = localStorage.getItem("access_token");
@@ -123,13 +117,15 @@ const UserDashboard = () => {
          const data = await response.json();
          console.log("Account created successfully:", data);
 
-         setAccountTypes((prevAccountTypes) => [...prevAccountTypes, accountType]);
+         setAccountTypes((prevAccountTypes) => [
+            ...prevAccountTypes,
+            accountType,
+         ]);
          closeAddAccountModal();
       } catch (error) {
          console.error("Error creating account:", error);
       }
    };
-
 
    useEffect(() => {
       const fetchAccountTypes = async () => {
@@ -138,7 +134,6 @@ const UserDashboard = () => {
             console.error("No access token found");
             return;
          }
-
 
          const requestOptions = {
             method: "GET",
@@ -154,13 +149,11 @@ const UserDashboard = () => {
                requestOptions
             );
 
-
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
-
 
             const data = await response.json();
             setAccountTypes(data);
@@ -169,10 +162,8 @@ const UserDashboard = () => {
          }
       };
 
-
       fetchAccountTypes();
    }, []);
-
 
    useEffect(() => {
       const fetchAccountInfo = async () => {
@@ -182,7 +173,6 @@ const UserDashboard = () => {
             return;
          }
 
-
          const requestOptions = {
             method: "GET",
             headers: {
@@ -191,20 +181,17 @@ const UserDashboard = () => {
             },
          };
 
-
          try {
             const response = await fetch(
                `http://127.0.0.1:8000/account/account-info/${selectedAccountType}/`,
                requestOptions
             );
 
-
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
-
 
             const data = await response.json();
             setAccountBalance(data.balance || 0);
@@ -219,7 +206,6 @@ const UserDashboard = () => {
       fetchAccountInfo();
    }, [selectedAccountType]);
 
-
    useEffect(() => {
       const fetchUserData = async () => {
          const token = localStorage.getItem("access_token");
@@ -227,7 +213,6 @@ const UserDashboard = () => {
             console.error("No access token found");
             return;
          }
-
 
          const requestOptions = {
             method: "GET",
@@ -237,20 +222,17 @@ const UserDashboard = () => {
             },
          };
 
-
          try {
             const response = await fetch(
                "http://127.0.0.1:8000/auth/user/",
                requestOptions
             );
 
-
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
-
 
             const data = await response.json();
             setUserData({
@@ -264,13 +246,8 @@ const UserDashboard = () => {
          }
       };
 
-
       fetchUserData();
    }, []);
-
-
-
-
 
    useEffect(() => {
       const fetchRecentTransactions = async () => {
@@ -310,7 +287,10 @@ const UserDashboard = () => {
             ];
 
             // sort by most recent date
-            combinedTransactions.sort((a, b) => new Date(b.transaction_date) - new Date(a.transaction_date));
+            combinedTransactions.sort(
+               (a, b) =>
+                  new Date(b.transaction_date) - new Date(a.transaction_date)
+            );
 
             // Set the two most recent transactions
             setRecentTransactions(combinedTransactions.slice(0, 2));
@@ -357,7 +337,7 @@ const UserDashboard = () => {
                         </h3>
                         <button
                            className="account-balance-statement-button"
-                           onClick={(e) =>
+                           onClick={() =>
                               (window.location.href = "/userstatement")
                            }
                         >
@@ -389,13 +369,19 @@ const UserDashboard = () => {
                               <div className="payments-container">
                                  <UserPaymentOption
                                     title="Pay"
-                                    action={(e) =>
+                                    action={() =>
                                        (window.location.href = "/userpayment")
                                     }
                                  ></UserPaymentOption>
                                  <UserPaymentOption title="Transfer"></UserPaymentOption>
-                                 <UserPaymentOption title="Deposit" action={handleDepositClick}></UserPaymentOption>
-                                 <UserPaymentOption title="Withdraw" action={handleWithdraw}></UserPaymentOption>
+                                 <UserPaymentOption
+                                    title="Deposit"
+                                    action={handleDepositClick}
+                                 ></UserPaymentOption>
+                                 <UserPaymentOption
+                                    title="Withdraw"
+                                    action={handleWithdraw}
+                                 ></UserPaymentOption>
                               </div>
                            </div>
                         </div>
@@ -437,6 +423,8 @@ const UserDashboard = () => {
                            </div>
                         </div>
                      </div>
+                     {/*
+                     --UNCOMMENT IF USED--
                      <div className="activity-card">
                         <h3>Monthly Report</h3>
                         <ResponsiveContainer width="95%" height={300}>
@@ -445,10 +433,16 @@ const UserDashboard = () => {
                               <XAxis dataKey="month" />
                               <YAxis />
                               <Tooltip />
-                              <Line type="monotone" dataKey="activity" stroke="#8884d8" strokeWidth={2} />
+                              <Line
+                                 type="monotone"
+                                 dataKey="activity"
+                                 stroke="#8884d8"
+                                 strokeWidth={2}
+                              />
                            </LineChart>
                         </ResponsiveContainer>
                      </div>
+                     */}
                   </div>
                </div>
 
@@ -462,12 +456,11 @@ const UserDashboard = () => {
                            amount={transaction.amount}
                            transactionType={transaction.transaction_type}
                         />
-
                      ))}
                      <div>
                         <button
                            className="view-all-button"
-                           onClick={(e) =>
+                           onClick={() =>
                               (window.location.href = "/usertransactions")
                            }
                         >
@@ -476,39 +469,46 @@ const UserDashboard = () => {
                      </div>
                   </div>
                </div>
-
-
             </div>
          </div>
          {/* Open Account Model */}
          {showAddAccountModal && (
             <div className="add-account-modal">
                <div className="modal-content">
-                  <button className="close-button" onClick={closeAddAccountModal}>X</button>
+                  <button
+                     className="close-button"
+                     onClick={closeAddAccountModal}
+                  >
+                     X
+                  </button>
                   <h3>Add New Account</h3>
                   <select
                      value={selectedAccountOpenType}
-                     onChange={(e) => setSelectedAccountOpenType(e.target.value)}
+                     onChange={(e) =>
+                        setSelectedAccountOpenType(e.target.value)
+                     }
                   >
-                     <option value="" disabled>Select Account Type</option>
+                     <option value="" disabled>
+                        Select Account Type
+                     </option>
                      {availableAccountTypes.map((type) => (
                         <option key={type} value={type}>
                            {type.charAt(0).toUpperCase() + type.slice(1)}
                         </option>
                      ))}
                   </select>
-                  <button onClick={() => createAccount(selectedAccountOpenType.toLowerCase())}>Create Account</button>
+                  <button
+                     onClick={() =>
+                        createAccount(selectedAccountOpenType.toLowerCase())
+                     }
+                  >
+                     Create Account
+                  </button>
                </div>
             </div>
          )}
-
-
-
-
-
       </>
    );
 };
-
 
 export default UserDashboard;

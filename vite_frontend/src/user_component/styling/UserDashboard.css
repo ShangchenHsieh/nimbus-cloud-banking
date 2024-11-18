@@ -1,6 +1,4 @@
-@import url("https://fonts.google.com/share?selection.family=Hammersmith+One");
-
-.body {
+body {
    margin: 0px;
 }
 
@@ -32,7 +30,7 @@
    width: calc(100vw - 20px);
    background-color: #f7f9fc;
    padding: 10px;
-   padding-top: 70px;
+   margin-top: 60px;
 }
 
 .welcome-container {
@@ -73,6 +71,7 @@
 }
 
 .details-left-container {
+   min-height: 670px;
    height: calc(100vh - 20px - 60px - 60px - 20px);
    width: 100%;
    margin-right: 30px;
@@ -153,12 +152,13 @@
 }
 
 .account-holder-details-container {
-   height: calc(100% - 214px);
+   height: calc(100% - 224px);
    background-color: #f9fbfc;
    border: 2px solid #ebeff0;
    border-radius: 10px;
    margin-bottom: 10px;
    margin-right: 10px;
+   overflow: auto;
 }
 
 .account-payment-details-container {
@@ -170,7 +170,7 @@
 }
 
 .payments-container {
-   height: calc(100% - 58px);
+   height: calc(100% - 66px);
    display: flex;
    padding: 0px 10px 0px 10px;
 }
@@ -180,7 +180,7 @@
 }
 
 .account-details-right-container {
-   height: 100%;
+   height: calc(100% - 10px);
    width: 130px;
    background-color: #f9fbfc;
    border: 2px solid #ebeff0;
@@ -188,7 +188,7 @@
 }
 
 .monthly-report-chart {
-   height: calc(100% - 82px);
+   height: calc(100% - 92px);
    border-radius: 10px;
    margin: 0px 10px;
    transition: 0.3s;

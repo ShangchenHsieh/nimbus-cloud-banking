@@ -1,3 +1,7 @@
+body {
+   font-family: "Hammersmith One";
+}
+
 .search-title-bright {
    color: #ffffff;
    margin: 0px;
@@ -50,10 +54,8 @@
 }
 
 .maps-page-container {
-   padding-top: 70px;
-   padding-left: 35px;
+   margin-top: 70px;
    height: calc(100vh - 70px);
-   width: 95%;
 }
 
 .map-container {

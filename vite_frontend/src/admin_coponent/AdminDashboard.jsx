@@ -65,7 +65,7 @@ const AdminDashboard = () => {
          console.error("No access token found");
          return [];
       }
-   
+
       const requestOptions = {
          method: "GET",
          headers: {
@@ -73,27 +73,30 @@ const AdminDashboard = () => {
             Authorization: `Bearer ${token}`,
          },
       };
-   
+
       try {
          const response = await fetch(
             `http://127.0.0.1:8000/transactions/user-transactions/${accountNumber}/`,
             requestOptions
          );
-   
+
          if (!response.ok) {
             throw new Error(`Error ${response.status}: ${response.statusText}`);
          }
-   
+
          const data = await response.json();
-   
+
          // Combine and sort transactions by most recent date
          const combinedTransactions = [
             ...data.deposits,
             ...data.withdrawals,
             ...data.transfers,
          ];
-         combinedTransactions.sort((a, b) => new Date(b.transaction_date) - new Date(a.transaction_date));
-   
+         combinedTransactions.sort(
+            (a, b) =>
+               new Date(b.transaction_date) - new Date(a.transaction_date)
+         );
+
          // Return only the two most recent transactions
          return combinedTransactions.slice(0, 2);
       } catch (error) {
@@ -101,7 +104,6 @@ const AdminDashboard = () => {
          return [];
       }
    };
-
 
    const search = (input) => {
       const searchTerms = input.toLowerCase().split(" ");
@@ -126,7 +128,7 @@ const AdminDashboard = () => {
          account_type: user.account_type,
          account_number: user.account_number,
          balance: user.balance,
-         transactions: transactions, 
+         transactions: transactions,
       });
    };
 
@@ -191,7 +193,7 @@ const AdminDashboard = () => {
                         ))}
                         <button
                            className="view-all-button"
-                           onClick={(e) =>
+                           onClick={() =>
                               (window.location.href = "/adminusertransactions")
                            }
                         >

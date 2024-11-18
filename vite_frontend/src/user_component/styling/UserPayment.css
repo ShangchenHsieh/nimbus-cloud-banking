@@ -1,4 +1,3 @@
-
 .title {
    color: #555;
    margin: 0px;
@@ -11,7 +10,8 @@
    margin: 0px;
 }
 
-.text-left, .text-right {
+.text-left,
+.text-right {
    font-size: 16px;
    color: #555;
    margin: 0px;
@@ -30,10 +30,11 @@
    border-radius: 10px;
    padding: 10px;
    margin: 10px;
+   margin-top: 70px;
 }
 
 .userpayment-details-container {
-   height: calc(100% - 48px);
+   height: calc(100% - 55px);
    display: flex;
 }
 

@@ -1,119 +1,120 @@
 /* Navbar styling */
 .navbar {
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    background-color: #f7f9fc;
-    height: 60px;
-    width: 98%; /* Ensure the navbar expands to the full width */
-    position: fixed; /* Fix the navbar at the top */
-    top: 0; /* Position it at the top */
-    left: 0; /* Align to the left of the viewport */
-    z-index: 100; /* Make sure it's above other content */
-    color: #555;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+   display: flex;
+   align-items: center;
+   padding: 0 20px;
+   background-color: #f7f9fc;
+   height: 60px;
+   width: 98%; /* Ensure the navbar expands to the full width */
+   position: fixed; /* Fix the navbar at the top */
+   top: 0; /* Position it at the top */
+   left: 0; /* Align to the left of the viewport */
+   z-index: 100; /* Make sure it's above other content */
+   color: #555;
+   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 /* Add padding to the body or main content to avoid overlapping with navbar */
-.body, .main-content {
-    padding-top: 60px; /* Equal to the navbar height */
+.body,
+.main-content {
+   padding-top: 60px; /* Equal to the navbar height */
 }
 
 .navbar-left {
-    display: flex;
-    align-items: center;
-    flex: 1;
+   display: flex;
+   align-items: center;
+   flex: 1;
 }
 
 .navbar-logo img {
-    height: 100%;
-    max-height: 50px;
-    margin-right: 10px;
+   height: 100%;
+   max-height: 50px;
+   margin-right: 10px;
 }
 
 .navbar-center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+   position: absolute;
+   left: 50%;
+   transform: translateX(-50%);
 }
 
 .navbar-options {
-    display: flex;
-    gap: 20px;
+   display: flex;
+   gap: 20px;
 }
 
 .navbar-options a {
-    color: rgb(34, 32, 32);
-    text-decoration: none;
-    padding: 10px 15px;
-    transition: 0.4s;
+   color: rgb(34, 32, 32);
+   text-decoration: none;
+   padding: 10px 15px;
+   transition: 0.4s;
 }
 
 .navbar-options a:hover {
-    background-color: #ecd39d;
-    border-radius: 5px;
-    box-shadow: #6c90ae;
+   background-color: #ecd39d;
+   border-radius: 5px;
+   box-shadow: #6c90ae;
 }
 
 .navbar-login {
-    padding: 8px 12px;
-    margin-left: auto;
-    transition: 0.5s;
+   padding: 8px 12px;
+   margin-left: auto;
+   transition: 0.5s;
 }
 
 .navbar-login:hover {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    background-color: #6c90ae;
+   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+   background-color: #6c90ae;
 }
 
 .navbar-login a {
-    color: #333333;
-    text-decoration: none;
-    font-size: 16px;
+   color: #333333;
+   text-decoration: none;
+   font-size: 16px;
 }
 
 .logout-btn {
-    padding: 8px 12px;
-    margin-left: 20px; /* Adjust margin as needed */
-    transition: 0.5s;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    color: #333333;
-    font-size: 16px;
-    cursor: pointer;
+   padding: 8px 12px;
+   margin-left: 20px; /* Adjust margin as needed */
+   transition: 0.5s;
+   border: none;
+   outline: none;
+   background-color: transparent;
+   color: #333333;
+   font-size: 16px;
+   cursor: pointer;
 }
 
 .logout-btn:hover {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    background-color: #6c90ae;
-    border-radius: 5px;
+   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+   background-color: #6c90ae;
+   border-radius: 5px;
 }
 
 .user-profile {
-    display: flex;
-    align-items: center;
+   display: flex;
+   align-items: center;
 }
 
 .user-profile-pic {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
+   height: 40px;
+   width: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
 }
 
 /* Style for the Nimbus link */
 .nimbus-link {
-    text-decoration: none; /* Remove underline */
-    color: inherit; /* Inherit color from the surrounding elements */
+   text-decoration: none; /* Remove underline */
+   color: inherit; /* Inherit color from the surrounding elements */
 }
-  
+
 .nimbus-link h3 {
-    margin: 0;
-    font-weight: bold;
+   margin: 0;
+   font-weight: bold;
 }
-  
+
 /* Optionally, you can add hover effects to match your design */
 .nimbus-link:hover h3 {
-    color: #1e508d; /* Example hover color */
+   color: #1e508d; /* Example hover color */
 }

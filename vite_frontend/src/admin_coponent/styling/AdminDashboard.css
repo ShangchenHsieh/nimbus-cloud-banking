@@ -1,5 +1,3 @@
-@import url("https://fonts.google.com/share?selection.family=Hammersmith+One");
-
 .body {
    margin: 0px;
 }
@@ -59,11 +57,13 @@
 }
 
 .details-right-container {
+   min-height: 670px;
    height: calc(100vh - 20px - 60px - 60px - 20px);
    width: 320px;
 }
 
 .user-account-details-container {
+   min-height: 340px;
    height: calc(100% - 330px);
    width: 100%;
    background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
@@ -78,6 +78,7 @@
    background-color: #f9fbfc;
    border: 2px solid #ebeff0;
    border-radius: 10px;
+   overflow: auto;
 }
 
 .user-activity-container {

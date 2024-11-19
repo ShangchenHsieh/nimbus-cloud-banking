@@ -373,7 +373,12 @@ const UserDashboard = () => {
                                        (window.location.href = "/userpayment")
                                     }
                                  ></UserPaymentOption>
-                                 <UserPaymentOption title="Transfer"></UserPaymentOption>
+                                 <UserPaymentOption
+                                    title="Transfer"
+                                    action={() =>
+                                       (window.location.href = "/usertransfer")
+                                    }
+                                 ></UserPaymentOption>
                                  <UserPaymentOption
                                     title="Deposit"
                                     action={handleDepositClick}

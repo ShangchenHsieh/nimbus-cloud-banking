@@ -160,7 +160,9 @@
 
 /* Forgot Password Link */
 .forgot-password-link {
-    text-align: left;
+    display: flex;
+    justify-content: space-between; /* Ensures links are at opposite ends */
+    align-items: center;
 }
 
 .forgot-password-link a {
@@ -173,4 +175,9 @@
 .forgot-password-link a:hover {
     color: #2980b9;
     text-decoration: underline;
+}
+
+/* Styling for the Admin login link */
+.login-type-link {
+    margin-left: auto; /* Pushes this link to the far right */
 }

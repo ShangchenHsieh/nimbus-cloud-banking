@@ -6,6 +6,7 @@ import Contact from "./common_component/Contact";
 import SignUp from "./common_component/SignUp";
 import QandA from "./common_component/QandA";
 import Login from "./common_component/Login";
+import AdminLogin from "./common_component/AdminLogin";
 import UserDashboard from "./user_component/UserDashboard";
 import AdminDashboard from "./admin_coponent/AdminDashboard";
 import Settings from "./user_component/Settings.jsx";
@@ -35,6 +36,7 @@ function App() {
                <Route path="/about" element={<About />} />
                <Route path="/contact" element={<Contact />} />
                <Route path="/login" element={<Login />} />
+               <Route path="/adminlogin" element={<AdminLogin />} />
                {/* Need to be protected*/}
                <Route path="/userdashboard" element={<UserDashboard />} />
                <Route path="/usertransactions" element={<UserTransactions />} />

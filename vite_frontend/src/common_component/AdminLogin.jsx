@@ -34,7 +34,7 @@ const AdminLogin = () => {
         password: formData.password,
       }),
     };
-    const response = await fetch('http://127.0.0.1:8000/auth/login/', requestOptions);
+    const response = await fetch('http://127.0.0.1:8000/auth/admin-login/', requestOptions);
     const data = await response.json();
 
     if (response.status === 401 || response.status === 400) {

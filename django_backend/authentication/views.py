@@ -29,6 +29,7 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import RegisterSerializer
 from .serializers import LoginSerializer
 from .serializers import UserProfileSerializer
+from .serializers import AdminLoginSerializer
 
 class RegisterView(APIView):
     """
@@ -108,6 +109,24 @@ class LoginView(APIView):
             }, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class AdminLoginView(APIView):
+    permission_classes=[AllowAny]
+    
+    def post(self, request):
+        serializer = AdminLoginSerializer(data=request.data)
+        # Django REST insternally calls validate() within is_valid()
+        if serializer.is_valid():
+            # Data dict returned from validate() is merged into validated_data dict
+            user = serializer.validated_data['user']
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            }, status=status.HTTP_200_OK)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
 

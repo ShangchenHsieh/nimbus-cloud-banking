@@ -47,6 +47,28 @@ class LoginSerializer(serializers.Serializer):
         'user': user,
         }
         return data
+    
+class AdminLoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+    
+    def validate(self, credentials):
+        # Authenticate the user
+        user = authenticate(email=credentials['email'], password=credentials['password'])
+        
+        # Raise an error if the user is not found
+        if user is None:
+            raise serializers.ValidationError("Invalid login credentials")
+
+        # Check if the authenticated user is an admin (is_superuser is True)
+        if not user.is_superuser:
+            raise serializers.ValidationError("You do not have admin privileges")
+        
+        # Return the validated admin user in a dictionary for further processing
+        data = {
+            'user': user,
+        }
+        return data
         
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:

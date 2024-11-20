@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './styling/Help.css';
 import UserNavBar from './UserNavBar';  
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 
 const Help = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,14 +41,19 @@ const Help = () => {
 
       <div className="help-page">
         <div className="common-concerns">
-          <h1>Common Concerns</h1>
-          <p>Troubleshooting ideas and other concerns can go here.</p>
+          <div className = "titlebanner" Style = {{fontWeight: 'bold'}}>
+            <h1>Live support</h1>
+          </div>
+          <div className = "descriptionbanner">
+          <p style = {{color: 'white', fontWeight: 'bold', fontSize: '30px', position: 'relative', padding: '0px', top: '10px'}}>Access our 24/7 live support with dedicated people working to solve your issues</p>
+          <p style = {{color: 'white', fontWeight: 'bold', fontSize: '30px', position: 'relative', padding: '0px', top: '-20px'}}>We ask you to please take a look at our <Link to="/Q&A">Frequently Q&A page here</Link> first </p>
+          <p style = {{color: 'white', fontWeight: 'bold', fontSize: '30px', position: 'relative', padding: '0px', top: '-50px'}}>Please be patient and respectful to make it easier for us to help</p>
+
+          </div>
+          <div className = "livechatbanner" style = {{position: 'relative', padding: '0px', right: '-500px'}}>
+            <button className = "live-chat-button" onClick ={openModal}> Get help</button>
+          </div>
         </div>
-        
-        {/* Live Chat Button */}
-        <button className="live-chat-button" onClick={openModal}>
-          Live Chat
-        </button>
 
         {/* Modal for Live Chat */}
         <Modal

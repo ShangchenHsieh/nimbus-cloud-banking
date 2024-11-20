@@ -25,15 +25,15 @@
 
 /* Live Chat Button */
 .live-chat-button {
-    position: fixed;
+    position: relative;
     bottom: 20px;
     right: 20px;
-    background-color: #3498db; 
+    background-color: #1daf15; 
     color: white;
     border: none;
     border-radius: 50px;
     padding: 15px 25px;
-    font-size: 16px;
+    font-size: 80px;
     font-weight: 600;
     cursor: pointer;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -166,4 +166,41 @@
     overflow-y: auto; 
     display: flex;
     flex-direction: column; 
+}
+
+.livechatbanner {
+    color: #ffffff;
+    text-align: center;
+    height: 150px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titlebanner {
+    background-color: #3170e3;
+    color: #ffffff;
+    text-align: center;
+    height: 130px;
+    width: 1519px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.descriptionbanner {
+    background-color: #7bc5db;
+    color: #ffffff;
+    text-align: center;
+    height: 325px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
 }

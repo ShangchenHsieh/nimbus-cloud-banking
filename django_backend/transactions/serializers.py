@@ -8,17 +8,16 @@ class ProcessInternalTransferSerializer(serializers.ModelSerializer):
     source_account_number = serializers.CharField(max_length=10)
     destination_account_number = serializers.CharField(max_length=10)
     amount = serializers.DecimalField(max_digits=10, decimal_places=2)
-    provider = serializers.CharField(max_length=255, required=False, allow_blank=True)
 
     class Meta:
         model = InternalAccountTransfer
-        fields = ['source_account_number', 'destination_account_number', 'amount', 'provider']
+        fields = ['source_account_number', 'destination_account_number', 'amount']
 
     def create(self, validated_data):
         source_account_number = validated_data['source_account_number']
         destination_account_number = validated_data['destination_account_number']
         amount = validated_data['amount']
-        provider = validated_data.get('provider', None)
+        provider = "Nimbus Banking Internal Transfer"
         
         # Fetch source and destination accounts
         try:

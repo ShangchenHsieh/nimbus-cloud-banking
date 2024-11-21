@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import developer from "../assets/developer.png";
 import lee from "../assets/lr_pfp.png";
 import sean from "../assets/sean_edited.jpg";
+import madison from "../assets/madison.jpeg";
 
 const AboutUs = () => {
    return (
@@ -68,14 +69,18 @@ const AboutUs = () => {
                         rel="noopener noreferrer"
                      >
                         <img
-                           src={developer}
+                           src={madison}
                            alt="Madison Kolley"
                            className="team-img"
                         />
                      </a>
                      <h3 className="team-name">Madison Kolley</h3>
                      <p className="team-role">Full-stack Developer</p>
-                     <p className="team-bio">Something about developer 3</p>
+                     <p className="team-bio">
+                        Studying CS and Math!
+                        Passionate about backend development and CS education.
+                        Click to connect with me via Linkedin!
+                     </p>
                   </div>
 
                   {/* Shangchen Hsieh */}

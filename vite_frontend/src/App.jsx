@@ -22,6 +22,7 @@ import Deposit from "./user_component/Deposit.jsx";
 import Withdrawal from "./user_component/Withdrawal.jsx";
 import AdminUserTransactions from "./admin_coponent/AdminUserTransactions.jsx";
 import './App.css'
+
 function App() {
    return (
       <UserProvider>

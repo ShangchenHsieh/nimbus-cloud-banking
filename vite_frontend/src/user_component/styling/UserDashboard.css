@@ -57,7 +57,6 @@ body {
 }
 
 .account-selector {
-   font-family: "Hammersmith One";
    font-size: 14px;
    color: #ffffff;
    background-color: #003349;
@@ -297,6 +296,8 @@ body {
    border-radius: 10px;
    padding: 10px;
    animation: slideInFromBottom 1s ease; /* Slide in from the right */
+   display: flex;
+   flex-direction: column;
 }
 
 @keyframes slideInFromBottom {
@@ -320,9 +321,10 @@ body {
    border: 2px solid #018fcc;
    border-radius: 10px;
    text-align: center;
-   padding: 4px;
    margin: 0px 12px 0px 12px;
    transition: 0.3s;
+   margin-top: auto !important;
+   margin-bottom: 12px !important;
 }
 
 .view-all-button:hover {
@@ -426,7 +428,7 @@ button {
 button:hover {
    background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
    color: #003349;
-   transform: scale(1.05);
+   transform: scale(1.03);
 }
 
 button:active {

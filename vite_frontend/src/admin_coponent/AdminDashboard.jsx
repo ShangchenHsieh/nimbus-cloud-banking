@@ -211,7 +211,7 @@ const AdminDashboard = () => {
                         placeholder="Search"
                         onChange={(e) => search(e.target.value)}
                      ></input>
-                     <div style={{ minHeight: "100%", overflowY: "auto" }}>
+                     <div className="users-container">
                         {matchingUsers.map((user) => (
                            <div
                               key={user.account_number}

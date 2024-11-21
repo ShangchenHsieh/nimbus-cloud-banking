@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import developer from "../assets/developer.png";
 import lee from "../assets/lr_pfp.png";
 import sean from "../assets/sean.jpg";
+import madison from "../assets/madison.jpeg";
 
 const AboutUs = () => {
    return (
@@ -91,7 +92,7 @@ const AboutUs = () => {
                         rel="noopener noreferrer"
                      >
                         <img
-                           src={developer}
+                           src={madison}
                            alt="Madison Kolley"
                            className="team-img"
                         />
@@ -99,8 +100,9 @@ const AboutUs = () => {
                      <h3 className="team-name">Madison Kolley</h3>
                      <p className="team-role">Full-stack Developer</p>
                      <p className="team-bio">
-                        Madison is an innovative problem solver with a strong focus on
-                        front-end frameworks and UX design.
+                        Studying CS and Math!
+                        Passionate about backend development and CS education.
+                        Click to connect with me via Linkedin!
                      </p>
                      <div className="social-icons">
                         <a

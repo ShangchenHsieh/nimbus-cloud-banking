@@ -119,6 +119,7 @@ const AdminDashboard = () => {
 
    const handleUserClick = async (user) => {
       const transactions = await fetchTransactions(user.account_number);
+      localStorage.setItem("currentAccountNumber", user.account_number);
       setSelectedUser({
          first_name: user.first_name,
          last_name: user.last_name,

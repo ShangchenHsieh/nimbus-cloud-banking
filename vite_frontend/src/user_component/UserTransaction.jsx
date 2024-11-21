@@ -9,7 +9,7 @@ const UserTransaction = (props) => {
       const formattedDate = dateTime.toLocaleDateString();
       const formattedTime = dateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
-      const providerText = props.provider ? `Provider: ${props.provider}` : "Third-party-provider";
+      const providerText = props.provider ? `Provider: ${props.provider}` : "Provider: Third-party-provider";
 
    return (
       <div className="transaction-container">

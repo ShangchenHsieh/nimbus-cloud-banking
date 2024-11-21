@@ -142,16 +142,6 @@ class SourceAccountView(APIView):
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
-class GetSourceAccountView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        try:
-            # Assuming each user has one primary bank account
-            source_account = BankAccount.objects.get(user=request.user)
-            return Response({"source_account_number": source_account.account_number}, status=status.HTTP_200_OK)
-        except BankAccount.DoesNotExist:
-            return Response({"error": "Source account not found for the current user."}, status=status.HTTP_404_NOT_FOUND)
 
 class Test(APIView):
     def get(self, request): 

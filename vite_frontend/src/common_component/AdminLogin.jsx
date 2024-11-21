@@ -5,7 +5,7 @@ import './styling/Login.css';
 import animation from "../assets/cloud_outline.json";
 import Lottie from 'react-lottie';
 
-const Login = () => {
+const AdminLogin = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -34,7 +34,7 @@ const Login = () => {
         password: formData.password,
       }),
     };
-    const response = await fetch('http://127.0.0.1:8000/auth/login/', requestOptions);
+    const response = await fetch('http://127.0.0.1:8000/auth/admin-login/', requestOptions);
     const data = await response.json();
 
     if (response.status === 401 || response.status === 400) {
@@ -43,7 +43,7 @@ const Login = () => {
       // Assuming the backend returns an access token on success
       localStorage.setItem('access_token', data.access);
       localStorage.setItem('refresh_token', data.refresh);
-      navigate('/userdashboard');
+      navigate('/admindashboard');
     }
   };
 
@@ -124,10 +124,10 @@ const Login = () => {
                     {/* Forgot Password Link */}
                     <div className="forgot-password-link">
                       <Link to="/forgot-password">Forgot Password?</Link>
-                      <Link to="/adminlogin" className="login-type-link">Admin login</Link>
+                      <Link to="/login" className="login-type-link">Customer login</Link>
                     </div>
 
-                    <input type="submit" className="signup-btn" value="Login" />
+                    <input type="submit" className="signup-btn" value="Admin Login" />
                   </form>
                 </div>
               </div>
@@ -139,4 +139,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;

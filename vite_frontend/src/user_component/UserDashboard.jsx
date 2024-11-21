@@ -462,16 +462,14 @@ const UserDashboard = () => {
                            transactionType={transaction.transaction_type}
                         />
                      ))}
-                     <div>
-                        <button
-                           className="view-all-button"
-                           onClick={() =>
-                              (window.location.href = "/usertransactions")
-                           }
-                        >
-                           View All
-                        </button>
-                     </div>
+                     <button
+                        className="view-all-button"
+                        onClick={() =>
+                           (window.location.href = "/usertransactions")
+                        }
+                     >
+                        View All
+                     </button>
                   </div>
                </div>
             </div>

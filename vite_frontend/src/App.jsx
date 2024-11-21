@@ -22,6 +22,8 @@ import Deposit from "./user_component/Deposit.jsx";
 import Withdrawal from "./user_component/Withdrawal.jsx";
 import AdminUserTransactions from "./admin_coponent/AdminUserTransactions.jsx";
 import.meta.env.VITE_API_KEY;
+import "./App.css";
+
 function App() {
    return (
       <UserProvider>

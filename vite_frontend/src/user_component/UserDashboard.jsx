@@ -304,6 +304,55 @@ const UserDashboard = () => {
       }
    }, [accountNumber, selectedAccountType]);
 
+
+
+
+   // Add this helper function to process transactions
+   const calculateActivityDistribution = (transactions) => {
+      const activityCounts = {
+         payments: 0,
+         transfers: 0,
+         deposits: 0,
+         withdrawals: 0,
+      };
+
+      // Count each transaction type
+      transactions.forEach((transaction) => {
+         switch (transaction.transaction_type) {
+            case "payment":
+               activityCounts.payments += 1;
+               break;
+            case "transfer":
+               activityCounts.transfers += 1;
+               break;
+            case "deposit":
+               activityCounts.deposits += 1;
+               break;
+            case "withdrawal":
+               activityCounts.withdrawals += 1;
+               break;
+            default:
+               break;
+         }
+      });
+
+      // Calculate percentages
+      const total = Object.values(activityCounts).reduce((sum, count) => sum + count, 0);
+      return {
+         payments: (activityCounts.payments / total) * 100 || 0,
+         transfers: (activityCounts.transfers / total) * 100 || 0,
+         deposits: (activityCounts.deposits / total) * 100 || 0,
+         withdrawals: (activityCounts.withdrawals / total) * 100 || 0,
+      };
+   };
+
+   // Inside the component
+   const activityDistribution = calculateActivityDistribution(recentTransactions);
+
+
+
+
+
    //const accountBalance = 500; // Placeholder balance value
    return (
       <>
@@ -390,43 +439,48 @@ const UserDashboard = () => {
                               </div>
                            </div>
                         </div>
-                        <div className="account-details-right-container">
-                           <h3 className="title">Monthly Activity</h3>
-                           <div className="monthly-report-chart">
-                              <div
-                                 style={{
-                                    height: "9%",
-                                    backgroundColor: "#e8faff",
-                                 }}
-                              >
-                                 <p className="text">Payments</p>
-                              </div>
-                              <div
-                                 style={{
-                                    height: "16%",
-                                    backgroundColor: "#b3eeff",
-                                 }}
-                              >
-                                 <p className="text">Transfers</p>
-                              </div>
-                              <div
-                                 style={{
-                                    height: "60%",
-                                    backgroundColor: "#80e3ff",
-                                 }}
-                              >
-                                 <p className="text">Deposits</p>
-                              </div>
-                              <div
-                                 style={{
-                                    height: "15%",
-                                    backgroundColor: "#4dd8ff",
-                                 }}
-                              >
-                                 <p className="text">Withdrawals</p>
-                              </div>
+                        <div className="monthly-report-chart">
+
+                           <div
+                              style={{
+                                 height: `${activityDistribution.payments}%`,
+                                 minHeight: "20px", // Minimum height for visibility
+                                 backgroundColor: "#e8faff",
+
+                              }}
+                           >
+                              <p className="text">Payments</p>
+                           </div>
+                           <div
+                              style={{
+                                 height: `${activityDistribution.transfers}%`,
+                                 minHeight: "20px", // Minimum height for visibility
+                                 backgroundColor: "#b3eeff",
+                              }}
+                           >
+                              <p className="text">Transfers</p>
+                           </div>
+                           <div
+                              style={{
+                                 height: `${activityDistribution.deposits}%`,
+                                 minHeight: "20px", // Minimum height for visibility
+                                 backgroundColor: "#80e3ff",
+                              }}
+                           >
+                              <p className="text">Deposits</p>
+                           </div>
+                           <div
+                              style={{
+                                 height: `${activityDistribution.withdrawals}%`,
+                                 minHeight: "20px", // Minimum height for visibility
+                                 backgroundColor: "#4dd8ff",
+                              }}
+                           >
+                              <p className="text">Withdrawal</p>
                            </div>
                         </div>
+
+
                      </div>
                      {/*
                      --UNCOMMENT IF USED--

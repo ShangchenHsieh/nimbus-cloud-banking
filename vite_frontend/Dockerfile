@@ -8,8 +8,8 @@ RUN npm install
 
 COPY . .
 
-RUN npm run dev
+RUN vite_frontend/npm run dev
 
 EXPOSE 5173
 
-CMD ["npm", "run", "preview"]
+CMD ["vite_frontend/npm", "run", "preview"]

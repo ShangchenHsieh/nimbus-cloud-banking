@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN ls
 
-COPY requirements.txt .
+COPY django_backend/requirements.txt .
 
 RUN pip install --upgrade pip
 

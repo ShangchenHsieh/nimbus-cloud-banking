@@ -1,15 +1,18 @@
 FROM node:20
 
-# WORKDIR /app
+# Set the working directory
+WORKDIR /app
 
-COPY vite_frontend/package*.json .
+# Copy package.json and package-lock.json into the container
+COPY vite_frontend/package*.json ./vite_frontend/
 
-RUN vite_frontend/npm install
+# Change directory to vite_frontend and install dependencies
+WORKDIR /app/vite_frontend
+RUN npm install
 
+# Copy the rest of the app files
 COPY . .
 
-RUN vite_frontend/npm run dev
-
+# Run the Vite development server (adjust as needed)
 EXPOSE 5173
-
-CMD ["vite_frontend/npm", "run", "preview"]
+CMD ["npm", "run", "preview"]

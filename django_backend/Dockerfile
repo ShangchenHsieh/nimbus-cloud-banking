@@ -1,10 +1,8 @@
 FROM python:3.10
 
-# WORKDIR /app
+WORKDIR /app
 
-RUN ls
-
-COPY django_backend/requirements.txt .
+COPY requirements.txt .
 
 RUN pip install --upgrade pip
 
@@ -14,4 +12,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["python", "django_backend/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

@@ -15,4 +15,4 @@ COPY . .
 
 # Run the Vite development server (adjust as needed)
 EXPOSE 5173
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "build"]

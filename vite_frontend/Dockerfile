@@ -2,14 +2,16 @@ FROM node:20
 
 # WORKDIR /app
 
-COPY package*.json ./
+COPY vite_frontend/package*.json ./
+
+RUN cd vite_frontend
 
 RUN npm install
 
 COPY . .
 
-RUN vite_frontend/npm run dev
+RUN npm run dev
 
 EXPOSE 5173
 
-CMD ["vite_frontend/npm", "run", "preview"]
+CMD ["npm", "run", "preview"]

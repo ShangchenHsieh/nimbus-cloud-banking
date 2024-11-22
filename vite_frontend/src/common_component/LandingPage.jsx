@@ -1,6 +1,7 @@
 import Navbar from "./Navbar";
 import './styling/LandingPage.css';
 import icon from "../assets/icon.png";
+import check from "../assets/1339484-200.png"
 
 const LandingPage = () => {
     return (
@@ -9,11 +10,11 @@ const LandingPage = () => {
             <div className="content">
                 <img src={icon} alt="Logo" />
                 <div className="landing-left">
-                    <h1 style={{ marginLeft: '10px', marginTop: '35px', padding: '0px', position: 'relative', bottom: '-25px', color: '#0099cc', fontWeight: 'bold' }}> Nimbus</h1>
-                    <h2 style={{ marginLeft: '10px', fontSize: '45px', marginBottom: '50px', position: 'relative', padding: '0px', color: 'white' }}> Next-gen banking solutions</h2>
+                    <h1 style={{ marginLeft: '10px', marginTop: '35px', padding: '0px', position: 'relative', bottom: '-25px', color: '#0099cc', fontWeight: '500' }}> Nimbus</h1>
+                    <h2 style={{ marginLeft: '10px', fontSize: '45px', marginBottom: '50px', position: 'relative', padding: '0px', color: 'white', fontWeight: '400' }}> Next-gen banking solutions</h2>
                 </div>
             </div>
-            <h1 style={{ fontSize: '50px', position: 'relative', padding: '0px', top: '-40px', fontWeight: 'bold', color: 'white' }}>Welcome to Nimbus Online Banking Services</h1>
+            <h1 style={{ fontSize: '50px', position: 'relative', padding: '0px', top: '-40px', fontWeight: 'bold', color: 'white', fontWeight: '400px' }}>Welcome to Nimbus Online Banking Services</h1>
             <div className="banner">
                 <p style={{ position: 'relative', padding: '0px', marginRight: '1000px', marginBottom: '220px', fontSize: '50px', top: '70px', fontWeight: 'bold' }}>Free</p>
                 <p style={{ position: 'relative', padding: '0px', marginRight: '1025px', marginBottom: '-150px', fontSize: '110px', top: '-160px', fontWeight: 'bold' }}>$100</p>
@@ -40,7 +41,7 @@ const LandingPage = () => {
                 </div>
             </div>
             <div className="checkingBanner">
-                <img className="checking-image" src="https://i.imgur.com/8Z11JsI.png" style={{ position: 'relative', padding: '0px', marginTop: '12px', top: '30px' }} />
+                <img className="checking-image" src={check} style={{ position: 'relative', padding: '0px', marginTop: '12px', top: '30px' }} />
                 <p style={{ position: 'relative', padding: '0px', fontSize: '50px', top: '-10px', fontWeight: 'bold' }}>Our checking account</p>
 
                 <div className="features">

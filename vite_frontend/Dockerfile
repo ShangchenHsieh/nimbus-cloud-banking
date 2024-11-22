@@ -12,4 +12,4 @@ RUN npm run build
 
 EXPOSE 5173
 
-CMD ["npm", "run", "preview"]
+CMD ["vite_frontend/npm", "run", "preview"]

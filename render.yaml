@@ -18,7 +18,7 @@ services:
         value: ${MAPS_API_KEY}
     healthCheckPath: / # Replace with a valid health check endpoint for Django if available
     buildCommand: ""
-    startCommand: python manage.py runserver 0.0.0.0:8000
+    # startCommand: python manage.py runserver 0.0.0.0:8000
     autoDeploy: true
 
   - type: web
@@ -30,5 +30,5 @@ services:
         value: http://django-backend:8000
     healthCheckPath: / # Replace with the frontend's health check endpoint if available
     buildCommand: npm install && npm run build
-    startCommand: npm run dev -- --host
+    # startCommand: npm run dev -- --host
     autoDeploy: true

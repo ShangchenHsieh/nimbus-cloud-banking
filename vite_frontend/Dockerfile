@@ -2,14 +2,20 @@ FROM node:20
 
 WORKDIR /app
 
+# Copy only package.json and package-lock.json for caching dependencies
 COPY vite_frontend/package*.json ./
-COPY vite_frontend /src/
+
+# Install dependencies
 RUN npm install
 
-COPY . .
+# Copy the rest of the frontend code
+COPY vite_frontend /app/
 
+# Run the build process
 RUN npm run build
 
+# Expose the port Vite uses for preview
 EXPOSE 5173
 
-CMD ["vite_frontend/npm", "run", "preview"]
+# Run the preview server
+CMD ["npm", "run", "preview"]

@@ -17,6 +17,20 @@ body {
    margin: 0;
    padding: 0;
    line-height: 1.6;
+   background-image: url('../../assets/wave.jpg');
+}
+
+
+.why-choose-nimbus {
+   color: var(--text-light); /* Use the white text color defined in your variables */
+}
+
+.why-choose-nimbus .section-title {
+   color: var(--text-light); /* Ensure the title is also white */
+}
+
+.why-choose-nimbus .section-description {
+   color: var(--text-light); /* Ensure the description is white */
 }
 
 .about-container {

@@ -21,10 +21,11 @@ const AboutUs = () => {
                   empower customers to take control of their financial future
                   with ease.
                </p>
+               <h2 className="section-title">Meet Our Developers</h2>
             </section>
 
             <section className="meet-team">
-               <h2 className="section-title">Meet Our Developers</h2>
+
                <div className="team-container">
                   {/* Alejandro Pacheco */}
                   <div className="team-member">

@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-%xry$*u5js-48q*lxf)#@n9-7%od9y1=+w=tos#3oapt-_0!&i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']  # Use specific domains/hosts in production
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'https://django-backend-atam.onrender.com']  # Use specific domains/hosts in production
 
 
 
@@ -71,6 +71,7 @@ SIMPLE_JWT = {
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,7 +84,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", # allow connection to React frontend on port 3000
     "http://localhost:5173", # allow requests from Vite on port 5173
     "http://localhost:8100", # allow connection to the enmulator
-    "http://localhost:8000"  # allow requests from the enmulator
+    "http://localhost:8000",  # allow requests from the enmulator
+    "*"
 ]
 
 
@@ -164,7 +166,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = BASE_DIR/'assets'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

@@ -12,12 +12,13 @@
 
 .body {
    font-family: var(--font-family);
-   background-color: var(--secondary-color);
    color: var(--text-dark);
    margin: 0;
    padding: 0;
    line-height: 1.6;
-   background-image: url('../../assets/wave.jpg');
+
+   background-color: var(--secondary-color);
+   background-image: url('../../assets//wave.jpg');
 }
 
 
@@ -37,6 +38,8 @@
    max-width: 1200px;
    margin: 0 auto;
    padding: 50px 20px;
+   background-image: url('../../assets/wave.jpg');
+
 }
 
 .section-title {

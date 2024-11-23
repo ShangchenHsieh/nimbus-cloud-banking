@@ -61,7 +61,7 @@ REST_FRAMEWORK = {
     ),
 }
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
@@ -85,7 +85,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173", # allow requests from Vite on port 5173
     "http://localhost:8100", # allow connection to the enmulator
     "http://localhost:8000",  # allow requests from the enmulator
-    "*"
+    "https://*",
+    "https://vite-frontend-gsju.onrender.com"
 ]
 
 

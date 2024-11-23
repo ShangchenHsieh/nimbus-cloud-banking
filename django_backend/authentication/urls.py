@@ -7,9 +7,11 @@ from .views import RegisterView
 from .views import LoginView
 from .views import UserProfileView
 from .views import AdminLoginView
+from .views import Test
 
 urlpatterns = [
     # TokenObtainPairView: Provides initial acces token(10 mins) and refresh token used to trade for longer access token
+    path('/', Test.as_view(), name='test'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # TokenRefreshView: Trades refresh token for longer access token(1 day)
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

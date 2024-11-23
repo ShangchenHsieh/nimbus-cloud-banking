@@ -154,3 +154,7 @@ class UserProfileView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class Test(APIView): 
+    def test(self, request):
+        return {'message': 'hello world'}

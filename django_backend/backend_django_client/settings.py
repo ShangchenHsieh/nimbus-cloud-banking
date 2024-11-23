@@ -81,14 +81,21 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000", # allow connection to React frontend on port 3000
-    "http://localhost:5173", # allow requests from Vite on port 5173
-    "http://localhost:8100", # allow connection to the enmulator
-    "http://localhost:8000",  # allow requests from the enmulator
-    "https://*",
-    "https://vite-frontend-gsju.onrender.com"
+    "http://localhost:3000",  # Development frontend URL
+    "http://localhost:5173",  # Vite server
+    "http://localhost:8100",  # Emulator
+    "http://localhost:8000",  # Localhost for testing
+    "https://vite-frontend-gsju.onrender.com",  # Production frontend URL
+    "https://django-backend-atam.onrender.com"  # Ensure this is correct for your backend
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://django-backend-atam.onrender.com",
+    "https://vite-frontend-gsju.onrender.com",
+    # Add any other trusted origins here
 ]
 
+# Disable CSRF validation for JWT
+CSRF_COOKIE_HTTPONLY = False
 
 
 ROOT_URLCONF = 'backend_django_client.urls'

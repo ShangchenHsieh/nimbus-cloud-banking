@@ -103,6 +103,7 @@ body {
    position: relative;
    overflow: hidden;
    animation: slideInFromLeft 1.2s ease;
+   margin-bottom: 10px;
 }
 
 .account-balance-container::before {
@@ -132,6 +133,7 @@ body {
    height: calc(100% - 48px);
    width: 100%;
    display: flex;
+   margin-bottom: 20px;
 }
 
 .account-balance-title {

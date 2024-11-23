@@ -8,7 +8,7 @@ const Settings = () => {
     last_name: '',
     phone: '',
     email: '',
-    password: '********', 
+    password: '********',
   });
 
   const [editableFields, setEditableFields] = useState({
@@ -85,12 +85,12 @@ const Settings = () => {
 
     // Send updated data to the backend
     const requestOptions = {
-      method: 'PUT', 
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(formData), 
+      body: JSON.stringify(formData),
     };
 
     try {
@@ -114,6 +114,8 @@ const Settings = () => {
     });
   };
 
+
+
   return (
     <>
       <Navbar />
@@ -121,11 +123,10 @@ const Settings = () => {
         {/* User Info Section */}
         <div className="user-info-container">
           <div className="user-initials">
-            {formData.first_name[0]}{formData.last_name[0]} 
+            {formData.first_name[0]}{formData.last_name[0]}
           </div>
           <div className="user-details">
-            <h2>{formData.first_name} {formData.last_name}</h2> 
-            <p>Last sign-in: October 8, 2024 at 9:45 AM</p> 
+            <h2>{formData.first_name} {formData.last_name}</h2>
           </div>
         </div>
 
@@ -190,21 +191,13 @@ const Settings = () => {
           {isStatementsVisible && (
             <div className="data-container">
               <div className="data-option">
-                <label className="data-label">Monthly Statements</label>
-                <button className="download-btn">Download PDF</button>
+                <label className="data-label">Statements</label>
+                <button className="download-btn" onClick={() =>
+                  (window.location.href = "/userstatement")
+                }>View More</button>
               </div>
-              <div className="data-option">
-                <label className="data-label">Tax Documents</label>
-                <button className="download-btn">Download PDF</button>
-              </div>
-              <div className="data-option">
-                <label className="data-label">Notices</label>
-                <button className="download-btn">Download PDF</button>
-              </div>
-              <div className="data-option">
-                <label className="data-label">Annual Summaries</label>
-                <button className="download-btn">Download PDF</button>
-              </div>
+
+
             </div>
           )}
         </div>

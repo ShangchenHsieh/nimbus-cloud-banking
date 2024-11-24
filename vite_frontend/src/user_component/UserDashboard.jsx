@@ -7,6 +7,10 @@ import UserPaymentOption from "./UserPaymentOption";
 
 import atmIcon from "../assets/atm.png";
 import checkIcon from "../assets/check.png";
+import paymentIcon from "../assets/Payment_Icon.png";
+import transferIcon from "../assets/Transfer_Icon.png";
+import depositIcon from "../assets/Deposit_Icon.png";
+import withdrawIcon from "../assets/Withdraw_Icon.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {
@@ -304,9 +308,6 @@ const UserDashboard = () => {
       }
    }, [accountNumber, selectedAccountType]);
 
-
-
-
    // Add this helper function to process transactions
    const calculateActivityDistribution = (transactions) => {
       const activityCounts = {
@@ -337,7 +338,10 @@ const UserDashboard = () => {
       });
 
       // Calculate percentages
-      const total = Object.values(activityCounts).reduce((sum, count) => sum + count, 0);
+      const total = Object.values(activityCounts).reduce(
+         (sum, count) => sum + count,
+         0
+      );
       return {
          payments: (activityCounts.payments / total) * 100 || 0,
          transfers: (activityCounts.transfers / total) * 100 || 0,
@@ -347,11 +351,8 @@ const UserDashboard = () => {
    };
 
    // Inside the component
-   const activityDistribution = calculateActivityDistribution(recentTransactions);
-
-
-
-
+   const activityDistribution =
+      calculateActivityDistribution(recentTransactions);
 
    //const accountBalance = 500; // Placeholder balance value
    return (
@@ -418,35 +419,37 @@ const UserDashboard = () => {
                               <div className="payments-container">
                                  <UserPaymentOption
                                     title="Pay"
+                                    icon={paymentIcon}
                                     action={() =>
                                        (window.location.href = "/userpayment")
                                     }
                                  ></UserPaymentOption>
                                  <UserPaymentOption
                                     title="Transfer"
+                                    icon={transferIcon}
                                     action={() =>
                                        (window.location.href = "/usertransfer")
                                     }
                                  ></UserPaymentOption>
                                  <UserPaymentOption
                                     title="Deposit"
+                                    icon={depositIcon}
                                     action={handleDepositClick}
                                  ></UserPaymentOption>
                                  <UserPaymentOption
                                     title="Withdraw"
+                                    icon={withdrawIcon}
                                     action={handleWithdraw}
                                  ></UserPaymentOption>
                               </div>
                            </div>
                         </div>
                         <div className="monthly-report-chart">
-
                            <div
                               style={{
                                  height: `${activityDistribution.payments}%`,
                                  minHeight: "20px", // Minimum height for visibility
                                  backgroundColor: "#e8faff",
-
                               }}
                            >
                               <p className="text">Payments</p>
@@ -479,8 +482,6 @@ const UserDashboard = () => {
                               <p className="text">Withdrawal</p>
                            </div>
                         </div>
-
-
                      </div>
                      {/*
                      --UNCOMMENT IF USED--

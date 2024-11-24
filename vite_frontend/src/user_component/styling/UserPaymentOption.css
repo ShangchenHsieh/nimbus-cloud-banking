@@ -11,7 +11,7 @@
 }
 
 .userpaymentoption-container {
-   height: 50%;
+   height: 100%;
    width: 70%;
    background: linear-gradient(45deg, #003349 0%, #002e42 100%);
    border: 2px solid #018fcc;
@@ -31,4 +31,20 @@
 
 .userpaymentoption-container:hover .text-bright {
    color: #555;
+}
+
+.userpaymentoption-container:hover .option-icon {
+   filter: brightness(0) saturate(100%) invert(32%) sepia(1%) saturate(0%)
+      hue-rotate(54deg) brightness(96%) contrast(89%);
+}
+
+.option-icon-container {
+   height: calc(100% - 48px);
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+}
+
+.option-icon {
+   height: calc(100% - 24px - 14px);
 }

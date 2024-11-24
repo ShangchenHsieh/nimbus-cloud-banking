@@ -9,7 +9,6 @@
    height: 100%; /* Ensure it fills its container */
 }
 
-
 body {
    margin: 0px;
 }
@@ -43,7 +42,6 @@ body {
    background-color: #f7f9fc;
    padding: 10px;
    margin-top: 60px;
-   
 }
 
 .welcome-container {
@@ -97,9 +95,9 @@ body {
 .account-balance-container {
    background: linear-gradient(135deg, #018fcc 30%, #00d4ff 90%);
    color: #ffffff;
-   border-radius: 15px;
-   width: 98.3%;
-   padding: 20px;
+   border-radius: 10px;
+   width: 100%;
+   padding: 10px;
    position: relative;
    overflow: hidden;
    animation: slideInFromLeft 1.2s ease;
@@ -107,7 +105,7 @@ body {
 }
 
 .account-balance-container::before {
-   content: '';
+   content: "";
    position: absolute;
    top: -50px;
    right: -50px;
@@ -133,13 +131,13 @@ body {
    height: calc(100% - 48px);
    width: 100%;
    display: flex;
-   margin-bottom: 20px;
 }
 
 .account-balance-title {
    font-size: 100px;
    color: #ffffff;
-   margin: 0px;
+   margin-top: 20px;
+   margin-bottom: 20px;
    padding: 12px;
 }
 
@@ -165,13 +163,12 @@ body {
 }
 
 .account-details-container {
-   height: calc(100% - 230px);
+   height: calc(100% - 267px);
    width: 100%;
    background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
    border-radius: 10px;
    padding: 10px;
-   padding-bottom: 20px;
 }
 
 .account-details-text {
@@ -221,11 +218,10 @@ body {
    }
 }
 
-
 .payments-container {
    height: calc(100% - 66px);
    display: flex;
-   padding: 10px 10px 10px 10px;
+   padding: 0px 10px 0px 10px;
 }
 
 .payments-container div:not(:last-child) {
@@ -241,12 +237,11 @@ body {
 }
 
 .monthly-report-chart {
-   height: calc(100% - 92px);
+   height: calc(100% - 6px);
+   width: 130px;
    border-radius: 10px;
-   margin: 0px 10px;
    transition: 0.3s;
    animation: slideInFromBottom 1s ease; /* Apply animation */
-   margin-top: 15px;
 }
 
 @keyframes slideInFromBottom {
@@ -259,7 +254,6 @@ body {
       opacity: 1;
    }
 }
-
 
 .monthly-report-chart:hover {
    transform: scale(1.03);
@@ -292,7 +286,7 @@ body {
 }
 
 .recent-transactions-container {
-   min-height: 109%;
+   height: 100%;
    width: 300px;
    background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -313,7 +307,6 @@ body {
       opacity: 1;
    }
 }
-
 
 .view-all-button {
    font-family: "Hammersmith One";

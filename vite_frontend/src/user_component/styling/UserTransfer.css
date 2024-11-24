@@ -82,3 +82,12 @@
    font-size: 16px;
    margin-top: 18px;
 }
+
+.transfer-input {
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   background-color: #f9fbfc;
+   border: 2px solid #ebeff0;
+   padding: 8px;
+   border-radius: 10px;
+}

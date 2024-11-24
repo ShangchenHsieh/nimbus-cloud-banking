@@ -182,3 +182,17 @@
    color: red;
    font-weight: bold;
 }
+
+.prototype-note {
+   padding: 0px 12px 0px 12px;
+}
+
+.payment-input {
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   background-color: #f9fbfc;
+   border: 2px solid #ebeff0;
+   padding: 8px;
+   margin: 0px 12px 12px 12px;
+   border-radius: 10px;
+}

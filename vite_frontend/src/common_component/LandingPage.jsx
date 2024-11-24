@@ -11,10 +11,10 @@ const LandingPage = () => {
                 <img src={icon} alt="Logo" />
                 <div className="landing-left">
                     <h1 style={{ marginLeft: '10px', marginTop: '35px', padding: '0px', position: 'relative', bottom: '-25px', color: '#0099cc', fontWeight: '500' }}> Nimbus</h1>
-                    <h2 style={{ marginLeft: '10px', fontSize: '45px', marginBottom: '50px', position: 'relative', padding: '0px', color: 'white' }}> Next-gen banking solutions</h2>
+                    <h2 style={{ marginLeft: '10px', fontSize: '45px', marginBottom: '50px', position: 'relative', padding: '0px', color: 'white', fontWeight: '350' }}> Next-gen banking solutions</h2>
                 </div>
             </div>
-            <h1 style={{ fontSize: '50px', position: 'relative', padding: '0px', top: '-40px', color: 'white', fontWeight: '400px' }}>Welcome to Nimbus Online Banking Services</h1>
+            <h1 style={{ fontSize: '50px', position: 'relative', padding: '0px', top: '-40px', color: 'white', fontWeight: '250' }}>Welcome to Nimbus Online Banking Services</h1>
             <div className="banner">
                 <p style={{ position: 'relative', padding: '0px', marginRight: '1000px', marginBottom: '220px', fontSize: '50px', top: '70px', fontWeight: 'bold' }}>Free</p>
                 <p style={{ position: 'relative', padding: '0px', marginRight: '1025px', marginBottom: '-150px', fontSize: '110px', top: '-160px', fontWeight: 'bold' }}>$100</p>

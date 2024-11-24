@@ -172,3 +172,13 @@
 .modal-button.cancel:hover {
    background: #c82333;
 }
+
+.success-message {
+   color: green;
+   font-weight: bold;
+}
+
+.error-message {
+   color: red;
+   font-weight: bold;
+}

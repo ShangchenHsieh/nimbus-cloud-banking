@@ -8,7 +8,9 @@ const Withdraw = () => {
    const [accountNumber, setAccountNumber] = useState("");
    const [amount, setAmount] = useState("");
    const [message, setMessage] = useState("");
+   const [isSubmitting, setIsSubmitting] = useState(false);
    const navigate = useNavigate();
+
    useEffect(() => {
       const fetchAccountNumber = async () => {
          const token = localStorage.getItem("access_token");
@@ -58,8 +60,10 @@ const Withdraw = () => {
       e.preventDefault();
       const token = localStorage.getItem("access_token");
       console.log("Access Token:", token); // Log the access token
+      setIsSubmitting(true);
       if (!token) {
          console.error("No access token found");
+         setIsSubmitting(false);
          return;
       }
 
@@ -83,6 +87,7 @@ const Withdraw = () => {
          setMessage(
             errorData["error"] || "Withdrawal failed. Please check your amount."
          );
+         setIsSubmitting(false);
       } else {
          const data = await response.json();
          console.log(data);
@@ -106,12 +111,24 @@ const Withdraw = () => {
                readOnly
             />
             <input
-               type="number"
+               type="text"
                placeholder="Amount"
                value={amount}
-               onChange={(e) => setAmount(e.target.value)}
+               min="0" // No negaive amounts
+               step="0.01" // Allow decimal values
+               onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*\.?\d{0,2}$/.test(value)) {
+                     setAmount(value);
+                  }
+               }}
+               onKeyDown={(e) => {
+                  if (["e", "E", "+", "-", "."].includes(e.key) && e.target.value === "") {
+                     e.preventDefault();
+                  }
+               }}
             />
-            <button type="submit">Submit Withdrawal</button>
+            <button type="submit" disabled={isSubmitting}>Submit Withdrawal</button>
          </form>
          {message && <p>{message}</p>}
       </>

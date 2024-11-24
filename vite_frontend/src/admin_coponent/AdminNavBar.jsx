@@ -15,9 +15,6 @@ const AdminNavbar = () => {
          </div>
          <div className="admin-navbar-center"></div>
          <div className="admin-navbar-option">
-            <Link to="/settings">Settings</Link>
-         </div>
-         <div className="admin-navbar-option">
             <Link to="/">Logout</Link>
          </div>
       </div>

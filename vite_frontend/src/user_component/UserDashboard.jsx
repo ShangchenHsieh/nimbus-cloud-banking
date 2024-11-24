@@ -330,7 +330,7 @@ const UserDashboard = () => {
             <div className="details-container">
                <div className="details-left-container">
                   <div className="account-balance-container">
-                     <h3 className="title-bright">Account Balance</h3>
+                     <h3 className="title-bright">Account Balance for {selectedAccountType} account #: {accountNumber}</h3>
                      <div className="account-balance-details-container">
                         <h3 className="account-balance-title">
                            {loading ? "Loading..." : `$${accountBalance}`}

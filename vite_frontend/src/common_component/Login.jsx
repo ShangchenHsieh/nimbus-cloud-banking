@@ -123,7 +123,6 @@ const Login = () => {
 
                     {/* Forgot Password Link */}
                     <div className="forgot-password-link">
-                      <Link to="/forgot-password">Forgot Password?</Link>
                       <Link to="/adminlogin" className="login-type-link">Admin login</Link>
                     </div>
 

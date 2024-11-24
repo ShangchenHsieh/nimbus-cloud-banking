@@ -11,6 +11,7 @@ const Deposit = () => {
     const [message, setMessage] = useState('');
     const [checkNum, setCheckNum] = useState('');
     const [checkImage, setCheckImage] = useState(null); // State to hold the check image
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -50,8 +51,10 @@ const Deposit = () => {
     const handleDeposit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('access_token');
+        setIsSubmitting(true);
         if (!token) {
             console.error("No access token found");
+            setIsSubmitting(false);
             return;
         }
         try {
@@ -65,6 +68,7 @@ const Deposit = () => {
             });
             if (!response.ok) {
                 setMessage('Please enter a valid amount.');
+                setIsSubmitting(false);
             } else {
                 const data = await response.json();
                 console.log(data);
@@ -72,6 +76,7 @@ const Deposit = () => {
             }
         } catch (error) {
             setMessage('Deposit failed. Please try again.');
+            setIsSubmitting(false);
         }
     };
 
@@ -98,20 +103,42 @@ const Deposit = () => {
                         readOnly
                     />
                     <input
-                        type="number"
+                        type="text"
                         placeholder="Check Number"
                         value={checkNum}
-                        onChange={(e) => setCheckNum(e.target.value)}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (/^\d*$/.test(value)) { // Only allow digits
+                                setCheckNum(value);
+                            }
+                        }}
+                        onKeyDown={(e) => {
+                            if (["e", "E", "+", "-", "."].includes(e.key)) { // Prevent scientific notation or invalid symbols
+                                e.preventDefault();
+                            }
+                        }}
                         className="no-arrows"
                     />
 
                     <input
-                        type="number"
+                        type="text"
                         placeholder="Amount"
                         value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
+                        min="0" // No negaive amounts
+                        step="0.01" // Allow decimal values
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (/^\d*\.?\d{0,2}$/.test(value)) {
+                                setAmount(value);
+                            }
+                        }}
+                        onKeyDown={(e) => {
+                            if (["e", "E", "+", "-", "."].includes(e.key) && e.target.value === "") {
+                                e.preventDefault();
+                            }
+                        }}
                     />
-                    <button type="submit">Submit Deposit</button>
+                    <button type="submit" disabled={isSubmitting}>Submit Deposit</button>
                 </form>
 
                 <div className="deposit-file-upload">

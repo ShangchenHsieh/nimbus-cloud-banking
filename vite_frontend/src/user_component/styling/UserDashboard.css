@@ -219,7 +219,7 @@ body {
 }
 
 .payments-container {
-   height: calc(100% - 66px);
+   height: calc(100% - 64px);
    display: flex;
    padding: 0px 10px 0px 10px;
 }

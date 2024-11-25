@@ -198,6 +198,7 @@ const UserDashboard = () => {
             setLoading(false);
             setAccountNumber(data.account_number);
             localStorage.setItem("currentAccountNumber", data.account_number);
+            localStorage.setItem("currentAccount", selectedAccountType);
          } catch (error) {
             console.error("Error fetching balance:", error);
          }

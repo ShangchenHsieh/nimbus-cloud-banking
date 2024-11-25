@@ -147,7 +147,6 @@ body {
    color: #555;
    width: 250px;
    background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
-   border: 2px solid #ffffff;
    border-radius: 10px;
    text-align: center;
    padding: 8px;
@@ -158,7 +157,6 @@ body {
 .account-balance-statement-button:hover {
    color: #555;
    background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
-   border: 2px solid #d1f4ff;
    cursor: pointer;
 }
 

@@ -1,36 +1,59 @@
+.contact-container {
+   height: calc(100vh - 100px);
+   background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
+   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+   border-radius: 10px;
+   padding: 10px;
+   margin: 10px;
+   margin-top: 70px;
+}
+
 .contact-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin: 20px;
 }
 
 .contact-form label {
-    margin: 10px 0;
-    font-size: 18px;
+   margin: 10px 0;
+   font-size: 18px;
 }
 
-.contact-form input,
+.contact-form input {
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   width: 300px;
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
+   border: none;
+   padding: 8px;
+   margin: 0px 12px 12px 12px;
+   border-radius: 10px;
+}
+
 .contact-form textarea {
-    width: 300px;
-    padding: 10px;
-    margin-top: 5px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   width: 300px;
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
+   border: none;
+   padding: 8px;
+   margin: 0px 12px 12px 12px;
+   border-radius: 10px;
+   resize: none;
 }
 
 .contact-form button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #3170e3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+   margin-top: 20px;
+   padding: 10px 20px;
+   font-size: 16px;
+   background-color: #3170e3;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
 }
 
 .contact-form button:hover {
-    background-color: #2556a8;
+   background-color: #2556a8;
 }

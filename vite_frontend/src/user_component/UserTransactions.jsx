@@ -30,7 +30,9 @@ const UserTransactions = () => {
             );
 
             if (!response.ok) {
-               throw new Error(`Error ${response.status}: ${response.statusText}`);
+               throw new Error(
+                  `Error ${response.status}: ${response.statusText}`
+               );
             }
 
             const data = await response.json();
@@ -41,7 +43,10 @@ const UserTransactions = () => {
                ...data.transfers,
             ];
 
-            combinedTransactions.sort((a, b) => new Date(b.transaction_date) - new Date(a.transaction_date));
+            combinedTransactions.sort(
+               (a, b) =>
+                  new Date(b.transaction_date) - new Date(a.transaction_date)
+            );
 
             setTransactions(combinedTransactions);
          } catch (error) {

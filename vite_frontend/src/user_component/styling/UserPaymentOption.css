@@ -49,14 +49,6 @@
    scale: 1.03;
 }
 
-.userpaymentoption-container::before .hover {
-   background-color: rgba(232, 250, 255, 0.1);
-}
-
-.userpaymentoption-container::after .hover {
-   background-color: rgba(232, 250, 255, 0.1);
-}
-
 .userpaymentoption-container:hover .title-bright {
    color: #555;
 }

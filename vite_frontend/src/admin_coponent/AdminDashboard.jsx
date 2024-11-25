@@ -184,6 +184,7 @@ const AdminDashboard = () => {
                            height: "100%",
                            display:
                               selectedUser.email.length > 0 ? "flex" : "none",
+                           flexDirection: "column",
                         }}
                      >
                         {selectedUser.transactions?.map((transaction) => (
@@ -193,6 +194,10 @@ const AdminDashboard = () => {
                               amount={transaction.amount}
                            ></AdminUserTransaction>
                         ))}
+                        <AdminUserTransaction
+                           id={123123}
+                           amount={123123}
+                        ></AdminUserTransaction>
                         <button
                            className="view-all-button"
                            onClick={() =>

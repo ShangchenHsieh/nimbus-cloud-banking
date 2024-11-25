@@ -188,9 +188,8 @@ body {
 }
 
 .account-holder-details-container {
-   height: calc(100% - 224px);
-   background-color: #f9fbfc;
-   border: 2px solid #ebeff0;
+   height: calc(100% - 216px);
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
    border-radius: 10px;
    margin-bottom: 10px;
    margin-right: 10px;
@@ -200,8 +199,7 @@ body {
 
 .account-payment-details-container {
    height: 200px;
-   background-color: #f9fbfc;
-   border: 2px solid #ebeff0;
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
    border-radius: 10px;
    margin-right: 10px;
    animation: slideInFromLeft 1s ease; /* Slide in from the right */
@@ -316,7 +314,6 @@ body {
    color: #ffffff;
    width: calc(100% - 24px);
    background: linear-gradient(45deg, #003349 0%, #002e42 100%);
-   border: 2px solid #018fcc;
    border-radius: 10px;
    text-align: center;
    margin: 0px 12px 0px 12px;
@@ -328,7 +325,6 @@ body {
 .view-all-button:hover {
    color: #555;
    background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
-   border: 2px solid #d1f4ff;
    cursor: pointer;
 }
 

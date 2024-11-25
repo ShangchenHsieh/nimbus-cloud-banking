@@ -121,7 +121,10 @@ const Login = () => {
 
                     {errorMessage && <div className="invalid-feedback">{errorMessage}</div>}
 
-
+                    {/* Forgot Password Link */}
+                    <div className="forgot-password-link">
+                      <Link to="/adminlogin" className="login-type-link">Admin login</Link>
+                    </div>
 
                     <input type="submit" className="signup-btn" value="Login" />
                   </form>

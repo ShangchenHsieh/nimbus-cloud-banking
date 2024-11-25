@@ -181,8 +181,9 @@ const AdminDashboard = () => {
                      <h3 className="title">User Activity</h3>
                      <div
                         style={{
+                           height: "100%",
                            display:
-                              selectedUser.email.length > 0 ? "block" : "none",
+                              selectedUser.email.length > 0 ? "flex" : "none",
                         }}
                      >
                         {selectedUser.transactions?.map((transaction) => (

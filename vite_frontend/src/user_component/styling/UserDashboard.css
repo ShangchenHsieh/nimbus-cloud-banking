@@ -242,6 +242,8 @@ body {
    border-radius: 10px;
    transition: 0.3s;
    animation: slideInFromBottom 1s ease; /* Apply animation */
+   display: flex;
+   flex-direction: column;
 }
 
 @keyframes slideInFromBottom {

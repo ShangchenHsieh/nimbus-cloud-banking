@@ -5,19 +5,15 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Image,
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 
-const Deposit = () => {
+const Withdraw = () => {
   const [accountNumber, setAccountNumber] = useState('');
   const [amount, setAmount] = useState('');
   const [message, setMessage] = useState('');
-  const [checkNum, setCheckNum] = useState('');
-  const [checkImage, setCheckImage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigation = useNavigation();
 
@@ -58,7 +54,7 @@ const Deposit = () => {
     fetchAccountNumber();
   }, []);
 
-  const handleDeposit = async () => {
+  const handleWithdraw = async () => {
     const token = await AsyncStorage.getItem('access_token');
     setIsSubmitting(true);
     if (!token) {
@@ -68,69 +64,48 @@ const Deposit = () => {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/transactions/deposit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          account_number: accountNumber,
-          amount: parseFloat(amount),
-        }),
-      });
+      const response = await fetch(
+        'http://127.0.0.1:8000/transactions/withdrawal',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            account_number: accountNumber,
+            amount: parseFloat(amount),
+          }),
+        }
+      );
 
       if (!response.ok) {
-        setMessage('Please enter a valid amount.');
-        setIsSubmitting(false);
+        const errorData = await response.json();
+        setMessage(
+          errorData.error || 'Withdrawal failed. Please check your amount.'
+        );
       } else {
         const data = await response.json();
-        console.log(data);
-        Alert.alert('Success', 'Deposit submitted successfully');
+        Alert.alert('Success', data.message || 'Withdrawal successful');
         setAmount('');
-        setCheckNum('');
         //navigation.navigate('UserDashboard');
       }
     } catch (error) {
-      setMessage('Deposit failed. Please try again.');
+      setMessage('Withdrawal failed. Please try again.');
+    } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const handleImageUpload = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: 'images',
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!result.canceled && result.assets && result.assets[0].uri) {
-      setCheckImage(result.assets[0].uri);
-    } else {
-      setMessage('Image upload canceled or failed.');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Deposit Funds</Text>
+      <Text style={styles.title}>Withdraw Funds</Text>
 
       <TextInput
         style={styles.input}
         placeholder="Account Number"
         value={accountNumber}
         editable={false}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Check Number"
-        keyboardType="numeric"
-        value={checkNum}
-        onChangeText={(value) => {
-          if (/^\d*$/.test(value)) {
-            setCheckNum(value);
-          }
-        }}
       />
       <TextInput
         style={styles.input}
@@ -142,36 +117,31 @@ const Deposit = () => {
             setAmount(value);
           }
         }}
+        onKeyPress={(e) => {
+          if (
+            ['e', 'E', '+', '-', '.'].includes(e.nativeEvent.key) &&
+            amount === ''
+          ) {
+            e.preventDefault();
+          }
+        }}
       />
       <TouchableOpacity
         style={[styles.button, isSubmitting && styles.buttonDisabled]}
-        onPress={handleDeposit}
+        onPress={handleWithdraw}
         disabled={isSubmitting}
       >
         <Text style={styles.buttonText}>
-          {isSubmitting ? 'Submitting...' : 'Submit Deposit'}
+          {isSubmitting ? 'Submitting...' : 'Submit Withdrawal'}
         </Text>
       </TouchableOpacity>
 
-      <View style={styles.fileUpload}>
-        <TouchableOpacity onPress={handleImageUpload}>
-          <Text style={styles.uploadLabel}>Upload Check Image</Text>
-        </TouchableOpacity>
-      </View>
-
-      {checkImage && (
-        <View style={styles.imagePreview}>
-          <Text style={styles.previewTitle}>Check Image Preview:</Text>
-          <Image source={{ uri: checkImage }} style={styles.previewImage} />
-        </View>
-      )}
-
-      {message && <Text style={styles.message}>{message}</Text>}
+      {message ? <Text style={styles.message}>{message}</Text> : null}
     </View>
   );
 };
 
-export default Deposit;
+export default Withdraw;
 
 const styles = StyleSheet.create({
   container: {
@@ -213,33 +183,6 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 18,
     fontWeight: 'bold',
-  },
-  fileUpload: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
-  uploadLabel: {
-    fontSize: 16,
-    color: '#555',
-    padding: 10,
-    borderRadius: 8,
-    backgroundColor: '#f7f9fc',
-    borderWidth: 2,
-    borderColor: '#ebeff0',
-  },
-  imagePreview: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
-  previewTitle: {
-    fontSize: 18,
-    marginBottom: 10,
-    color: '#003349',
-  },
-  previewImage: {
-    width: 300,
-    height: 200,
-    borderRadius: 8,
   },
   message: {
     marginTop: 10,

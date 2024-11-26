@@ -66,7 +66,7 @@ const Deposit = () => {
       setIsSubmitting(false);
       return;
     }
-
+  
     try {
       const response = await fetch('http://127.0.0.1:8000/transactions/deposit', {
         method: 'POST',
@@ -79,23 +79,24 @@ const Deposit = () => {
           amount: parseFloat(amount),
         }),
       });
-
+  
       if (!response.ok) {
         setMessage('Please enter a valid amount.');
-        setIsSubmitting(false);
       } else {
         const data = await response.json();
         console.log(data);
         Alert.alert('Success', 'Deposit submitted successfully');
         setAmount('');
         setCheckNum('');
-        //navigation.navigate('UserDashboard');
+        setMessage(''); // Clear any previous messages
       }
     } catch (error) {
       setMessage('Deposit failed. Please try again.');
-      setIsSubmitting(false);
+    } finally {
+      setIsSubmitting(false); // Reset the button state
     }
   };
+  
 
   const handleImageUpload = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({

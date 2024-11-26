@@ -6,15 +6,11 @@ import {
   TouchableOpacity,
   FlatList,
   Alert,
-  Modal,
   SafeAreaView,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
 
 const UserDashboard = () => {
-  const navigation = useNavigation();
-
   interface Transaction {
     id: number;
     transaction_date: string;
@@ -34,23 +30,16 @@ const UserDashboard = () => {
     phone: "",
     email: "",
   });
-  const [showDepositModal, setShowDepositModal] = useState(false);
 
-  const handleAccountTypeChange = (type: string) => {
+  const handleAccountTypeChange = async (type: string) => {
     setSelectedAccountType(type);
-  };
-
-  const handleDepositClick = () => {
-    setShowDepositModal(true);
-  };
-
-  const closeDepositModal = () => {
-    setShowDepositModal(false);
+    await fetchAccountInfo(type);
+    await fetchUserData();
   };
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("access_token");
-    //navigation.replace("(tabs)/login");
+    // Handle navigation to login screen if necessary
   };
 
   const fetchAccountTypes = async () => {
@@ -69,7 +58,10 @@ const UserDashboard = () => {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/account/account-types/", requestOptions);
+      const response = await fetch(
+        "http://127.0.0.1:8000/account/account-types/",
+        requestOptions
+      );
       if (!response.ok) throw new Error(`Error ${response.status}: ${response.statusText}`);
       const data = await response.json();
       setAccountTypes(data);
@@ -78,7 +70,7 @@ const UserDashboard = () => {
     }
   };
 
-  const fetchAccountInfo = async () => {
+  const fetchAccountInfo = async (accountType: string) => {
     const token = await AsyncStorage.getItem("access_token");
     if (!token) {
       Alert.alert("Error", "No access token found");
@@ -95,7 +87,7 @@ const UserDashboard = () => {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/account/account-info/${selectedAccountType}/`,
+        `http://127.0.0.1:8000/account/account-info/${accountType}/`,
         requestOptions
       );
       if (!response.ok) throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -104,6 +96,9 @@ const UserDashboard = () => {
       setAccountNumber(data.account_number);
       await AsyncStorage.setItem("currentAccountNumber", data.account_number);
       setLoading(false);
+
+      // Fetch recent transactions for the new account type
+      fetchRecentTransactions(data.account_number);
     } catch (error) {
       Alert.alert("Error fetching account info");
     }
@@ -139,7 +134,7 @@ const UserDashboard = () => {
     }
   };
 
-  const fetchRecentTransactions = async () => {
+  const fetchRecentTransactions = async (accountNumber: string) => {
     const token = await AsyncStorage.getItem("access_token");
     if (!token) {
       Alert.alert("Error", "No access token found");
@@ -174,64 +169,52 @@ const UserDashboard = () => {
 
   useEffect(() => {
     fetchAccountTypes();
-    fetchAccountInfo();
+    fetchAccountInfo(selectedAccountType);
     fetchUserData();
   }, [selectedAccountType]);
 
-  useEffect(() => {
-    if (accountNumber) {
-      fetchRecentTransactions();
-    }
-  }, [accountNumber, selectedAccountType]);
-
   return (
     <SafeAreaView style={styles.safeArea}>
+      <View style={styles.header}>
+        <Text style={styles.title}>
+          Hello, {userData.first_name}!
+        </Text>
+        <Text style={styles.subtitle}>Here's your account summary</Text>
+      </View>
+
+      <View style={styles.accountSelector}>
+        <Text style={styles.label}>Select Account Type:</Text>
+        <FlatList
+          data={accountTypes}
+          horizontal
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={[
+                styles.accountTypeButton,
+                selectedAccountType === item && styles.accountTypeButtonActive,
+              ]}
+              onPress={() => handleAccountTypeChange(item)}
+            >
+              <Text style={styles.accountTypeText}>{item}</Text>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+
+      <View style={styles.balanceContainer}>
+        <Text style={styles.balanceLabel}>Account Balance:</Text>
+        <Text style={styles.balanceAmount}>
+          {loading ? "Loading..." : `$${accountBalance}`}
+        </Text>
+      </View>
+
+      <Text style={styles.transactionsTitle}>Recent Transactions</Text>
+
       <FlatList
         data={recentTransactions}
         keyExtractor={(item, index) => `${item.id}-${index}`}
-        ListHeaderComponent={
-          <View>
-            <View style={styles.header}>
-              <Text style={styles.title}>Hello, {userData.first_name}!</Text>
-              <Text style={styles.subtitle}>Here's your account summary</Text>
-            </View>
-
-            <View style={styles.accountSelector}>
-              <Text style={styles.label}>Select Account Type:</Text>
-              <FlatList
-                data={accountTypes}
-                horizontal
-                keyExtractor={(item) => item}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    style={[
-                      styles.accountTypeButton,
-                      selectedAccountType === item && styles.accountTypeButtonActive,
-                    ]}
-                    onPress={() => handleAccountTypeChange(item)}
-                  >
-                    <Text style={styles.accountTypeText}>{item}</Text>
-                  </TouchableOpacity>
-                )}
-              />
-            </View>
-
-            <View style={styles.balanceContainer}>
-              <Text style={styles.balanceLabel}>Account Balance:</Text>
-              <Text style={styles.balanceAmount}>
-                {loading ? "Loading..." : `$${accountBalance}`}
-              </Text>
-              <TouchableOpacity
-                //onPress={() => navigation.navigate("UserStatement")}
-                style={styles.statementButton}
-              >
-                <Text style={styles.statementButtonText}>View Statement</Text>
-              </TouchableOpacity>
-            </View>
-
-            <Text style={styles.transactionsTitle}>Recent Transactions</Text>
-          </View>
-        }
+        
         renderItem={({ item }) => (
           <View style={styles.transactionItem}>
             <Text style={styles.transactionText}>
@@ -306,35 +289,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#3498db",
-  },
-  statementButton: {
-    marginTop: 10,
-    backgroundColor: "#3498db",
-    padding: 10,
-    borderRadius: 5,
-    alignItems: "center",
-  },
-  statementButtonText: {
-    color: "#fff",
-    textAlign: "center",
-  },
-  actionsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 20,
-    paddingHorizontal: 20,
-  },
-  actionButton: {
-    backgroundColor: "#4CAF50",
-    padding: 15,
-    borderRadius: 5,
-    flex: 1,
-    marginHorizontal: 5,
-  },
-  actionButtonText: {
-    color: "#fff",
-    textAlign: "center",
-    fontWeight: "bold",
   },
   transactionsTitle: {
     fontSize: 18,

@@ -6,6 +6,7 @@ from rest_framework_simplejwt.views import (
 from .views import RegisterView
 from .views import LoginView
 from .views import UserProfileView
+from .views import AdminLoginView
 
 urlpatterns = [
     # TokenObtainPairView: Provides initial acces token(10 mins) and refresh token used to trade for longer access token
@@ -16,5 +17,6 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     # Login Api
     path('login/', LoginView.as_view(), name='login'),
+    path('admin-login/', AdminLoginView.as_view(), name='admin-login'),
     path('user/', UserProfileView.as_view(), name='user-profile'),
 ]

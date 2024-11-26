@@ -5,173 +5,134 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Image,
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 
-const Deposit = () => {
-  const [accountNumber, setAccountNumber] = useState('');
-  const [amount, setAmount] = useState('');
+const UserTransfer = () => {
+  const [sourceAccountNumber, setSourceAccountNumber] = useState('');
   const [message, setMessage] = useState('');
-  const [checkNum, setCheckNum] = useState('');
-  const [checkImage, setCheckImage] = useState('');
+  const [error, setError] = useState('');
+  const [amount, setAmount] = useState('');
+  const [destinationAccountNumber, setDestinationAccountNumber] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
-    const fetchAccountNumber = async () => {
-      const token = await AsyncStorage.getItem('access_token');
-      if (!token) {
-        console.error('No access token found');
-        return;
-      }
-
+    const fetchSourceAccountNumber = async () => {
       try {
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        const id = decodedToken.user_id;
-
-        const response = await fetch(
-          `http://127.0.0.1:8000/account/account-number/${id}/`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        setAccountNumber(data.account_number[0]);
+        const accountNumber = await AsyncStorage.getItem('currentAccountNumber');
+        setSourceAccountNumber(accountNumber || 'Unavailable');
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error('Failed to load source account number:', error);
+        setSourceAccountNumber('Unavailable');
       }
     };
 
-    fetchAccountNumber();
+    fetchSourceAccountNumber();
   }, []);
 
-  const handleDeposit = async () => {
-    const token = await AsyncStorage.getItem('access_token');
+  const handleTransfer = async () => {
     setIsSubmitting(true);
+    const token = await AsyncStorage.getItem('access_token');
+
     if (!token) {
-      Alert.alert('Error', 'No access token found');
+      console.error('No access token found');
+      setError('User not authenticated.');
       setIsSubmitting(false);
       return;
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/transactions/deposit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          account_number: accountNumber,
-          amount: parseFloat(amount),
-        }),
-      });
+      const response = await fetch(
+        'http://127.0.0.1:8000/transactions/internal-transfer/',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            source_account_number: sourceAccountNumber,
+            destination_account_number: destinationAccountNumber,
+            amount: parseFloat(amount),
+          }),
+        }
+      );
 
       if (!response.ok) {
-        setMessage('Please enter a valid amount.');
-        setIsSubmitting(false);
+        const errorData = await response.json();
+        console.error('Error details:', errorData);
+        setError(errorData.error || 'Transfer failed.');
       } else {
         const data = await response.json();
         console.log(data);
-        Alert.alert('Success', 'Deposit submitted successfully');
+        setMessage('Transfer successful!');
+        setError('');
+        setDestinationAccountNumber('');
         setAmount('');
-        setCheckNum('');
         //navigation.navigate('UserDashboard');
       }
     } catch (error) {
-      setMessage('Deposit failed. Please try again.');
+      console.error('An unexpected error occurred:', error);
+      setError('Transfer failed. Please try again.');
+    } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const handleImageUpload = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: 'images',
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!result.canceled && result.assets && result.assets[0].uri) {
-      setCheckImage(result.assets[0].uri);
-    } else {
-      setMessage('Image upload canceled or failed.');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Deposit Funds</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Account Number"
-        value={accountNumber}
-        editable={false}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Check Number"
-        keyboardType="numeric"
-        value={checkNum}
-        onChangeText={(value) => {
-          if (/^\d*$/.test(value)) {
-            setCheckNum(value);
-          }
-        }}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Amount"
-        keyboardType="numeric"
-        value={amount}
-        onChangeText={(value) => {
-          if (/^\d*\.?\d{0,2}$/.test(value)) {
-            setAmount(value);
-          }
-        }}
-      />
-      <TouchableOpacity
-        style={[styles.button, isSubmitting && styles.buttonDisabled]}
-        onPress={handleDeposit}
-        disabled={isSubmitting}
-      >
-        <Text style={styles.buttonText}>
-          {isSubmitting ? 'Submitting...' : 'Submit Deposit'}
+      <Text style={styles.title}>Transfer Funds</Text>
+      <View style={styles.detailsContainer}>
+        <Text style={styles.text}>
+          Source Account: {sourceAccountNumber || 'Loading...'}
         </Text>
-      </TouchableOpacity>
-
-      <View style={styles.fileUpload}>
-        <TouchableOpacity onPress={handleImageUpload}>
-          <Text style={styles.uploadLabel}>Upload Check Image</Text>
-        </TouchableOpacity>
-      </View>
-
-      {checkImage && (
-        <View style={styles.imagePreview}>
-          <Text style={styles.previewTitle}>Check Image Preview:</Text>
-          <Image source={{ uri: checkImage }} style={styles.previewImage} />
+        <View style={styles.inputGroup}>
+          <Text style={styles.text}>Destination Account Number:</Text>
+          <TextInput
+            style={styles.inputBox}
+            value={destinationAccountNumber}
+            keyboardType="numeric"
+            onChangeText={(value) => {
+              if (/^\d*$/.test(value)) {
+                setDestinationAccountNumber(value);
+              }
+            }}
+          />
         </View>
-      )}
-
-      {message && <Text style={styles.message}>{message}</Text>}
+        <View style={styles.inputGroup}>
+          <Text style={styles.text}>Amount:</Text>
+          <TextInput
+            style={styles.inputBox}
+            value={amount}
+            placeholder="Amount"
+            keyboardType="numeric"
+            onChangeText={(value) => {
+              if (/^\d*\.?\d{0,2}$/.test(value)) {
+                setAmount(value);
+              }
+            }}
+          />
+        </View>
+        <TouchableOpacity
+          style={[styles.button, isSubmitting && styles.buttonDisabled]}
+          onPress={handleTransfer}
+          disabled={isSubmitting}
+        >
+          <Text style={styles.buttonText}>
+            {isSubmitting ? 'Submitting...' : 'Transfer Now'}
+          </Text>
+        </TouchableOpacity>
+        {message ? <Text style={styles.successMessage}>{message}</Text> : null}
+        {error ? <Text style={styles.errorMessage}>{error}</Text> : null}
+      </View>
     </View>
   );
 };
 
-export default Deposit;
+export default UserTransfer;
 
 const styles = StyleSheet.create({
   container: {
@@ -183,26 +144,43 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    color: '#003349',
+    color: '#555',
     marginBottom: 20,
-    textAlign: 'center',
   },
-  input: {
-    width: '90%',
+  detailsContainer: {
+    width: '100%',
     padding: 12,
-    marginBottom: 15,
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  inputGroup: {
+    marginBottom: 10,
+  },
+  text: {
+    fontSize: 16,
+    color: '#555',
+    marginBottom: 8,
+  },
+  inputBox: {
+    width: '100%',
+    padding: 10,
     borderWidth: 2,
     borderColor: '#ebeff0',
-    borderRadius: 8,
-    backgroundColor: '#f7f9fc',
+    borderRadius: 10,
+    fontSize: 14,
     color: '#555',
-    fontSize: 16,
+    backgroundColor: '#f7f9fc',
   },
   button: {
-    width: '90%',
+    width: '100%',
     padding: 12,
-    backgroundColor: '#007bbd',
-    borderRadius: 8,
+    backgroundColor: '#003349',
+    borderRadius: 10,
     alignItems: 'center',
     marginTop: 10,
   },
@@ -210,41 +188,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#a0c8e6',
   },
   buttonText: {
+    fontSize: 16,
     color: '#ffffff',
-    fontSize: 18,
     fontWeight: 'bold',
   },
-  fileUpload: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
-  uploadLabel: {
+  successMessage: {
+    marginTop: 15,
     fontSize: 16,
-    color: '#555',
-    padding: 10,
-    borderRadius: 8,
-    backgroundColor: '#f7f9fc',
-    borderWidth: 2,
-    borderColor: '#ebeff0',
+    color: '#2ecc71',
   },
-  imagePreview: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
-  previewTitle: {
-    fontSize: 18,
-    marginBottom: 10,
-    color: '#003349',
-  },
-  previewImage: {
-    width: 300,
-    height: 200,
-    borderRadius: 8,
-  },
-  message: {
-    marginTop: 10,
+  errorMessage: {
+    marginTop: 15,
+    fontSize: 16,
     color: '#e74c3c',
-    fontSize: 16,
-    textAlign: 'center',
   },
 });

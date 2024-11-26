@@ -37,3 +37,24 @@ class UserAndAccountDetailsSerializer(serializers.ModelSerializer):
             'user_id', 'first_name', 'last_name', 'phone', 'email',
             'account_type', 'account_number', 'balance', 'status'
         ]
+
+class DeleteAccountSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    account_type = serializers.CharField()
+
+    def validate(self, data):
+        email = data.get('email')
+        account_type = data.get('account_type')
+
+        # Ensure a user with the provided email exists
+        try:
+            user = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
+            raise serializers.ValidationError({"email": "User with this email does not exist."})
+
+        # Ensure the account with the provided account type exists for the user
+        if not BankAccount.objects.filter(user=user, account_type=account_type).exists():
+            raise serializers.ValidationError({"account_type": "No account of this type exists for the user."})
+
+        data['user'] = user
+        return data

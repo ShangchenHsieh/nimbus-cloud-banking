@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .serializers import AccountInfoSerializer, CreateAccountSerializer, UserAndAccountDetailsSerializer
+from .serializers import AccountInfoSerializer, CreateAccountSerializer, UserAndAccountDetailsSerializer, DeleteAccountSerializer
 from .models import BankAccount
 from rest_framework import status
 
@@ -57,3 +57,17 @@ class AllUserAndAccountsView(APIView):
         accounts = BankAccount.objects.select_related('user').all()
         serializer = UserAndAccountDetailsSerializer(accounts, many=True)
         return Response(serializer.data)
+
+class DeleteAccountView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request):
+        serializer = DeleteAccountSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.validated_data['user']
+            account_type = serializer.validated_data['account_type']
+
+            # Delete the account
+            BankAccount.objects.filter(user=user, account_type=account_type).delete()
+            return Response({"message": "Account deleted successfully."}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

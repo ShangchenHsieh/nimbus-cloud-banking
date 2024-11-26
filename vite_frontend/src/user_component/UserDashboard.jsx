@@ -92,6 +92,70 @@ const UserDashboard = () => {
       navigate("/withdraw");
    };
 
+   const handleDeleteAccount = async () => {
+      if (parseFloat(accountBalance) !== 0) {
+         alert(
+            "Account cannot be deleted. Please ensure the account balance is $0 before deleting."
+         );
+         return;
+      }
+
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+         console.error("No access token found");
+         return;
+      }
+   
+      const requestOptions = {
+         method: "DELETE",
+         headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+         },
+         body: JSON.stringify({
+            email: userData.email, 
+            account_type: selectedAccountType, 
+         }),
+      };
+   
+      try {
+         const response = await fetch(
+            "http://127.0.0.1:8000/account/delete-account/",
+            requestOptions
+         );
+   
+         if (!response.ok) {
+            throw new Error(
+               `Error ${response.status}: ${response.statusText}`
+            );
+         }
+   
+         const data = await response.json();
+         console.log("Account deleted successfully:", data);
+   
+         // Remove the deleted account type from the dropdown
+         setAccountTypes((prevAccountTypes) =>
+            prevAccountTypes.filter((type) => type !== selectedAccountType)
+         );
+   
+         // Reset the selected account type
+         if (accountTypes.length > 1) {
+            setSelectedAccountType(accountTypes[0]);
+         } else {
+            setSelectedAccountType("");
+         }
+   
+         alert("Account deleted successfully!");
+         //setSelectedAccountType(""); // Reset selected account type
+         //setAccountTypes(); // Refetch all account types
+         //window.location.reload();
+         fetchAccountInfo();
+      } catch (error) {
+         console.error("Error deleting account or account already deleted and failted to retrieve info:", error);
+         //alert("Failed to delete account. Please try again.");
+      }
+   };   
+
    const createAccount = async (accountType) => {
       const token = localStorage.getItem("access_token");
       if (!token) {
@@ -312,10 +376,10 @@ const UserDashboard = () => {
    // Add this helper function to process transactions
    const calculateActivityDistribution = (transactions) => {
       const activityCounts = {
-         payments: 25,
-         transfers: 25,
-         deposits: 25,
-         withdrawals: 25,
+         payments: 0,
+         transfers: 0,
+         deposits: 0,
+         withdrawals: 0,
       };
 
       // Count each transaction type
@@ -377,6 +441,12 @@ const UserDashboard = () => {
                      <option value="add-account">+(Add New Account)</option>
                   )}
                </select>
+               <button
+                     className="delete-account-button"
+                     onClick={handleDeleteAccount}
+                  >
+                     X Delete Account
+                  </button>
             </div>
             <div className="details-container">
                <div className="details-left-container">
@@ -531,6 +601,7 @@ const UserDashboard = () => {
                      </button>
                   </div>
                </div>
+               
             </div>
          </div>
          {/* Open Account Model */}
@@ -565,7 +636,7 @@ const UserDashboard = () => {
                      }
                   >
                      Create Account
-                  </button>
+                  </button> 
                </div>
             </div>
          )}

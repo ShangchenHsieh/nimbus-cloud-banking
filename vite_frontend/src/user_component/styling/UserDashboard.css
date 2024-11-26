@@ -1,12 +1,12 @@
 /* Add styles for the chart container */
 .monthly-report-chart-container {
-   background-color: #fff; /* White background for consistency */
-   border-radius: 8px; /* Rounded corners */
-   padding: 20px; /* Padding for spacing */
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a card-like effect */
-   margin-top: 20px; /* Space above the chart */
-   width: 100%; /* Make it take full width */
-   height: 100%; /* Ensure it fills its container */
+   background-color: #fff; 
+   border-radius: 8px; 
+   padding: 20px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+   margin-top: 20px; 
+   width: 100%; 
+   height: 100%; 
 }
 
 body {
@@ -399,11 +399,11 @@ body {
    background-color: #b3eeff;
 }
 .icon {
-   width: 40px; /* adjust size as needed */
+   width: 40px; 
    height: auto;
    margin-bottom: 10px;
 }
-/* Button Styles */
+
 button {
    font-family: "Hammersmith One", sans-serif;
    font-size: 16px;
@@ -428,7 +428,16 @@ button:active {
    background: linear-gradient(45deg, #007bbd 0%, #018fcc 100%);
 }
 
-/* Optional: Adjust button spacing if needed */
 button + button {
    margin-left: 10px;
 }
+
+.delete-account-button {
+   color: white;
+   border: none;
+   border-radius: 5px;
+   padding: 5px 10px;
+   cursor: pointer;
+   margin-top: 1px;
+}
+

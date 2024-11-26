@@ -1,10 +1,11 @@
-from .serializers import ProcessInternalTransferSerializer, ProcessDepositSerializer, ProcessWithdrawalSerializer, DisplayDepositTransactionSerializer, DisplayWithdrawalTransactionSerializer, DisplayInternalAccountTransferSerializer, RecurringPaymentSerializer
+from .serializers import ProcessInternalTransferSerializer, ProcessDepositSerializer, ProcessWithdrawalSerializer, DisplayDepositTransactionSerializer, DisplayWithdrawalTransactionSerializer, DisplayInternalAccountTransferSerializer, RecurringPaymentSerializer, DisplayRecurringPaymentSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import status
 from bank_account.models import BankAccount
-from .models import DepositTransaction, WithdrawalTransaction, InternalAccountTransfer
+from datetime import date
+from .models import DepositTransaction, WithdrawalTransaction, InternalAccountTransfer, RecurringPayment
 
 class ProcessInternalTransferView(APIView):
     permission_classes = [IsAuthenticated]
@@ -146,6 +147,15 @@ class GetTransactionsView(APIView):
         
         return Response(response_data, status=status.HTTP_200_OK)
     
+class RetrieveRecurringPaymentsView(APIView):
+    def get(self, request, account_number):
+        try:
+            bank_account = BankAccount.objects.get(account_number=account_number)
+        except BankAccount.DoesNotExist:
+            return Response({"error": "Bank account does not exist."}, status=status.HTTP_404_NOT_FOUND)
+        recurring_payments = RecurringPayment.objects.filter(bank_account=bank_account)
+        serializer = DisplayRecurringPaymentSerializer(recurring_payments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
 class SourceAccountView(APIView):
     permission_classes = [IsAuthenticated]
@@ -168,3 +178,34 @@ class Test(APIView):
     def get(self, request): 
         data = {'name': 'sean',}
         return Response(data, status=status.HTTP_200_OK)
+    
+class ProcessExistingRecurringPaymentsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        today = date.today()
+        recurring_payments = RecurringPayment.objects.filter(next_payment_date__lte=today, is_active=True)
+
+        processed_payments = []
+        errors = []
+
+        for payment in recurring_payments:
+            try:
+                payment.update_balance()
+                processed_payments.append({
+                    "id": payment.id,
+                    "amount": payment.amount,
+                    "next_payment_date": payment.next_payment_date,
+                    "status": "Processed",
+                })
+            except Exception as e:
+                errors.append({
+                    "id": payment.id,
+                    "error": str(e),
+                })
+
+        return Response({
+            "message": "Recurring payments processed",
+            "processed_payments": processed_payments,
+            "errors": errors,
+        }, status=status.HTTP_200_OK)

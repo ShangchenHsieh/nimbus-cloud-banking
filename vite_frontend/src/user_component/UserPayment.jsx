@@ -13,6 +13,8 @@ const UserPayment = () => {
    const [amountWithFee, setAmountWithFee] = useState("");
    const [message, setMessage] = useState("");
    const [isSubmitting, setIsSubmitting] = useState(false);
+   const [recurringPayments, setRecurringPayments] = useState([]);
+
 
 
    // ALEX HERE'S THE DATE
@@ -21,6 +23,7 @@ const UserPayment = () => {
       setPayDate(event.target.value);
       console.log(payDate)
    };
+   const [recurringDays, setRecurringDays] = useState("");
 
    const navigate = useNavigate();
 
@@ -122,7 +125,47 @@ const UserPayment = () => {
       fetchAccountInfo();
    }, [selectedAccountType]);
 
-   const handleWithdraw = async (e) => {
+   useEffect(() => {
+      const fetchRecurringPayments = async () => {
+         const token = localStorage.getItem("access_token");
+         if (!token) {
+            console.error("No access token found");
+            return;
+         }
+   
+         const requestOptions = {
+            method: "GET",
+            headers: {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${token}`,
+            },
+         };
+   
+         try {
+            const response = await fetch(
+               `http://127.0.0.1:8000/transactions/active-recurring-payments/${accountNumber}/`,
+               requestOptions
+            );
+   
+            if (!response.ok) {
+               throw new Error(
+                  `Error ${response.status}: ${response.statusText}`
+               );
+            }
+   
+            const data = await response.json();
+            setRecurringPayments(data);
+         } catch (error) {
+            console.error("Error fetching recurring payments:", error);
+         }
+      };
+   
+      if (accountNumber) {
+         fetchRecurringPayments();
+      }
+   }, [accountNumber]);
+
+   const handlePayment = async (e) => {
       e.preventDefault();
       const token = localStorage.getItem("access_token");
       setIsSubmitting(true);
@@ -134,7 +177,7 @@ const UserPayment = () => {
       }
 
       const response = await fetch(
-         "http://127.0.0.1:8000/transactions/withdrawal",
+         "http://127.0.0.1:8000/transactions/recurring-payment",
          {
             method: "POST",
             headers: {
@@ -144,6 +187,8 @@ const UserPayment = () => {
             body: JSON.stringify({
                account_number: accountNumber,
                amount: parseFloat(amount),
+               next_payment_date: payDate,
+               interval_days: recurringDays,
             }),
          }
       );
@@ -210,12 +255,34 @@ const UserPayment = () => {
                               }
                            }}
                         />
+                        <p className="text">Enter first payment date: </p>
                         <input
                            type="date"
                            id="pay-date"
                            className="date-input"
                            value={payDate}
                            onChange={handleDateChange}
+                        />
+                        <p className="text">Enter recurring payment interval(in days): </p>
+                        <input
+                           className="recurring-input"
+                           type="text"
+                           placeholder="days"
+                           value={recurringDays}
+                           onChange={(e) => {
+                              const value = e.target.value;
+                              if (/^\d*$/.test(value)) {
+                                 setRecurringDays(value);
+                              }
+                           }}
+                           onKeyDown={(e) => {
+                              if (
+                                 ["e", "E", "+", "-", "."].includes(e.key) &&
+                                 e.target.value === ""
+                              ) {
+                                 e.preventDefault();
+                              }
+                           }}
                         />
                      </div>
 
@@ -229,6 +296,33 @@ const UserPayment = () => {
                         </p>
                      </div>
                   </div>
+                  <div className="recurring-payments-container">
+            <h3 className="title">Recurring Payments</h3>
+            {recurringPayments.length > 0 ? (
+               <table className="recurring-payments-table">
+                  <thead>
+                     <tr>
+                        <th>Amount</th>
+                        <th>Next Payment Date</th>
+                        <th>Interval (Days)</th>
+                        <th>Status</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {recurringPayments.map((payment) => (
+                        <tr key={payment.id}>
+                           <td>${payment.amount}</td>
+                           <td>{payment.next_payment_date}</td>
+                           <td>{payment.interval_days}</td>
+                           <td>{payment.is_active ? "Active" : "Inactive"}</td>
+                        </tr>
+                     ))}
+                  </tbody>
+               </table>
+            ) : (
+               <p>No recurring payments found.</p>
+            )}
+      </div>
                   <button className="pay-now-button" onClick={openModal}>
                      Pay Now
                   </button>
@@ -255,6 +349,8 @@ const UserPayment = () => {
             </div>
          </div>
 
+
+
          {isModalOpen && (
             <div className="modal-overlay">
                <div className="modal-content">
@@ -266,7 +362,7 @@ const UserPayment = () => {
                   <div className="modal-buttons">
                      <button
                         className="modal-button confirm"
-                        onClick={handleWithdraw}
+                        onClick={handlePayment}
                         disabled={isSubmitting}
                      >
                         Confirm Payment

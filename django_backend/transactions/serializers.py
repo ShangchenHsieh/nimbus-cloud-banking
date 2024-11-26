@@ -178,7 +178,10 @@ class DisplayInternalAccountTransferSerializer(serializers.ModelSerializer):
         model = InternalAccountTransfer
         fields = ['id', 'transaction_date', 'provider', 'amount', 'transaction_type']
         
-        
+class DisplayRecurringPaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecurringPayment
+        fields = ['id', 'bank_account', 'amount', 'next_payment_date', 'interval_days', 'is_active']
         
     
     

@@ -48,6 +48,8 @@ const formatTransactionAmount = (type, amount) => {
    return `$${amount}`;
 };
 
+
+
 const UserDashboard = () => {
    const navigate = useNavigate();
    const [accountBalance, setAccountBalance] = useState(0);
@@ -231,6 +233,38 @@ const UserDashboard = () => {
       };
 
       fetchAccountTypes();
+   }, []);
+
+   const handleProcessRecurringPayments = async () => {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+         return;
+      }
+
+      const requestOptions = {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+         },
+      };
+
+      try {
+         const response = await fetch(
+            "http://127.0.0.1:8000/transactions/process-recurring-payments/",
+            requestOptions
+         );
+
+         if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+         }
+      } catch (error) {
+         console.error("Error processing recurring payments:", error);
+      }
+   };
+
+   useEffect(() => {
+      handleProcessRecurringPayments();
    }, []);
 
    useEffect(() => {

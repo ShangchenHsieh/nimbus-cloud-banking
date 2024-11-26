@@ -16,23 +16,18 @@ One of the best things about software is that they can make our lives more effic
 ## Installation
 
 1. Install Docker/ Docker Desktop from https://www.docker.com/
+2. To find the Docker images, navigate to https://hub.docker.com/repository/docker/madisonkolley/nimbus-cloud-banking-docker/tags
+3. Copy and run the command to pull the Docker images 
+    - `docker pull madisonkolley/nimbus-cloud-banking-docker:frontend`
+    - `docker pull madisonkolley/nimbus-cloud-banking-docker:backend`
+4. Run the images using:
+    - `docker run -p 8000:8000 madisonkolley/nimbus-cloud-banking-docker:backend`
+    - `docker run -p 5173:5173 madisonkolley/nimbus-cloud-banking-docker:frontend`
 
-2. Navigate to your desired directory, eg. $ `cd Desktop/Code`
-
-3. Clone the git repository using $ `git clone https://github.com/ShangchenHsieh/nimbus-cloud-banking.git`
-
-4. Navigate to the project directory. $ `cd nimbus-cloud-banking`
-
-5. Create two .env files in the corresponding folders given the variables: 
-    - The first .env file resides in the **django_backend** directory
-    - The second .env file files in the **vite_frontend** directory
-
-6. Make sure the Docker daemon is open and running:
-    - To build the docker images, run the command `docker compose --env-file ./django_backend/.env up --build` 
-
-7. Once the container is built, visit: 
+6. Once the container is built, visit 
     - vite-1    |   ➜  Local:   http://localhost:5173/
-    - vite-1    |   ➜  Network: http://172.18.0.2:5173/
+  
+## Showcase
 
 ## Developers
 

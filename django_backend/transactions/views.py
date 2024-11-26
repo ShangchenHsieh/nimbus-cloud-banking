@@ -1,4 +1,4 @@
-from .serializers import ProcessInternalTransferSerializer, ProcessDepositSerializer, ProcessWithdrawalSerializer, DisplayDepositTransactionSerializer, DisplayWithdrawalTransactionSerializer, DisplayInternalAccountTransferSerializer
+from .serializers import ProcessInternalTransferSerializer, ProcessDepositSerializer, ProcessWithdrawalSerializer, DisplayDepositTransactionSerializer, DisplayWithdrawalTransactionSerializer, DisplayInternalAccountTransferSerializer, RecurringPaymentSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -71,6 +71,27 @@ class ProcessWithdrawalView(APIView):
                 # Catch exceptions like the insufficient funds that is raised in update_balance() of Transfer model
                 return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+    
+class ProcessRecurringPaymentView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        serializer = RecurringPaymentSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                recurringPayment = serializer.save()
+                return Response(
+                    {"message": "Recurring payment successfuly set",
+                     'id': recurringPayment.id, 
+                     'transaction_type': recurringPayment.transaction_type, 
+                     'amount': recurringPayment.amount, 
+                     'transaction_date': recurringPayment.transaction_date}, 
+                    status=status.HTTP_201_CREATED
+                )
+            except Exception as e:
+                # Catch exceptions like the insufficient funds that is raised in update_balance() of Transfer model
+                return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class GetTransactionsView(APIView):   
     def get(self, request, account_number):

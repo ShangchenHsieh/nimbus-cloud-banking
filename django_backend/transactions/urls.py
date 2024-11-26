@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import ProcessInternalTransferView, ProcessDepositView, Test, ProcessWithdrawalView, GetTransactionsView, SourceAccountView
+from .views import ProcessInternalTransferView, ProcessDepositView, Test, ProcessWithdrawalView, GetTransactionsView, SourceAccountView, ProcessRecurringPaymentView
 
 
 
@@ -12,5 +12,6 @@ urlpatterns = [
     path('user-transactions/<str:account_number>/', GetTransactionsView.as_view(), name='get_transactions'),
     path("source-account/", SourceAccountView.as_view(), name="source-account"),
     path('user-transactions/<str:account_number>/', GetTransactionsView.as_view(), name='get_transactions'),
+    path('recurring-payment', ProcessRecurringPaymentView.as_view(), name='recurring-payment'),
     path('test', Test.as_view(), name='testing_endpoint'),
 ]

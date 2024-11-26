@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import InternalAccountTransfer, WithdrawalTransaction, DepositTransaction
+from .models import InternalAccountTransfer, WithdrawalTransaction, DepositTransaction, RecurringPayment
 from django.db import transaction
 from bank_account.models import BankAccount
 
@@ -129,6 +129,40 @@ class ProcessWithdrawalSerializer(serializers.ModelSerializer):
             )
         return withdraw
         
+        
+class RecurringPaymentSerializer(serializers.ModelSerializer): 
+    account_number = serializers.CharField(max_length=10)
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2)
+    next_payment_date = serializers.DateField()
+    interval_days = serializers.IntegerField()
+    
+    class Meta: 
+        model = RecurringPayment
+        fields = ['account_number', 'amount', 'next_payment_date', 'interval_days']
+    
+    
+    def create(self, validated_data):
+        account_number = validated_data['account_number']
+        amount = validated_data['amount']
+        next_payment_date = validated_data['next_payment_date']
+        interval_days = validated_data['interval_days']
+        try:
+            account_number = BankAccount.objects.get(account_number=account_number)
+        except BankAccount.DoesNotExist:
+            raise serializers.ValidationError("Account number is invalid or may not exist.")
+        if amount <= 0: 
+            raise serializers.ValidationError("Withdrawal amount must be greater than zero.")
+        if amount > account_number.balance:
+            raise serializers.ValidationError("Withdrawal Amount exceeds account balance")
+        recurringPayment = RecurringPayment.objects.create(
+                bank_account=account_number,      
+                amount=amount,
+                transaction_type='withdrawal',
+                next_payment_date=next_payment_date,
+                interval_days=interval_days,
+            )
+        return recurringPayment
+        
 class DisplayDepositTransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = DepositTransaction
@@ -143,8 +177,6 @@ class DisplayInternalAccountTransferSerializer(serializers.ModelSerializer):
     class Meta:
         model = InternalAccountTransfer
         fields = ['id', 'transaction_date', 'provider', 'amount', 'transaction_type']
-        
-        
         
         
         

@@ -123,7 +123,7 @@ const Login = () => {
         {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
 
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Admin Login</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -7,6 +7,10 @@ import UserPaymentOption from "./UserPaymentOption";
 
 import atmIcon from "../assets/atm.png";
 import checkIcon from "../assets/check.png";
+import paymentIcon from "../assets/Payment_Icon.png";
+import transferIcon from "../assets/Transfer_Icon.png";
+import depositIcon from "../assets/Deposit_Icon.png";
+import withdrawIcon from "../assets/Withdraw_Icon.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {
@@ -305,6 +309,52 @@ const UserDashboard = () => {
       }
    }, [accountNumber, selectedAccountType]);
 
+   // Add this helper function to process transactions
+   const calculateActivityDistribution = (transactions) => {
+      const activityCounts = {
+         payments: 25,
+         transfers: 25,
+         deposits: 25,
+         withdrawals: 25,
+      };
+
+      // Count each transaction type
+      transactions.forEach((transaction) => {
+         switch (transaction.transaction_type) {
+            case "payment":
+               activityCounts.payments += 1;
+               break;
+            case "transfer":
+               activityCounts.transfers += 1;
+               break;
+            case "deposit":
+               activityCounts.deposits += 1;
+               break;
+            case "withdrawal":
+               activityCounts.withdrawals += 1;
+               break;
+            default:
+               break;
+         }
+      });
+
+      // Calculate percentages
+      const total = Object.values(activityCounts).reduce(
+         (sum, count) => sum + count,
+         0
+      );
+      return {
+         payments: (activityCounts.payments / total) * 100 || 0,
+         transfers: (activityCounts.transfers / total) * 100 || 0,
+         deposits: (activityCounts.deposits / total) * 100 || 0,
+         withdrawals: (activityCounts.withdrawals / total) * 100 || 0,
+      };
+   };
+
+   // Inside the component
+   const activityDistribution =
+      calculateActivityDistribution(recentTransactions);
+
    //const accountBalance = 500; // Placeholder balance value
    return (
       <>
@@ -331,7 +381,10 @@ const UserDashboard = () => {
             <div className="details-container">
                <div className="details-left-container">
                   <div className="account-balance-container">
-                     <h3 className="title-bright">Account Balance for {selectedAccountType} account #: {accountNumber}</h3>
+                     <h3 className="title-bright">
+                        Account Balance for {selectedAccountType} account #:{" "}
+                        {accountNumber}
+                     </h3>
                      <div className="account-balance-details-container">
                         <h3 className="account-balance-title">
                            {loading ? "Loading..." : `$${accountBalance}`}
@@ -370,62 +423,67 @@ const UserDashboard = () => {
                               <div className="payments-container">
                                  <UserPaymentOption
                                     title="Pay"
+                                    icon={paymentIcon}
                                     action={() =>
                                        (window.location.href = "/userpayment")
                                     }
                                  ></UserPaymentOption>
                                  <UserPaymentOption
                                     title="Transfer"
+                                    icon={transferIcon}
                                     action={() =>
                                        (window.location.href = "/usertransfer")
                                     }
                                  ></UserPaymentOption>
                                  <UserPaymentOption
                                     title="Deposit"
+                                    icon={depositIcon}
                                     action={handleDepositClick}
                                  ></UserPaymentOption>
                                  <UserPaymentOption
                                     title="Withdraw"
+                                    icon={withdrawIcon}
                                     action={handleWithdraw}
                                  ></UserPaymentOption>
                               </div>
                            </div>
                         </div>
-                        <div className="account-details-right-container">
-                           <h3 className="title">Monthly Activity</h3>
-                           <div className="monthly-report-chart">
-                              <div
-                                 style={{
-                                    height: "9%",
-                                    backgroundColor: "#e8faff",
-                                 }}
-                              >
-                                 <p className="text">Payments</p>
-                              </div>
-                              <div
-                                 style={{
-                                    height: "16%",
-                                    backgroundColor: "#b3eeff",
-                                 }}
-                              >
-                                 <p className="text">Transfers</p>
-                              </div>
-                              <div
-                                 style={{
-                                    height: "60%",
-                                    backgroundColor: "#80e3ff",
-                                 }}
-                              >
-                                 <p className="text">Deposits</p>
-                              </div>
-                              <div
-                                 style={{
-                                    height: "15%",
-                                    backgroundColor: "#4dd8ff",
-                                 }}
-                              >
-                                 <p className="text">Withdrawals</p>
-                              </div>
+                        <div className="monthly-report-chart">
+                           <div
+                              style={{
+                                 height: `${activityDistribution.payments}%`,
+                                 minHeight: "20px", // Minimum height for visibility
+                                 backgroundColor: "#e8faff",
+                              }}
+                           >
+                              <p className="text">Payments</p>
+                           </div>
+                           <div
+                              style={{
+                                 height: `${activityDistribution.transfers}%`,
+                                 minHeight: "20px", // Minimum height for visibility
+                                 backgroundColor: "#b3eeff",
+                              }}
+                           >
+                              <p className="text">Transfers</p>
+                           </div>
+                           <div
+                              style={{
+                                 height: `${activityDistribution.deposits}%`,
+                                 minHeight: "20px", // Minimum height for visibility
+                                 backgroundColor: "#80e3ff",
+                              }}
+                           >
+                              <p className="text">Deposits</p>
+                           </div>
+                           <div
+                              style={{
+                                 height: `${activityDistribution.withdrawals}%`,
+                                 minHeight: "20px", // Minimum height for visibility
+                                 backgroundColor: "#4dd8ff",
+                              }}
+                           >
+                              <p className="text">Withdrawals</p>
                            </div>
                         </div>
                      </div>
@@ -463,16 +521,14 @@ const UserDashboard = () => {
                            transactionType={transaction.transaction_type}
                         />
                      ))}
-                     <div>
-                        <button
-                           className="view-all-button"
-                           onClick={() =>
-                              (window.location.href = "/usertransactions")
-                           }
-                        >
-                           View All
-                        </button>
-                     </div>
+                     <button
+                        className="view-all-button"
+                        onClick={() =>
+                           (window.location.href = "/usertransactions")
+                        }
+                     >
+                        View All
+                     </button>
                   </div>
                </div>
             </div>

@@ -1,3 +1,14 @@
+/* Add styles for the chart container */
+.monthly-report-chart-container {
+   background-color: #fff; /* White background for consistency */
+   border-radius: 8px; /* Rounded corners */
+   padding: 20px; /* Padding for spacing */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a card-like effect */
+   margin-top: 20px; /* Space above the chart */
+   width: 100%; /* Make it take full width */
+   height: 100%; /* Ensure it fills its container */
+}
+
 body {
    margin: 0px;
 }
@@ -35,7 +46,7 @@ body {
 
 .welcome-container {
    height: 30px;
-   background: linear-gradient(45deg, #003349 0%, #002e42 100%);
+   background: linear-gradient(45deg, #003349 0%, #e8faff 100%);
    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
    border-radius: 10px;
    padding: 10px;
@@ -45,7 +56,6 @@ body {
 }
 
 .account-selector {
-   font-family: "Hammersmith One";
    font-size: 14px;
    color: #ffffff;
    background-color: #003349;
@@ -83,13 +93,38 @@ body {
 }
 
 .account-balance-container {
-   height: 200px;
-   width: 100%;
-   background: linear-gradient(45deg, #1e508d 0%, #b2edff 100%);
-   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+   background: linear-gradient(135deg, #018fcc 30%, #00d4ff 90%);
+   color: #ffffff;
    border-radius: 10px;
+   width: 100%;
    padding: 10px;
+   position: relative;
+   overflow: hidden;
+   animation: slideInFromLeft 1.2s ease;
    margin-bottom: 10px;
+}
+
+.account-balance-container::before {
+   content: "";
+   position: absolute;
+   top: -50px;
+   right: -50px;
+   width: 150px;
+   height: 150px;
+   background: rgba(255, 255, 255, 0.2);
+   border-radius: 50%;
+   z-index: 0;
+}
+
+@keyframes slideInFromLeft {
+   from {
+      transform: translateX(-100%);
+      opacity: 0;
+   }
+   to {
+      transform: translateX(0);
+      opacity: 1;
+   }
 }
 
 .account-balance-details-container {
@@ -101,7 +136,8 @@ body {
 .account-balance-title {
    font-size: 100px;
    color: #ffffff;
-   margin: 0px;
+   margin-top: 20px;
+   margin-bottom: 20px;
    padding: 12px;
 }
 
@@ -111,7 +147,6 @@ body {
    color: #555;
    width: 250px;
    background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
-   border: 2px solid #ffffff;
    border-radius: 10px;
    text-align: center;
    padding: 8px;
@@ -122,12 +157,11 @@ body {
 .account-balance-statement-button:hover {
    color: #555;
    background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
-   border: 2px solid #d1f4ff;
    cursor: pointer;
 }
 
 .account-details-container {
-   height: calc(100% - 230px);
+   height: calc(100% - 267px);
    width: 100%;
    background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -152,25 +186,36 @@ body {
 }
 
 .account-holder-details-container {
-   height: calc(100% - 224px);
-   background-color: #f9fbfc;
-   border: 2px solid #ebeff0;
+   height: calc(100% - 216px);
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
    border-radius: 10px;
    margin-bottom: 10px;
    margin-right: 10px;
    overflow: auto;
+   animation: slideInFromLeft 1s ease; /* Slide in from the left */
 }
 
 .account-payment-details-container {
    height: 200px;
-   background-color: #f9fbfc;
-   border: 2px solid #ebeff0;
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
    border-radius: 10px;
    margin-right: 10px;
+   animation: slideInFromLeft 1s ease; /* Slide in from the right */
+}
+
+@keyframes slideInFromLeft {
+   from {
+      transform: translateX(-100%);
+      opacity: 0;
+   }
+   to {
+      transform: translateX(0);
+      opacity: 1;
+   }
 }
 
 .payments-container {
-   height: calc(100% - 66px);
+   height: calc(100% - 64px);
    display: flex;
    padding: 0px 10px 0px 10px;
 }
@@ -188,10 +233,24 @@ body {
 }
 
 .monthly-report-chart {
-   height: calc(100% - 92px);
+   height: calc(100% - 6px);
+   width: 130px;
    border-radius: 10px;
-   margin: 0px 10px;
    transition: 0.3s;
+   animation: slideInFromBottom 1s ease; /* Apply animation */
+   display: flex;
+   flex-direction: column;
+}
+
+@keyframes slideInFromBottom {
+   from {
+      transform: translateY(100%);
+      opacity: 0;
+   }
+   to {
+      transform: translateY(0);
+      opacity: 1;
+   }
 }
 
 .monthly-report-chart:hover {
@@ -217,14 +276,34 @@ body {
 .monthly-report-chart div:last-child {
    border-radius: 0px 0px 10px 10px;
 }
+.monthly-report-chart p {
+   margin: 3px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
 
 .recent-transactions-container {
-   min-height: 100%;
+   height: 100%;
    width: 300px;
    background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
    border-radius: 10px;
    padding: 10px;
+   animation: slideInFromBottom 1s ease; /* Slide in from the right */
+   display: flex;
+   flex-direction: column;
+}
+
+@keyframes slideInFromBottom {
+   from {
+      transform: translateY(100%);
+      opacity: 0;
+   }
+   to {
+      transform: translateY(0);
+      opacity: 1;
+   }
 }
 
 .view-all-button {
@@ -233,18 +312,17 @@ body {
    color: #ffffff;
    width: calc(100% - 24px);
    background: linear-gradient(45deg, #003349 0%, #002e42 100%);
-   border: 2px solid #018fcc;
    border-radius: 10px;
    text-align: center;
-   padding: 4px;
    margin: 0px 12px 0px 12px;
    transition: 0.3s;
+   margin-top: auto !important;
+   margin-bottom: 12px !important;
 }
 
 .view-all-button:hover {
    color: #555;
    background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
-   border: 2px solid #d1f4ff;
    cursor: pointer;
 }
 
@@ -342,7 +420,7 @@ button {
 button:hover {
    background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
    color: #003349;
-   transform: scale(1.05);
+   transform: scale(1.03);
 }
 
 button:active {

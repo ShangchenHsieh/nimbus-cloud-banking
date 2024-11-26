@@ -181,8 +181,10 @@ const AdminDashboard = () => {
                      <h3 className="title">User Activity</h3>
                      <div
                         style={{
+                           height: "100%",
                            display:
-                              selectedUser.email.length > 0 ? "block" : "none",
+                              selectedUser.email.length > 0 ? "flex" : "none",
+                           flexDirection: "column",
                         }}
                      >
                         {selectedUser.transactions?.map((transaction) => (
@@ -192,6 +194,10 @@ const AdminDashboard = () => {
                               amount={transaction.amount}
                            ></AdminUserTransaction>
                         ))}
+                        <AdminUserTransaction
+                           id={123123}
+                           amount={123123}
+                        ></AdminUserTransaction>
                         <button
                            className="view-all-button"
                            onClick={() =>
@@ -211,7 +217,7 @@ const AdminDashboard = () => {
                         placeholder="Search"
                         onChange={(e) => search(e.target.value)}
                      ></input>
-                     <div style={{ minHeight: "100%", overflowY: "auto" }}>
+                     <div className="users-container">
                         {matchingUsers.map((user) => (
                            <div
                               key={user.account_number}

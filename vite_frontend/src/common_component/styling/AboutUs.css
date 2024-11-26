@@ -1,97 +1,147 @@
 :root {
-   --primary-color: #1e508d; /* Main theme color */
-   --secondary-color: #f0f4f8; /* Light background color */
-   --text-dark: #333; /* Dark text */
-   --text-light: #ffffff; /* Light text */
-   --accent-color: #4a90e2; /* Accent color */
-   --shadow-color: rgba(0, 0, 0, 0.1); /* Soft shadow */
-   --font-family: "Hammersmith One", sans-serif; /* Define a CSS variable for easier reuse */
+   --primary-color: #1e508d;
+   --secondary-color: #f9f9f9;
+   --accent-color: #4a90e2;
+   --shadow-color: rgba(0, 0, 0, 0.1);
+   --text-dark: #333;
+   --text-light: #ffffff;
+   --card-bg: #ffffff;
+   --hover-bg: #f0f8ff;
+   --font-family: "Poppins", sans-serif;
+}
+
+.body {
+   font-family: var(--font-family);
+   background-color: var(--secondary-color);
+   color: var(--text-dark);
+   margin: 0;
+   padding: 0;
+   line-height: 1.6;
+   background-image: url('../../assets/wave.jpg');
+}
+
+
+.why-choose-nimbus {
+   color: var(--text-light); /* Use the white text color defined in your variables */
+}
+
+.why-choose-nimbus .section-title {
+   color: var(--text-light); /* Ensure the title is also white */
+}
+
+.why-choose-nimbus .section-description {
+   color: var(--text-light); /* Ensure the description is white */
 }
 
 .about-container {
-   font-family: "Hammersmith One", sans-serif;
-
-   background-color: var(--secondary-color); /* Light background */
-   box-shadow: 0px 4px 12px var(--shadow-color); /* Subtle shadow */
-   border-radius: 10px;
-   margin: 10px;
    max-width: 1200px;
    margin: 0 auto;
-   padding: 70px;
+   padding: 50px 20px;
+   background-image: url('../../assets/wave.jpg');
 }
 
 .section-title {
+   font-size: 2.2rem;
    color: var(--primary-color);
-   font-size: 1.8rem;
-   margin-bottom: 20px;
    text-align: center;
+   margin-bottom: 10px;
+   position: relative;
+}
+
+.section-title::after {
+   content: "";
+   display: block;
+   width: 80px;
+   height: 4px;
+   background-color: var(--accent-color);
+   margin: 10px auto;
 }
 
 .section-description {
-   color: var(--text-dark);
+   text-align: center;
    font-size: 1.2rem;
-   margin-bottom: 30px;
-   text-align: center;
-}
-
-.meet-team {
-   margin-top: 40px;
-   text-align: center;
+   color: var(--text-dark);
+   margin-bottom: 40px;
 }
 
 .team-container {
-   display: flex;
-   justify-content: space-between; /* Ensures even spacing between team members */
-   gap: 25px;
-   flex-wrap: wrap;
-   padding: 0 20px;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+   gap: 30px;
 }
 
 .team-member {
-   background-color: var(--primary-color); /* Solid color for background */
-   color: var(--text-light); /* White text for contrast */
-   border-radius: 10px;
-   padding: 20px; /* Increased padding for breathing room */
-   text-align: center;
-   width: 300px; /* Reduced card width */
-   margin-bottom: 20px; /* Adjust spacing between cards */
-   box-shadow: 0px 4px 12px var(--shadow-color); /* Soft shadow for depth */
-   transition: transform 0.2s, box-shadow 0.2s;
+   background-color: var(--card-bg);
+   border-radius: 15px;
+   overflow: hidden;
+   box-shadow: 0px 4px 12px var(--shadow-color);
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
+   cursor: pointer;
 }
 
 .team-member:hover {
-   transform: translateY(-5px); /* Slight lift on hover */
-   box-shadow: 0px 8px 16px var(--shadow-color); /* Enhanced shadow on hover */
+   transform: translateY(-8px);
+   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+   background-color: var(--hover-bg);
 }
 
 .team-img {
-   width: 200px;
+   width: 100%;
    height: 250px;
-   border-radius: 8px; /* Subtle border radius */
-   border: 3px solid #ddd;
-   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
    object-fit: cover;
-   margin-bottom: 15px;
+   display: block;
+   border-bottom: 2px solid var(--accent-color);
+}
+
+.team-details {
+   padding: 20px;
+   text-align: center;
 }
 
 .team-name {
-   color: var(--text-light); /* White text for contrast */
-   font-size: 1.3rem;
+   font-size: 1.4rem;
+   color: var(--primary-color);
    font-weight: bold;
    margin-bottom: 8px;
+   padding-left: 25px;
+   padding-right: 25px;
 }
 
 .team-role {
-   color: #ccc; /* Lighter text for the role */
-   font-size: 1.1rem;
-   margin-bottom: 12px;
+   font-size: 1rem;
+   color: var(--accent-color);
+   font-style: italic;
+   padding: 25px;
+   font-weight: bold;
 }
 
 .team-bio {
-   color: var(--text-light); /* White text */
-   font-size: 1rem;
-   background-color: rgba(255, 255, 255, 0.1); /* Light translucent overlay */
-   padding: 10px;
-   border-radius: 6px;
-   line-height: 1.6;
+   font-size: 0.95rem;
+   color: var(--text-dark);
+   margin-bottom: 15px;
+   line-height: 1.5;
+   padding-left: 25px;
+   padding-right: 25px;
+   padding-bottom: 25px;
+}
+
+.team-links {
+   display: flex;
+   justify-content: center;
+   gap: 15px;
+}
+
+.team-links a {
+   text-decoration: none;
+   color: #fff;
+   background-color: var(--primary-color);
+   padding: 8px 12px;
+   border-radius: 5px;
+   font-size: 0.9rem;
+   font-weight: bold;
+   transition: background-color 0.3s ease;
+}
+
+.team-links a:hover {
+   background-color: var(--accent-color);
 }

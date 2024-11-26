@@ -7,7 +7,9 @@ const UserNavbar = () => {
       <div className="user-navbar">
          <div className="user-navbar-left">
             <div className="user-navbar-logo">
-               <img src={icon} alt="Logo" />
+               <Link to="/userdashboard">
+                  <img src={icon} alt="Logo" />
+               </Link>
             </div>
             <h3>Nimbus</h3>
          </div>

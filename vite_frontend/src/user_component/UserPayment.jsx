@@ -14,6 +14,14 @@ const UserPayment = () => {
    const [message, setMessage] = useState("");
    const [isSubmitting, setIsSubmitting] = useState(false);
 
+
+   // ALEX HERE'S THE DATE
+   const [payDate, setPayDate] = useState("");
+   const handleDateChange = (event) => {
+      setPayDate(event.target.value);
+      console.log(payDate)
+   };
+
    const navigate = useNavigate();
 
    const openModal = () => {
@@ -27,13 +35,15 @@ const UserPayment = () => {
 
    const handleAccountTypeChange = (event) => {
       setSelectedAccountType(event.target.value);
-   }
+   };
 
    useEffect(() => {
       const parsedAmount = parseFloat(amount) || 0;
       const calculatedFee = parsedAmount * 0.02; // fee is 2% of the entered amount
       setFee(calculatedFee.toFixed(2));
-      setAmountWithFee(parsedAmount > 0 ? (parsedAmount + calculatedFee).toFixed(2) : "0.00");
+      setAmountWithFee(
+         parsedAmount > 0 ? (parsedAmount + calculatedFee).toFixed(2) : "0.00"
+      );
    }, [amount]);
 
    useEffect(() => {
@@ -73,7 +83,6 @@ const UserPayment = () => {
 
       fetchAccountTypes();
    }, []);
-
 
    useEffect(() => {
       const fetchAccountInfo = async () => {
@@ -164,26 +173,27 @@ const UserPayment = () => {
                   <div>
                      <div className="item">
                         <p className="text">Payment Method: </p>
-                        <select 
-                           className="selector" 
+                        <select
+                           className="selector"
                            onChange={handleAccountTypeChange}
                            value={selectedAccountType}
                         >
                            {accountTypes.map((type) => (
-                           <option key={type} value={type}>
-                           {type.charAt(0).toUpperCase() + type.slice(1)}
-                           </option>
+                              <option key={type} value={type}>
+                                 {type.charAt(0).toUpperCase() + type.slice(1)}
+                              </option>
                            ))}
                         </select>
                      </div>
-                     
+
                      <div className="item">
                         <p className="text">Enter Amount: </p>
                         <input
+                           className="payment-input"
                            type="text"
                            placeholder="Amount"
                            value={amount}
-                           min="0" // No negaive amounts
+                           min="0" // No negative amounts
                            step="0.01" // Allow decimal values
                            onChange={(e) => {
                               const value = e.target.value;
@@ -192,19 +202,31 @@ const UserPayment = () => {
                               }
                            }}
                            onKeyDown={(e) => {
-                              if (["e", "E", "+", "-", "."].includes(e.key) && e.target.value === "") {
+                              if (
+                                 ["e", "E", "+", "-", "."].includes(e.key) &&
+                                 e.target.value === ""
+                              ) {
                                  e.preventDefault();
                               }
                            }}
                         />
+                        <input
+                           type="date"
+                           id="pay-date"
+                           className="date-input"
+                           value={payDate}
+                           onChange={handleDateChange}
+                        />
                      </div>
-                     {/* Add note at the bottom */}
+
                      <div className="prototype-note">
-                        <h4>
-                           NOTE: This feature is a prototype and would typically be<br></br>
-                                 connected to a third party service such as a rent<br></br>
-                                 portal or other provided billing system.
-                           </h4>
+                        <p className="text">
+                           NOTE: This feature is a prototype and would typically
+                           be<br></br>
+                           connected to a third party service such as a rent
+                           <br></br>
+                           portal or other provided billing system.
+                        </p>
                      </div>
                   </div>
                   <button className="pay-now-button" onClick={openModal}>
@@ -237,16 +259,32 @@ const UserPayment = () => {
             <div className="modal-overlay">
                <div className="modal-content">
                   <h3 className="modal-title">Confirm Payment</h3>
-                  <p>Are you sure you want to proceed with this payment of ${amountWithFee}?</p>
+                  <p>
+                     Are you sure you want to proceed with this payment of $
+                     {amountWithFee}?
+                  </p>
                   <div className="modal-buttons">
-                     <button className="modal-button confirm" onClick={handleWithdraw} disabled={isSubmitting}>
+                     <button
+                        className="modal-button confirm"
+                        onClick={handleWithdraw}
+                        disabled={isSubmitting}
+                     >
                         Confirm Payment
                      </button>
-                     <button className="modal-button cancel" onClick={closeModal}>
+                     <button
+                        className="modal-button cancel"
+                        onClick={closeModal}
+                     >
                         Cancel
                      </button>
                      {message && (
-                        <p className={message.includes("successful") ? "success-message" : "error-message"}>
+                        <p
+                           className={
+                              message.includes("successful")
+                                 ? "success-message"
+                                 : "error-message"
+                           }
+                        >
                            {message}
                         </p>
                      )}

@@ -48,8 +48,8 @@
    font-size: 14px;
    color: #555;
    width: 250px;
-   background-color: #f9fbfc;
-   border: 2px solid #ebeff0;
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
+   border: none;
    border-radius: 10px;
    padding: 8px;
    margin: 0 12px;
@@ -59,7 +59,6 @@
 .selector:hover {
    color: #555;
    background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
-   border: 2px solid #d1f4ff;
    cursor: pointer;
 }
 
@@ -69,7 +68,6 @@
    color: #ffffff;
    width: 250px;
    background: linear-gradient(45deg, #003349 0%, #002e42 100%);
-   border: 2px solid #018fcc;
    border-radius: 10px;
    padding: 8px;
    margin: auto 0px 0px auto;
@@ -80,14 +78,12 @@
 .pay-now-button:hover {
    color: #555;
    background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
-   border: 2px solid #d1f4ff;
    cursor: pointer;
 }
 
 .breakdown-container {
    width: 300px;
-   background-color: #f9fbfc;
-   border: 2px solid #ebeff0;
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
    border-radius: 10px;
 }
 
@@ -181,4 +177,18 @@
 .error-message {
    color: red;
    font-weight: bold;
+}
+
+.prototype-note {
+   padding: 0px 12px 0px 12px;
+}
+
+.payment-input {
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
+   border: none;
+   padding: 8px;
+   margin: 0px 12px 12px 12px;
+   border-radius: 10px;
 }

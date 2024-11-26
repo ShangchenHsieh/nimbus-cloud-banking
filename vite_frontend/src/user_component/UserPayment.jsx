@@ -14,6 +14,14 @@ const UserPayment = () => {
    const [message, setMessage] = useState("");
    const [isSubmitting, setIsSubmitting] = useState(false);
 
+
+   // ALEX HERE'S THE DATE
+   const [payDate, setPayDate] = useState("");
+   const handleDateChange = (event) => {
+      setPayDate(event.target.value);
+      console.log(payDate)
+   };
+
    const navigate = useNavigate();
 
    const openModal = () => {
@@ -201,6 +209,13 @@ const UserPayment = () => {
                                  e.preventDefault();
                               }
                            }}
+                        />
+                        <input
+                           type="date"
+                           id="pay-date"
+                           className="date-input"
+                           value={payDate}
+                           onChange={handleDateChange}
                         />
                      </div>
 

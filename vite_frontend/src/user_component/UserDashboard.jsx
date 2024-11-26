@@ -312,10 +312,10 @@ const UserDashboard = () => {
    // Add this helper function to process transactions
    const calculateActivityDistribution = (transactions) => {
       const activityCounts = {
-         payments: 0,
-         transfers: 0,
-         deposits: 0,
-         withdrawals: 0,
+         payments: 25,
+         transfers: 25,
+         deposits: 25,
+         withdrawals: 25,
       };
 
       // Count each transaction type

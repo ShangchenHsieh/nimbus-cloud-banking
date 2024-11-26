@@ -4,6 +4,7 @@ import developer from "../assets/developer.png";
 import lee from "../assets/lr_pfp.png";
 import sean from "../assets/sean.jpg";
 import madison from "../assets/madison.jpeg";
+import tanisha from "../assets/tanisha.jpg";
 
 const AboutUs = () => {
    return (
@@ -153,7 +154,7 @@ const AboutUs = () => {
                         rel="noopener noreferrer"
                      >
                         <img
-                           src={developer}
+                           src={tanisha}
                            alt="Tanisha Damle"
                            className="team-img"
                         />

@@ -19,7 +19,7 @@
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   position: relative;
-  z-index: 2; 
+  z-index: 2;
 }
 
 /* Blue Bubbles */
@@ -27,7 +27,7 @@
 .Signup-container::after {
   content: '';
   position: absolute;
-  background-color: rgba(52, 152, 219, 0.07); 
+  background-color: rgba(52, 152, 219, 0.07);
   border-radius: 50%;
   z-index: 1;
 }
@@ -53,7 +53,7 @@
   position: absolute;
   background-color: rgba(52, 152, 219, 0.05);
   border-radius: 50%;
-  z-index: 0; 
+  z-index: 0;
   animation: moveBubbles 30s infinite linear;
 }
 
@@ -86,9 +86,11 @@
   0% {
     transform: translate(0, 0) scale(1);
   }
+
   50% {
     transform: translate(50px, -30px) scale(1.1);
   }
+
   100% {
     transform: translate(-30px, 30px) scale(1);
   }
@@ -97,7 +99,8 @@
 /* Form Label */
 .form-label {
   font-weight: 600;
-  color: #1e508d;;
+  color: #1e508d;
+  ;
   display: block;
   margin-bottom: 10px;
   font-size: 16px;
@@ -115,7 +118,8 @@
 }
 
 .form-control:focus {
-  border: 1px solid #1e508d;;
+  border: 1px solid #1e508d;
+  ;
   outline: none;
   box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
@@ -124,7 +128,7 @@
 .invalid-feedback {
   color: #e74c3c;
   font-size: 14px;
-  margin-top: -10px;
+  padding-top: 25px;
 }
 
 /* Required Asterisk */
@@ -134,7 +138,8 @@
 
 /* Submit Button */
 .signup-btn {
-  background-color: #1e508d;;
+  background-color: #1e508d;
+  ;
   color: white;
   border: none;
   padding: 15px;
@@ -189,8 +194,10 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 80%;
   max-width: 600px;
-  max-height: 80vh; /* Set a max height */
-  overflow-y: auto; /* Enable vertical scroll if content exceeds modal height */
+  max-height: 80vh;
+  /* Set a max height */
+  overflow-y: auto;
+  /* Enable vertical scroll if content exceeds modal height */
   z-index: 1000;
 }
 

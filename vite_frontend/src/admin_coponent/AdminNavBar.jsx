@@ -15,6 +15,9 @@ const AdminNavbar = () => {
          </div>
          <div className="admin-navbar-center"></div>
          <div className="admin-navbar-option">
+            <Link to="/admindashboard">Dashboard</Link>
+         </div>
+         <div className="admin-navbar-option">
             <Link to="/">Logout</Link>
          </div>
       </div>

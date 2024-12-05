@@ -69,5 +69,17 @@ class DeleteAccountView(APIView):
 
             # Delete the account
             BankAccount.objects.filter(user=user, account_type=account_type).delete()
-            return Response({"message": "Account deleted successfully."}, status=status.HTTP_200_OK)
+            if not BankAccount.objects.filter(user=user).exists():
+                # If no accounts remain, delete the user
+                user.delete()
+                return Response(
+                    {"message": "Last remaming bank account deleted, user credentials have been deleted successfully."},
+                    status=status.HTTP_200_OK
+                )
+
+            # If accounts remain, return a success message for account deletion
+            return Response(
+                {"message": "Account deleted successfully."},
+                status=status.HTTP_200_OK
+            )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

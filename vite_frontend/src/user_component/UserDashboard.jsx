@@ -110,32 +110,31 @@ const UserDashboard = () => {
             requestOptions
          );
 
-         if (!response.ok) {
-            throw new Error(
-               `Error ${response.status}: ${response.statusText}`
-            );
-         }
-
          const data = await response.json();
-         console.log("Account deleted successfully:", data);
 
-         // Remove the deleted account type from the dropdown
-         setAccountTypes((prevAccountTypes) =>
-            prevAccountTypes.filter((type) => type !== selectedAccountType)
-         );
-
-         // Reset the selected account type
-         if (accountTypes.length > 1) {
-            setSelectedAccountType(accountTypes[0]);
-         } else {
-            setSelectedAccountType("");
+         if (!response.ok) {
+            throw new Error(data.error || "Failed to delete account");
          }
+         if (data.message.includes("user credentials have been deleted")) {
+            alert("All accounts deleted. Your user account has also been removed."); // Highlighted line
+            localStorage.clear(); // Highlighted line: Clear local storage
+            navigate("/"); // Highlighted line: Redirect to login or landing page
+         } else {
+            // Handle account deletion only
+            alert(data.message);
+            setAccountTypes((prevAccountTypes) =>
+            prevAccountTypes.filter((type) => type !== selectedAccountType)
+            );
 
-         alert("Account deleted successfully!");
-         //setSelectedAccountType(""); // Reset selected account type
-         //setAccountTypes(); // Refetch all account types
-         //window.location.reload();
-         fetchAccountInfo();
+            // Reset selected account type
+            if (accountTypes.length > 1) {
+            setSelectedAccountType(accountTypes[0]);
+            } else {
+            setSelectedAccountType("");
+            }
+
+            fetchAccountInfo(); // Refresh account info
+         }
       } catch (error) {
          console.error("Error deleting account or account already deleted and failted to retrieve info:", error);
          //alert("Failed to delete account. Please try again.");

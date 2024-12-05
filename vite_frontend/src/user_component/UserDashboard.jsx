@@ -24,8 +24,6 @@ const formatTransactionAmount = (type, amount) => {
    return `$${amount}`;
 };
 
-
-
 const UserDashboard = () => {
    const navigate = useNavigate();
    const [accountBalance, setAccountBalance] = useState(0);
@@ -47,6 +45,13 @@ const UserDashboard = () => {
    const availableAccountTypes = allAccountTypes.filter(
       (type) => !accountTypes.includes(type)
    );
+
+   const [activityDistribution, setActivityDistribution] = useState({
+      payments: 25,
+      transfers: 25,
+      deposits: 25,
+      withdrawals: 25,
+   });
 
    const handleAccountTypeChange = (event) => {
       const selectedValue = event.target.value;
@@ -116,27 +121,32 @@ const UserDashboard = () => {
             throw new Error(data.error || "Failed to delete account");
          }
          if (data.message.includes("user credentials have been deleted")) {
-            alert("All accounts deleted. Your user account has also been removed."); // Highlighted line
+            alert(
+               "All accounts deleted. Your user account has also been removed."
+            ); // Highlighted line
             localStorage.clear(); // Highlighted line: Clear local storage
             navigate("/"); // Highlighted line: Redirect to login or landing page
          } else {
             // Handle account deletion only
             alert(data.message);
             setAccountTypes((prevAccountTypes) =>
-            prevAccountTypes.filter((type) => type !== selectedAccountType)
+               prevAccountTypes.filter((type) => type !== selectedAccountType)
             );
 
             // Reset selected account type
             if (accountTypes.length > 1) {
-            setSelectedAccountType(accountTypes[0]);
+               setSelectedAccountType(accountTypes[0]);
             } else {
-            setSelectedAccountType("");
+               setSelectedAccountType("");
             }
 
             fetchAccountInfo(); // Refresh account info
          }
       } catch (error) {
-         console.error("Error deleting account or account already deleted and failted to retrieve info:", error);
+         console.error(
+            "Error deleting account or account already deleted and failted to retrieve info:",
+            error
+         );
          //alert("Failed to delete account. Please try again.");
       }
    };
@@ -380,6 +390,11 @@ const UserDashboard = () => {
 
             // Set the two most recent transactions
             setRecentTransactions(combinedTransactions.slice(0, 2));
+
+            // Set activity distribution
+            setActivityDistribution(
+               calculateActivityDistribution(combinedTransactions)
+            );
          } catch (error) {
             console.error("Error fetching recent transactions:", error);
          }
@@ -405,7 +420,8 @@ const UserDashboard = () => {
             case "payment":
                activityCounts.payments += 1;
                break;
-            case "transfer":
+            case "transfer in":
+            case "transfer out":
                activityCounts.transfers += 1;
                break;
             case "deposit":
@@ -424,17 +440,23 @@ const UserDashboard = () => {
          (sum, count) => sum + count,
          0
       );
-      return {
-         payments: (activityCounts.payments / total) * 100 || 0,
-         transfers: (activityCounts.transfers / total) * 100 || 0,
-         deposits: (activityCounts.deposits / total) * 100 || 0,
-         withdrawals: (activityCounts.withdrawals / total) * 100 || 0,
-      };
-   };
 
-   // Inside the component
-   const activityDistribution =
-      calculateActivityDistribution(recentTransactions);
+      if (total == 0) {
+         return {
+            payments: 25,
+            transfers: 25,
+            deposits: 25,
+            withdrawals: 25,
+         };
+      } else {
+         return {
+            payments: (activityCounts.payments / total) * 100 || 0,
+            transfers: (activityCounts.transfers / total) * 100 || 0,
+            deposits: (activityCounts.deposits / total) * 100 || 0,
+            withdrawals: (activityCounts.withdrawals / total) * 100 || 0,
+         };
+      }
+   };
 
    //const accountBalance = 500; // Placeholder balance value
    return (
@@ -539,7 +561,7 @@ const UserDashboard = () => {
                            <div
                               style={{
                                  height: `${activityDistribution.payments}%`,
-                                 minHeight: "20px", // Minimum height for visibility
+                                 minHeight: "30px", // Minimum height for visibility
                                  backgroundColor: "#e8faff",
                               }}
                            >
@@ -548,7 +570,7 @@ const UserDashboard = () => {
                            <div
                               style={{
                                  height: `${activityDistribution.transfers}%`,
-                                 minHeight: "20px", // Minimum height for visibility
+                                 minHeight: "30px", // Minimum height for visibility
                                  backgroundColor: "#b3eeff",
                               }}
                            >
@@ -557,7 +579,7 @@ const UserDashboard = () => {
                            <div
                               style={{
                                  height: `${activityDistribution.deposits}%`,
-                                 minHeight: "20px", // Minimum height for visibility
+                                 minHeight: "30px", // Minimum height for visibility
                                  backgroundColor: "#80e3ff",
                               }}
                            >
@@ -566,7 +588,7 @@ const UserDashboard = () => {
                            <div
                               style={{
                                  height: `${activityDistribution.withdrawals}%`,
-                                 minHeight: "20px", // Minimum height for visibility
+                                 minHeight: "30px", // Minimum height for visibility
                                  backgroundColor: "#4dd8ff",
                               }}
                            >
@@ -618,7 +640,6 @@ const UserDashboard = () => {
                      </button>
                   </div>
                </div>
-
             </div>
          </div>
          {/* Open Account Model */}

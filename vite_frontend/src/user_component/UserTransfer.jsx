@@ -49,7 +49,17 @@ const UserTransfer = () => {
          if (!response.ok) {
             const errorData = await response.json();
             console.log("Error details:", JSON.stringify(errorData, null, 2));
-            setError(errorData.error || "Transfer failed.");
+            if (errorData.error) {
+               const regex = /string='(.*?)', code='(.*?)'/;
+               setError("Transfer failed: " + errorData.error.match(regex)[1]);
+            } else if (errorData.destination_account_number) {
+               setError(
+                  "Transfer failed: Destination account number issue. " +
+                     errorData.destination_account_number
+               );
+            } else if (errorData.amount) {
+               setError("Transfer failed: Amount issue. " + errorData.amount);
+            }
             setIsSubmitting(false);
          } else {
             const data = await response.json();

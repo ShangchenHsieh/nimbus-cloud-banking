@@ -31,7 +31,7 @@ const UserDashboard = () => {
    const [accountBalance, setAccountBalance] = useState(0);
    const [accountNumber, setAccountNumber] = useState("");
    const [loading, setLoading] = useState(true);
-   const [selectedAccountType, setSelectedAccountType] = useState("checking");
+   const [selectedAccountType, setSelectedAccountType] = useState("");
    const [accountTypes, setAccountTypes] = useState([]);
    const [recentTransactions, setRecentTransactions] = useState([]);
    const [showAddAccountModal, setShowAddAccountModal] = useState(false);
@@ -123,14 +123,14 @@ const UserDashboard = () => {
             // Handle account deletion only
             alert(data.message);
             setAccountTypes((prevAccountTypes) =>
-            prevAccountTypes.filter((type) => type !== selectedAccountType)
+               prevAccountTypes.filter((type) => type !== selectedAccountType)
             );
 
             // Reset selected account type
             if (accountTypes.length > 1) {
-            setSelectedAccountType(accountTypes[0]);
+               setSelectedAccountType(accountTypes[0]);
             } else {
-            setSelectedAccountType("");
+               setSelectedAccountType("");
             }
 
             fetchAccountInfo(); // Refresh account info
@@ -210,6 +210,7 @@ const UserDashboard = () => {
 
             const data = await response.json();
             setAccountTypes(data);
+            setSelectedAccountType(data[0]);
          } catch (error) {
             console.error("Error fetching account types:", error);
          }

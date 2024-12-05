@@ -17,6 +17,11 @@ const UserTransfer = () => {
       const token = localStorage.getItem("access_token");
       setIsSubmitting(true);
 
+      if (amount == 0) {
+         setError("Can not transfer 0 dollars.");
+         return;
+      }
+
       if (!token) {
          console.error("No access token found");
          setError("User not authenticated.");

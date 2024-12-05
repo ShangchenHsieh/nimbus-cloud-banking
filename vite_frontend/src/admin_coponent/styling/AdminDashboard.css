@@ -1,6 +1,4 @@
-@import url("https://fonts.google.com/share?selection.family=Hammersmith+One");
-
-body {
+.body {
    margin: 0px;
 }
 
@@ -32,6 +30,7 @@ body {
    width: calc(100vw - 20px);
    background-color: #f7f9fc;
    padding: 10px;
+   padding-top: 70px;
 }
 
 .welcome-container {
@@ -58,11 +57,13 @@ body {
 }
 
 .details-right-container {
+   min-height: 670px;
    height: calc(100vh - 20px - 60px - 60px - 20px);
    width: 320px;
 }
 
 .user-account-details-container {
+   min-height: 340px;
    height: calc(100% - 330px);
    width: 100%;
    background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
@@ -73,10 +74,10 @@ body {
 }
 
 .user-account-holder-details-container {
-   height: calc(100% - 52px);
-   background-color: #f9fbfc;
-   border: 2px solid #ebeff0;
+   height: calc(100% - 54px);
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
    border-radius: 10px;
+   overflow: auto;
 }
 
 .user-activity-container {
@@ -86,15 +87,22 @@ body {
    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
    border-radius: 10px;
    padding: 10px;
+   display: flex;
+   flex-direction: column;
 }
 
 .user-search-container {
-   min-height: 100%;
+   height: 100%;
    width: 300px;
    background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
    border-radius: 10px;
    padding: 10px;
+}
+
+.users-container {
+   height: calc(100% - 90px);
+   overflow: auto;
 }
 
 .view-all-button {
@@ -103,18 +111,18 @@ body {
    color: #ffffff;
    width: calc(100% - 24px);
    background: linear-gradient(45deg, #003349 0%, #002e42 100%);
-   border: 2px solid #018fcc;
    border-radius: 10px;
    text-align: center;
    padding: 4px;
    margin: 0px 12px 0px 12px;
    transition: 0.3s;
+   margin-top: auto !important;
+   margin-bottom: 12px !important;
 }
 
 .view-all-button:hover {
    color: #555;
    background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
-   border: 2px solid #d1f4ff;
    cursor: pointer;
 }
 
@@ -122,9 +130,9 @@ body {
    font-family: "Hammersmith One";
    font-size: 14px;
    width: calc(100% - 42px);
-   background-color: #f7f9fc;
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
+   border: none;
    padding: 8px;
    margin: 0px 12px 12px 12px;
-   border: 2px solid #dbe2ec;
    border-radius: 10px;
 }

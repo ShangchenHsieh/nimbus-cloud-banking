@@ -1,5 +1,7 @@
 from django.db import models, transaction
 from bank_account.models import BankAccount
+from datetime import timedelta, date
+
 
 class Transaction(models.Model):
     TRANSACTION_TYPE_CHOICES = [
@@ -110,5 +112,22 @@ class WithdrawalTransaction(Transaction):
                 bank_account.balance -= self.amount
                 bank_account.save()
                              
-# class ExternalAccountTransfer(Transaction):
-    # To be implemented 
+class RecurringPayment(Transaction):
+    bank_account = models.ForeignKey(BankAccount, on_delete=models.CASCADE, related_name='recurring')
+    next_payment_date = models.DateField()
+    interval_days = models.IntegerField()
+    is_active = models.BooleanField(default=True)
+    
+    def update_balance(self):
+        today = date.today()
+        if self.next_payment_date and self.next_payment_date <= today:
+            with transaction.atomic():
+                bank_account = BankAccount.objects.select_for_update().get(id=self.bank_account.id)
+                if bank_account.balance < self.amount:
+                    raise ValueError("Insufficient funds for recurring payment.")
+                bank_account.balance -= self.amount
+                bank_account.save()
+
+            self.next_payment_date += timedelta(days=self.interval_days)
+            self.save()
+                

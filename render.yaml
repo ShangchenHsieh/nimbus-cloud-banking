@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: django-backend
+    runtime: docker
+    dockerfilePath: ./django_backend/Dockerfile
+    envVars:
+      - key: DB_NAME
+        value: ${DB_NAME}
+      - key: DB_USER
+        value: ${DB_USER}
+      - key: DB_PASSWORD
+        value: ${DB_PASSWORD}
+      - key: DB_HOST
+        value: ${DB_HOST}
+      - key: DB_PORT
+        value: ${DB_PORT}
+      - key: MAPS_API_KEY
+        value: ${MAPS_API_KEY}
+    healthCheckPath: / # Replace with a valid health check endpoint for Django if available
+    buildCommand: ""
+    # startCommand: python manage.py runserver 0.0.0.0:8000
+    autoDeploy: true
+
+  - type: web
+    name: vite-frontend
+    runtime: docker
+    dockerfilePath: ./vite_frontend/Dockerfile
+    envVars:
+      - key: VITE_API_URL
+        value: http://django-backend:8000
+    healthCheckPath: / # Replace with the frontend's health check endpoint if available
+    buildCommand: npm install && npm run build
+    # startCommand: npm run dev -- --host
+    autoDeploy: true

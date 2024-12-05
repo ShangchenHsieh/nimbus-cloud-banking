@@ -50,7 +50,15 @@ const SignUp = () => {
     const data = await response.json();
     if (response.status === 409) {
       setUsernameError(data.detail);
-    } else {
+
+    }
+    else if (response.status === 400) {
+
+      setErrorMessage("This email is already associated with another account.");
+
+      navigate('/signup');
+    }
+    else {
 
       localStorage.setItem('access_token', data.access);
       localStorage.setItem('refresh_token', data.refresh);
@@ -205,7 +213,7 @@ const SignUp = () => {
                         I agree to the <span className="terms-link" onClick={toggleModal}>Terms & Conditions</span>
                       </label>
                     </div>
-
+                    <div></div>
                     <div className="invalid-feedback">{errorMessage}</div>
 
                     <input type="submit" className="signup-btn" value="Register" />
@@ -217,31 +225,31 @@ const SignUp = () => {
         </div>
 
         <Modal
-  isOpen={isModalOpen}
-  onRequestClose={toggleModal}
-  contentLabel="Terms and Conditions"
-  className="terms-modal"
-  overlayClassName="terms-modal-overlay"
->
-  <h2>Terms and Conditions</h2>
-  <p>
-    PLEASE READ THESE TERMS AND CONDITIONS CAREFULLY. BY ACCESSING THIS WEBSITE YOU AGREE TO BE BOUND BY THE TERMS AND CONDITIONS BELOW. THESE TERMS AND CONDITIONS ARE SUBJECT TO CHANGE. ANY CHANGES WILL BE INCORPORATED INTO THE TERMS AND CONDITIONS POSTED TO THIS WEBSITE FROM TIME TO TIME. IF YOU DO NOT AGREE WITH THESE TERMS AND CONDITIONS, PLEASE DO NOT ACCESS THIS WEBSITE.
-    <br /><br />
-    Unauthorized use of Nimbus' Websites and systems, including but not limited to unauthorized entry into Nimbus' systems, misuse of passwords, posting of objectionable or offensive content, or your unauthorized use of legally protected third-party content, or misuse of any information posted to a site, is strictly prohibited.
-    <br /><br />
-    If you use Nimbus’ Website or systems to access data related to any account(s) of which you are not the owner or authorized user as reflected in Nimbus' systems, you shall indemnify, defend, and hold harmless Nimbus & Co. and all of its direct and indirect subsidiaries, officers, directors, employees, agents, successors, and assigns from any and all losses, liabilities, damages, and all related costs and expenses, arising from, relating to, or resulting (directly or indirectly) from such access. Further, without limiting Nimbus’ rights or your obligations under any other provision of these Terms and Conditions, and notwithstanding the same, in the event of any actual or reasonably suspected unauthorized access to the personal information of a customer (including but not limited to customer names, addresses, phone numbers, bank and credit card account numbers, income and credit histories, and social security numbers) under your control or subsequent to and arising from your past exercise of control, direct damages in connection with any such breach will include the cost and expenses of investigation and analysis (including by law firms and forensic firms), correction or restoration of any destroyed, lost, or altered data, notification to affected customers, offering and providing of credit monitoring, customer service, or other remediation services, and any related cost. Nimbus & Co.’s rights to indemnity under this section are in addition to all other rights and remedies available at Law or in equity. Any exercise by Nimbus & Co. of its rights to indemnification shall be without prejudice to such other rights and remedies. You manifest your assent to this indemnity by accessing account data through Nimbus’ Website or systems, notwithstanding the terms of any agreement you have with a customer or an account owner stating otherwise. This indemnity includes but is not limited to losses associated with (1) a data breach of your system(s) and (2) a data breach of the system(s) of any person or entity with whom you provided or shared Nimbus customer account data.
-    <br /><br />
-    <strong>Copyright Notices</strong><br />
-    The works of authorship contained in the nimbus.com Website (the "Website"), including but not limited to all design, text, sound recordings, and images, are owned, except as otherwise expressly stated, by Nimbus & Co. or one of its subsidiaries, ("Nimbus"). Except as otherwise expressly stated herein, they may not be copied, transmitted, displayed, performed, distributed (for compensation or otherwise), licensed, altered, framed, stored for subsequent use, or otherwise used in whole or in part in any manner without Nimbus' prior written consent, except to the extent permitted by the Copyright Act of 1976 (17 U.S.C. § 107), as amended, and then, only with notices of Nimbus' proprietary rights provided that you may download information and print out hard copies for your personal use, so long as you do not remove any copyright or other notice as may be contained in information, as downloaded.
-    <br /><br />
-    <strong>Trademark Notices</strong><br />
-    Nimbus is the marketing name for the retail financial services activities of Nimbus & Co. and its subsidiaries and affiliates in the United States. "Nimbus," the Nimbus logo, and the Octagon Symbol are trademarks of Nimbus Bank, N.A., a wholly-owned subsidiary of Nimbus & Co. Other featured words or symbols, used to identify the source of goods and services, may be the trademarks of their respective owners.
-    <br /><br />
-    <strong>Limitation of Liability</strong><br />
-    TO THE MAXIMUM EXTENT PERMITTED BY LAW, NIMBUS WILL NOT BE LIABLE TO YOU OR ANYONE ELSE FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO DIRECT OR INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, LOSSES OR EXPENSES ARISING IN CONNECTION WITH THIS WEBSITE OR ANY LINKED WEBSITE OR USE THEREOF OR INABILITY TO USE BY ANY PARTY, OR IN CONNECTION WITH ANY FAILURE OF PERFORMANCE, ERROR, OMISSION, INTERRUPTION, DEFECT, DELAY IN OPERATION OR TRANSMISSION, COMPUTER VIRUS OR LINE OR SYSTEM FAILURE, EVEN IF NIMBUS, OR REPRESENTATIVES THEREOF, ARE ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, LOSSES OR EXPENSES.
-  </p>
-  <button onClick={toggleModal}>Close</button>
-</Modal>
+          isOpen={isModalOpen}
+          onRequestClose={toggleModal}
+          contentLabel="Terms and Conditions"
+          className="terms-modal"
+          overlayClassName="terms-modal-overlay"
+        >
+          <h2>Terms and Conditions</h2>
+          <p>
+            PLEASE READ THESE TERMS AND CONDITIONS CAREFULLY. BY ACCESSING THIS WEBSITE YOU AGREE TO BE BOUND BY THE TERMS AND CONDITIONS BELOW. THESE TERMS AND CONDITIONS ARE SUBJECT TO CHANGE. ANY CHANGES WILL BE INCORPORATED INTO THE TERMS AND CONDITIONS POSTED TO THIS WEBSITE FROM TIME TO TIME. IF YOU DO NOT AGREE WITH THESE TERMS AND CONDITIONS, PLEASE DO NOT ACCESS THIS WEBSITE.
+            <br /><br />
+            Unauthorized use of Nimbus' Websites and systems, including but not limited to unauthorized entry into Nimbus' systems, misuse of passwords, posting of objectionable or offensive content, or your unauthorized use of legally protected third-party content, or misuse of any information posted to a site, is strictly prohibited.
+            <br /><br />
+            If you use Nimbus’ Website or systems to access data related to any account(s) of which you are not the owner or authorized user as reflected in Nimbus' systems, you shall indemnify, defend, and hold harmless Nimbus & Co. and all of its direct and indirect subsidiaries, officers, directors, employees, agents, successors, and assigns from any and all losses, liabilities, damages, and all related costs and expenses, arising from, relating to, or resulting (directly or indirectly) from such access. Further, without limiting Nimbus’ rights or your obligations under any other provision of these Terms and Conditions, and notwithstanding the same, in the event of any actual or reasonably suspected unauthorized access to the personal information of a customer (including but not limited to customer names, addresses, phone numbers, bank and credit card account numbers, income and credit histories, and social security numbers) under your control or subsequent to and arising from your past exercise of control, direct damages in connection with any such breach will include the cost and expenses of investigation and analysis (including by law firms and forensic firms), correction or restoration of any destroyed, lost, or altered data, notification to affected customers, offering and providing of credit monitoring, customer service, or other remediation services, and any related cost. Nimbus & Co.’s rights to indemnity under this section are in addition to all other rights and remedies available at Law or in equity. Any exercise by Nimbus & Co. of its rights to indemnification shall be without prejudice to such other rights and remedies. You manifest your assent to this indemnity by accessing account data through Nimbus’ Website or systems, notwithstanding the terms of any agreement you have with a customer or an account owner stating otherwise. This indemnity includes but is not limited to losses associated with (1) a data breach of your system(s) and (2) a data breach of the system(s) of any person or entity with whom you provided or shared Nimbus customer account data.
+            <br /><br />
+            <strong>Copyright Notices</strong><br />
+            The works of authorship contained in the nimbus.com Website (the "Website"), including but not limited to all design, text, sound recordings, and images, are owned, except as otherwise expressly stated, by Nimbus & Co. or one of its subsidiaries, ("Nimbus"). Except as otherwise expressly stated herein, they may not be copied, transmitted, displayed, performed, distributed (for compensation or otherwise), licensed, altered, framed, stored for subsequent use, or otherwise used in whole or in part in any manner without Nimbus' prior written consent, except to the extent permitted by the Copyright Act of 1976 (17 U.S.C. § 107), as amended, and then, only with notices of Nimbus' proprietary rights provided that you may download information and print out hard copies for your personal use, so long as you do not remove any copyright or other notice as may be contained in information, as downloaded.
+            <br /><br />
+            <strong>Trademark Notices</strong><br />
+            Nimbus is the marketing name for the retail financial services activities of Nimbus & Co. and its subsidiaries and affiliates in the United States. "Nimbus," the Nimbus logo, and the Octagon Symbol are trademarks of Nimbus Bank, N.A., a wholly-owned subsidiary of Nimbus & Co. Other featured words or symbols, used to identify the source of goods and services, may be the trademarks of their respective owners.
+            <br /><br />
+            <strong>Limitation of Liability</strong><br />
+            TO THE MAXIMUM EXTENT PERMITTED BY LAW, NIMBUS WILL NOT BE LIABLE TO YOU OR ANYONE ELSE FOR ANY DAMAGES, INCLUDING BUT NOT LIMITED TO DIRECT OR INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, LOSSES OR EXPENSES ARISING IN CONNECTION WITH THIS WEBSITE OR ANY LINKED WEBSITE OR USE THEREOF OR INABILITY TO USE BY ANY PARTY, OR IN CONNECTION WITH ANY FAILURE OF PERFORMANCE, ERROR, OMISSION, INTERRUPTION, DEFECT, DELAY IN OPERATION OR TRANSMISSION, COMPUTER VIRUS OR LINE OR SYSTEM FAILURE, EVEN IF NIMBUS, OR REPRESENTATIVES THEREOF, ARE ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, LOSSES OR EXPENSES.
+          </p>
+          <button onClick={toggleModal}>Close</button>
+        </Modal>
 
       </div>
     </>

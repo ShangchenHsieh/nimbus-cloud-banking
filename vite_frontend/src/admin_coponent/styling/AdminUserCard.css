@@ -1,0 +1,73 @@
+.adminusercard-title-bright {
+   font-size: 16px;
+   color: #ffffff;
+   margin: 0px;
+   padding: 12px 12px 0px 12px;
+}
+
+.adminusercard-text-bright {
+   font-size: 14px;
+   color: #ffffff;
+   margin: 0px;
+   padding: 12px 0px 12px 12px;
+}
+
+.adminusercard-container {
+   font-family: "Hammersmith One";
+   width: calc(100% - 24px);
+   background: linear-gradient(45deg, #003349 0%, #002e42 100%);
+   border-radius: 10px;
+   margin: 0px 12px 12px 12px;
+   transition: 0.3s;
+   position: relative;
+   overflow: hidden;
+}
+
+.adminusercard-container::before {
+   width: 90px;
+   height: 90px;
+   background-color: rgba(1, 143, 204, 0.1);
+   border-radius: 50%;
+   position: absolute;
+   left: -30px;
+   bottom: -30px;
+   content: "";
+   z-index: 0;
+}
+
+.adminusercard-container::after {
+   width: 60px;
+   height: 60px;
+   background-color: rgba(1, 143, 204, 0.1);
+   border-radius: 50%;
+   position: absolute;
+   right: -20px;
+   top: -20px;
+   content: "";
+   z-index: 0;
+}
+
+.adminusercard-container .adminusercard-title-bright {
+   position: relative;
+   z-index: 1;
+}
+
+.adminusercard-container .adminusercard-text-bright {
+   position: relative;
+   z-index: 1;
+}
+
+.adminusercard-container:hover {
+   background: linear-gradient(45deg, #d1f4ff 0%, #e8faff 100%);
+   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+   cursor: pointer;
+   scale: 1.03;
+}
+
+.adminusercard-container:hover .adminusercard-title-bright {
+   color: #555;
+}
+
+.adminusercard-container:hover .adminusercard-text-bright {
+   color: #555;
+}

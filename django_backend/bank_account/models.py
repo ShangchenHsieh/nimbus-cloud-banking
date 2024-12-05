@@ -18,6 +18,7 @@ class BankAccount(models.Model):
     ACCOUNT_TYPE_CHOICES = [
         ('checking', 'checking'),
         ('savings', 'savings'),
+        ('retirement', 'retirement'),
     ]
     
     ACCOUNT_STATUS_CHOICES = [

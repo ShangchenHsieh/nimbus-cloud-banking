@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
-import './styling/News.css'; // Make sure to import the CSS file
-import dotenv from 'dotenv';
+import './styling/News.css'; // Import the updated CSS file
 
 const News = () => {
     const [articles, setArticles] = useState([]);
+    const [loading, setLoading] = useState(true); // Track loading state
+    const [error, setError] = useState(null); // Track error state
 
     // Fetching the news data
     useEffect(() => {
@@ -15,7 +16,10 @@ const News = () => {
                 const data = await response.json();
                 setArticles(data.articles);
             } catch (error) {
+                setError('Error fetching the news. Please try again later.');
                 console.error('Error fetching the news:', error);
+            } finally {
+                setLoading(false);
             }
         };
         fetchNews();
@@ -25,13 +29,16 @@ const News = () => {
         <>
             <Navbar />
             <div className="container">
-                <h1>Latest News</h1>
-                <ul>
-                    {articles.length === 0 ? (
-                        <p>Loading...</p>
-                    ) : (
-                        articles.map((article, index) => (
-                            <li key={index}>
+                <h1>Latest Business News</h1>
+
+                {loading ? (
+                    <p className="loading">Loading news...</p>
+                ) : error ? (
+                    <p className="loading">{error}</p>
+                ) : (
+                    <ul className="ul">
+                        {articles.map((article, index) => (
+                            <li key={index} className="li">
                                 <h2>{article.title}</h2>
                                 <p className="pub-date">
                                     Published on: {new Date(article.publishedAt).toLocaleDateString()}
@@ -41,13 +48,13 @@ const News = () => {
                                 {article.urlToImage && (
                                     <img src={article.urlToImage} alt={article.title} className="news-image" />
                                 )}
-                                <a href={article.url} target="_blank" rel="noopener noreferrer">
+                                <a href={article.url} target="_blank" rel="noopener noreferrer" className="a">
                                     Read more
                                 </a>
                             </li>
-                        ))
-                    )}
-                </ul>
+                        ))}
+                    </ul>
+                )}
             </div>
         </>
     );

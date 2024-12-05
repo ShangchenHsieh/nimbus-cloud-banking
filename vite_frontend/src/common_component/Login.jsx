@@ -34,16 +34,23 @@ const Login = () => {
         password: formData.password,
       }),
     };
-    const response = await fetch('http://127.0.0.1:8000/auth/login/', requestOptions);
-    const data = await response.json();
+    try {
+      const response = await fetch('http://127.0.0.1:8000/auth/login/', requestOptions);
+      const data = await response.json();
 
-    if (response.status === 401 || response.status === 400) {
-      setErrorMessage(data.detail); // Handle backend error message
-    } else {
-      // Assuming the backend returns an access token on success
-      localStorage.setItem('access_token', data.access);
-      localStorage.setItem('refresh_token', data.refresh);
-      navigate('/userdashboard');
+      if (response.status === 401 || response.status === 400) {
+        // Error protocol for invalid login
+        setErrorMessage("Invalid login credentials.");
+      } else if (response.ok) {
+        // Protocol for successful login
+        localStorage.setItem('access_token', data.access);
+        localStorage.setItem('refresh_token', data.refresh);
+        navigate('/userdashboard');
+      } else {
+        setErrorMessage("Something went wrong. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
     }
   };
 
@@ -123,7 +130,7 @@ const Login = () => {
 
                     {/* Forgot Password Link */}
                     <div className="forgot-password-link">
-                      <Link to="/forgot-password">Forgot Password?</Link>
+                      <Link to="/adminlogin" className="login-type-link">Admin login</Link>
                     </div>
 
                     <input type="submit" className="signup-btn" value="Login" />

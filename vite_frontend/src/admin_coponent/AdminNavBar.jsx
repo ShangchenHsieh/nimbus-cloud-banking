@@ -7,16 +7,15 @@ const AdminNavbar = () => {
       <div className="admin-navbar">
          <div className="admin-navbar-left">
             <div className="admin-navbar-logo">
-               <img src={icon} alt="Logo" />
+               <Link to="/admindashboard">
+                  <img src={icon} alt="Logo" />
+               </Link>
             </div>
             <h3>Nimbus</h3>
          </div>
          <div className="admin-navbar-center"></div>
          <div className="admin-navbar-option">
-            <Link to="">Help</Link>
-         </div>
-         <div className="admin-navbar-option">
-            <Link to="/settings">Settings</Link>
+            <Link to="/admindashboard">Dashboard</Link>
          </div>
          <div className="admin-navbar-option">
             <Link to="/">Logout</Link>

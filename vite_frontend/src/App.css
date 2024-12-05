@@ -1,12 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap");
 
 :root {
-    --font-family: 'Hammersmith One', sans-serif; /* Define a CSS variable for easier reuse */
-    font-family: var(--font-family);
+   --font-family: "Hammersmith One", sans-serif;
+   font-family: var(--font-family);
 }
 
 body {
-    font-family: var(--font-family); /* Use the CSS variable for the font family */
+   font-family: var(--font-family);
+   background-color: #f7f9fc;
+}
 
-    background-color: #f7f9fc; /* Set a default background color if needed */
+select {
+   font-family: var(--font-family);
+}
+
+option {
+   font-family: var(--font-family);
 }

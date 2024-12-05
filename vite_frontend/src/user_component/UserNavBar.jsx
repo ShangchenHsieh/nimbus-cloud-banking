@@ -7,13 +7,14 @@ const UserNavbar = () => {
       <div className="user-navbar">
          <div className="user-navbar-left">
             <div className="user-navbar-logo">
-               <img src={icon} alt="Logo" />
+               <Link to="/userdashboard">
+                  <img src={icon} alt="Logo" />
+               </Link>
             </div>
             <h3>Nimbus</h3>
          </div>
 
-         <div className="user-navbar-center">
-         </div>
+         <div className="user-navbar-center"></div>
 
          <div className="user-navbar-option">
             <Link to="/userdashboard">Dashboard</Link>

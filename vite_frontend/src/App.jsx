@@ -1,4 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode"; // Make sure you install jwt-decode: `npm install jwt-decode`
 import Navbar from "./common_component/Navbar";
 import LandingPage from "./common_component/LandingPage";
 import About from "./common_component/AboutUs";
@@ -21,7 +23,33 @@ import UserTransfer from "./user_component/UserTransfer.jsx";
 import Deposit from "./user_component/Deposit.jsx";
 import Withdrawal from "./user_component/Withdrawal.jsx";
 import AdminUserTransactions from "./admin_coponent/AdminUserTransactions.jsx";
-import './App.css'
+import "./App.css";
+
+const ProtectedRoute = ({ children }) => {
+   const navigate = useNavigate();
+
+   useEffect(() => {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+         navigate("/"); // Redirect to home if token is missing
+         return;
+      }
+
+      try {
+         const decoded = jwtDecode(token);
+         const currentTime = Date.now() / 1000; // Current time in seconds
+         if (decoded.exp < currentTime) {
+            localStorage.removeItem("access_token"); // Clear expired token
+            navigate("/"); // Redirect to home if token is expired
+         }
+      } catch (error) {
+         console.error("Error decoding token:", error);
+         navigate("/"); // Redirect to home if token is invalid
+      }
+   }, [navigate]);
+
+   return <>{children}</>;
+};
 
 function App() {
    return (
@@ -38,22 +66,103 @@ function App() {
                <Route path="/contact" element={<Contact />} />
                <Route path="/login" element={<Login />} />
                <Route path="/adminlogin" element={<AdminLogin />} />
-               {/* Need to be protected*/}
-               <Route path="/userdashboard" element={<UserDashboard />} />
-               <Route path="/usertransactions" element={<UserTransactions />} />
-               <Route path="/deposit" element={<Deposit />} />
-               <Route path="/withdraw" element={<Withdrawal />} />
-               <Route path="/userstatement" element={<UserStatement />} />
-               <Route path="/userpayment" element={<UserPayment />} />
-               <Route path="/usertransfer" element={<UserTransfer />} />
-               <Route path="/admindashboard" element={<AdminDashboard />} />
+               {/* Protected Routes */}
+               <Route
+                  path="/userdashboard"
+                  element={
+                     <ProtectedRoute>
+                        <UserDashboard />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/usertransactions"
+                  element={
+                     <ProtectedRoute>
+                        <UserTransactions />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/deposit"
+                  element={
+                     <ProtectedRoute>
+                        <Deposit />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/withdraw"
+                  element={
+                     <ProtectedRoute>
+                        <Withdrawal />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/userstatement"
+                  element={
+                     <ProtectedRoute>
+                        <UserStatement />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/userpayment"
+                  element={
+                     <ProtectedRoute>
+                        <UserPayment />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/usertransfer"
+                  element={
+                     <ProtectedRoute>
+                        <UserTransfer />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/admindashboard"
+                  element={
+                     <ProtectedRoute>
+                        <AdminDashboard />
+                     </ProtectedRoute>
+                  }
+               />
                <Route
                   path="/adminusertransactions"
-                  element={<AdminUserTransactions />}
+                  element={
+                     <ProtectedRoute>
+                        <AdminUserTransactions />
+                     </ProtectedRoute>
+                  }
                />
-               <Route path="/settings" element={<Settings />} />
-               <Route path="/maps" element={<SearchATMs />} />
-               <Route path="/help" element={<Help />} />
+               <Route
+                  path="/settings"
+                  element={
+                     <ProtectedRoute>
+                        <Settings />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/maps"
+                  element={
+                     <ProtectedRoute>
+                        <SearchATMs />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/help"
+                  element={
+                     <ProtectedRoute>
+                        <Help />
+                     </ProtectedRoute>
+                  }
+               />
             </Routes>
          </Router>
       </UserProvider>

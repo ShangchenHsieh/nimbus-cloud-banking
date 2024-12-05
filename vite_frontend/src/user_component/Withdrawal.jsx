@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 const Withdraw = () => {
+   const sourceAccountNumber = localStorage.getItem("currentAccountNumber");
    const [accountNumber, setAccountNumber] = useState("");
    const [amount, setAmount] = useState("");
    const [message, setMessage] = useState("");
@@ -46,7 +47,7 @@ const Withdraw = () => {
             }
             const data = await response.json();
             console.log("Fetched Data:", data); // Log the data received
-            setAccountNumber(data.account_number[0]);
+            setAccountNumber(sourceAccountNumber);
             console.log(accountNumber);
          } catch (error) {
             console.error("Error fetching user data:", error);

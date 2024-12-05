@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import './styling/Deposit.css'
 
 const Deposit = () => {
+    const sourceAccountNumber = localStorage.getItem("currentAccountNumber");
     const [accountNumber, setAccountNumber] = useState('');
     const [amount, setAmount] = useState('');
     const [message, setMessage] = useState('');
@@ -39,7 +40,7 @@ const Deposit = () => {
                     throw new Error(`Error ${response.status}: ${response.statusText}`);
                 }
                 const data = await response.json();
-                setAccountNumber(data.account_number[0]);
+                setAccountNumber(sourceAccountNumber);
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }

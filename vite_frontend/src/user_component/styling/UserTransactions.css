@@ -6,8 +6,8 @@
 
 .usertransactions-container {
    font-family: "Hammersmith One";
-   width: calc(100vw - 40px);
-   height: calc(100vh - 100px);
+   max-width: calc(100vw - 40px);
+   min-height: calc(100vh - 100px);
    background: linear-gradient(45deg, #ffffff 0%, #ffffff 90%, #f7f9fc 100%);
    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
    border-radius: 10px;

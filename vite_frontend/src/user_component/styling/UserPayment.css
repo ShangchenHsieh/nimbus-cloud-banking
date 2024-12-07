@@ -180,7 +180,7 @@
 }
 
 .prototype-note {
-   padding: 0px 12px 0px 12px;
+   padding: 12px 12px 0px 12px;
 }
 
 .payment-input {
@@ -191,4 +191,54 @@
    padding: 8px;
    margin: 0px 12px 12px 12px;
    border-radius: 10px;
+}
+
+.date-input {
+   font-family: "Hammersmith One";
+   color: #555;
+   font-size: 14px;
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
+   border: none;
+   padding: 8px;
+   margin: 0px 12px 12px 12px;
+   border-radius: 10px;
+}
+
+.recurring-input {
+   font-family: "Hammersmith One";
+   font-size: 14px;
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
+   border: none;
+   padding: 8px;
+   margin: 0px 12px 12px 12px;
+   border-radius: 10px;
+}
+
+.recurring-payments-container {
+   height: 200px;
+   background: linear-gradient(45deg, #ebeff0 0%, #ebeff0 70%, #f2f4f7 100%);
+   margin: 0px 10px 12px 10px;
+   border-radius: 10px;
+   display: flex;
+   flex-direction: column;
+}
+
+.recurring-payments-table-container {
+   height: 100%;
+   padding: 0px 12px 12px 12px;
+   overflow: auto;
+}
+
+.recurring-payments-table {
+   width: 100%;
+   height: 100%;
+   padding: 12px;
+   border-collapse: collapse;
+}
+
+.recurring-payments-table th,
+td {
+   color: #555;
+   width: 25%;
+   text-align: left;
 }

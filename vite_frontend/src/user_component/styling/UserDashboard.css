@@ -1,12 +1,12 @@
 /* Add styles for the chart container */
 .monthly-report-chart-container {
-   background-color: #fff; 
-   border-radius: 8px; 
+   background-color: #fff;
+   border-radius: 8px;
    padding: 20px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-   margin-top: 20px; 
-   width: 100%; 
-   height: 100%; 
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   margin-top: 20px;
+   width: 100%;
+   height: 100%;
 }
 
 body {
@@ -399,7 +399,7 @@ body {
    background-color: #b3eeff;
 }
 .icon {
-   width: 40px; 
+   width: 40px;
    height: auto;
    margin-bottom: 10px;
 }
@@ -433,11 +433,17 @@ button + button {
 }
 
 .delete-account-button {
-   color: white;
-   border: none;
-   border-radius: 5px;
-   padding: 5px 10px;
+   color: #ffffff;
+   font-size: 14px;
+   background: #003349;
+   border: 2px solid #8d1e1e;
+   border-radius: 10px;
+   padding: 2px 8px 2px 8px;
    cursor: pointer;
-   margin-top: 1px;
 }
 
+.delete-account-button:hover {
+   color: #ffffff;
+   background: linear-gradient(45deg, #d43030 0%, #d65858 100%);
+   border: 2px solid #d43030;
+}

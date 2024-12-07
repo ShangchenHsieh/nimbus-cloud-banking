@@ -485,7 +485,7 @@ const UserDashboard = () => {
                   className="delete-account-button"
                   onClick={handleDeleteAccount}
                >
-                  X Delete Account
+                  Delete Account
                </button>
             </div>
             <div className="details-container">

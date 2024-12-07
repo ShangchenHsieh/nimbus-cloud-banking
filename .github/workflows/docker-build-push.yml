@@ -1,0 +1,39 @@
+# Gitub Workflow to download repo code, log into Docker Hub, and build and push the frontend/backend images 
+# when the main branch is updated 
+name: Build and Publish Docker Images
+
+on:
+    push:
+        branches: ['main']
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: "Checkout code"
+          uses: actions/checkout@v4
+
+        - name: "Docker Hub login" 
+          uses: docker/login-action@v2
+          with: 
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
+
+        - name: "Set up Docker Buildx"
+          uses: docker/setup-buildx-action@v2
+
+        - name: "Build frontend image"
+          uses: docker/build-push-action@v4
+          with:
+            context: ./vite_frontend
+            push: true
+            tags: ${{ secrets.DOCKER_USERNAME }}/nimbus-cloud-banking-docker:frontend
+
+        - name: "Build backend image"
+          uses: docker/build-push-action@v4
+          with:
+            context: ./django_backend
+            push: true
+            tags: ${{ secrets.DOCKER_USERNAME }}/nimbus-cloud-banking-docker:backend
+

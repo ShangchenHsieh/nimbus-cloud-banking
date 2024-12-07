@@ -58,6 +58,17 @@ const Deposit = () => {
             setIsSubmitting(false);
             return;
         }
+        if (!checkNum) {
+            setMessage("Please enter a valid check number");
+            setIsSubmitting(false);
+            return;
+        }
+        if (!checkImage) {
+            setMessage("Please upload a check image");
+            setIsSubmitting(false);
+            return;
+        }
+
         try {
             const response = await fetch('http://127.0.0.1:8000/transactions/deposit', {
                 method: 'POST',
@@ -86,6 +97,7 @@ const Deposit = () => {
         const file = e.target.files[0];
         if (file) {
             setCheckImage(URL.createObjectURL(file)); // Create a preview URL for the image
+            setMessage("")
         }
     };
 
@@ -111,6 +123,7 @@ const Deposit = () => {
                             const value = e.target.value;
                             if (/^\d*$/.test(value)) { // Only allow digits
                                 setCheckNum(value);
+                                setMessage("")
                             }
                         }}
                         onKeyDown={(e) => {

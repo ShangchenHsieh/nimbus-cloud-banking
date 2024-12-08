@@ -117,6 +117,7 @@ class RecurringPayment(Transaction):
     next_payment_date = models.DateField()
     interval_days = models.IntegerField()
     is_active = models.BooleanField(default=True)
+    destination = models.CharField(max_length=255, null=True, blank=True)
     
     def update_balance(self):
         today = date.today()

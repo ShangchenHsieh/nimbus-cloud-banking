@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const UserPayment = () => {
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [accountTypes, setAccountTypes] = useState([]);
-   const [selectedAccountType, setSelectedAccountType] = useState("checking");
+   const [selectedAccountType, setSelectedAccountType] = useState("");
    const [accountNumber, setAccountNumber] = useState("");
    const [amount, setAmount] = useState("");
    const [fee, setFee] = useState("0");
@@ -21,6 +21,7 @@ const UserPayment = () => {
       setPayDate(event.target.value);
    };
    const [recurringDays, setRecurringDays] = useState("");
+   const [biller, setBiller] = useState("");
 
    const navigate = useNavigate();
 
@@ -91,8 +92,14 @@ const UserPayment = () => {
                );
             }
 
+            
+
             const data = await response.json();
             setAccountTypes(data);
+
+            if (data.length > 0) {
+               setSelectedAccountType(data[0]);
+            }
          } catch (error) {
             console.error("Error fetching account types:", error);
          }
@@ -202,6 +209,7 @@ const UserPayment = () => {
                amount: parseFloat(amount),
                next_payment_date: payDate,
                interval_days: recurringDays,
+               destination: biller,
             }),
          }
       );
@@ -305,6 +313,18 @@ const UserPayment = () => {
                            }}
                         />
                      </div>
+                     <div className="item">
+                        <p className="text">Enter bill payment destination: </p>
+                        <input
+                           className="payment-input"
+                           type="text"
+                           value={biller}
+                           onChange={(e) => {
+                              const value = e.target.value;
+                              setBiller(value);
+                           }}
+                        />
+                     </div>
 
                      <div className="recurring-payments-container">
                         <h3 className="title">Recurring Payments</h3>
@@ -317,6 +337,7 @@ const UserPayment = () => {
                                        <th>Next Payment Date</th>
                                        <th>Interval (Days)</th>
                                        <th>Status</th>
+                                       <th>Biller</th>
                                     </tr>
                                  </thead>
                                  <tbody>
@@ -330,6 +351,7 @@ const UserPayment = () => {
                                                 ? "Active"
                                                 : "Inactive"}
                                           </td>
+                                          <td>{payment.destination}</td>
                                        </tr>
                                     ))}
                                  </tbody>

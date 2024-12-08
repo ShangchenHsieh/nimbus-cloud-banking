@@ -135,10 +135,12 @@ class RecurringPaymentSerializer(serializers.ModelSerializer):
     amount = serializers.DecimalField(max_digits=10, decimal_places=2)
     next_payment_date = serializers.DateField()
     interval_days = serializers.IntegerField()
+    destination = serializers.CharField(max_length=255)
+
     
     class Meta: 
         model = RecurringPayment
-        fields = ['account_number', 'amount', 'next_payment_date', 'interval_days']
+        fields = ['account_number', 'amount', 'next_payment_date', 'interval_days', 'destination']
     
     
     def create(self, validated_data):
@@ -146,6 +148,7 @@ class RecurringPaymentSerializer(serializers.ModelSerializer):
         amount = validated_data['amount']
         next_payment_date = validated_data['next_payment_date']
         interval_days = validated_data['interval_days']
+        destination = validated_data['destination']
         try:
             account_number = BankAccount.objects.get(account_number=account_number)
         except BankAccount.DoesNotExist:
@@ -160,6 +163,7 @@ class RecurringPaymentSerializer(serializers.ModelSerializer):
                 transaction_type='withdrawal',
                 next_payment_date=next_payment_date,
                 interval_days=interval_days,
+                destination = destination,
             )
         return recurringPayment
         
@@ -181,7 +185,8 @@ class DisplayInternalAccountTransferSerializer(serializers.ModelSerializer):
 class DisplayRecurringPaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecurringPayment
-        fields = ['id', 'bank_account', 'amount', 'next_payment_date', 'interval_days', 'is_active']
+        fields = ['id', 'bank_account', 'amount', 'next_payment_date', 'interval_days', 'is_active', 'destination']
+        
         
     
     

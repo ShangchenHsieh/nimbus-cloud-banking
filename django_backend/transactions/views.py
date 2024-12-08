@@ -86,7 +86,8 @@ class ProcessRecurringPaymentView(APIView):
                      'id': recurringPayment.id, 
                      'transaction_type': recurringPayment.transaction_type, 
                      'amount': recurringPayment.amount, 
-                     'transaction_date': recurringPayment.transaction_date}, 
+                     'transaction_date': recurringPayment.transaction_date,
+                     'destination': recurringPayment.destination},
                     status=status.HTTP_201_CREATED
                 )
             except Exception as e:

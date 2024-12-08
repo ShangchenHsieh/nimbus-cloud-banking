@@ -38,16 +38,20 @@ const Login = () => {
       const response = await fetch('http://127.0.0.1:8000/auth/login/', requestOptions);
       const data = await response.json();
 
-      if (response.status === 401 || response.status === 400) {
-        // Error protocol for invalid login
-        setErrorMessage("Invalid login credentials.");
-      } else if (response.ok) {
-        // Protocol for successful login
-        localStorage.setItem('access_token', data.access);
-        localStorage.setItem('refresh_token', data.refresh);
-        navigate('/userdashboard');
+      if (formData.username.toLowerCase() === 'admin@nimbusbanking.com') {
+        setErrorMessage('The provided email is reserved for admin use only.');
       } else {
-        setErrorMessage("Something went wrong. Please try again later.");
+        if (response.status === 401 || response.status === 400) {
+          // Error protocol for invalid login
+          setErrorMessage("Invalid login credentials.");
+        } else if (response.ok) {
+          // Protocol for successful login
+          localStorage.setItem('access_token', data.access);
+          localStorage.setItem('refresh_token', data.refresh);
+          navigate('/userdashboard');
+        } else {
+          setErrorMessage("Something went wrong. Please try again later.");
+        }
       }
     } catch (error) {
       console.error("Error during login:", error);

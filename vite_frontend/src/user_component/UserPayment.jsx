@@ -16,11 +16,9 @@ const UserPayment = () => {
    const [recurringPayments, setRecurringPayments] = useState([]);
    const [error, setError] = useState("");
 
-   // ALEX HERE'S THE DATE
    const [payDate, setPayDate] = useState("");
    const handleDateChange = (event) => {
       setPayDate(event.target.value);
-      console.log(payDate);
    };
    const [recurringDays, setRecurringDays] = useState("");
 
@@ -28,19 +26,19 @@ const UserPayment = () => {
 
    const openModal = () => {
       setError("");
-      if (amount == "") {
+      if (amount === "") {
          setError("Error: Please enter an amount");
          return;
-      } else if (amount == "0") {
+      } else if (amount === "0") {
          setError("Error: Please enter a valid amount");
          return;
-      } else if (payDate == "") {
+      } else if (payDate === "") {
          setError("Error: Please enter a date");
          return;
-      } else if (recurringDays == "") {
+      } else if (recurringDays === "") {
          setError("Error: Please enter a recurring day interval");
          return;
-      } else if (recurringDays == "0") {
+      } else if (recurringDays === "0") {
          setError("Error: Please enter a valid recurring day interval");
          return;
       }
@@ -185,7 +183,6 @@ const UserPayment = () => {
       e.preventDefault();
       const token = localStorage.getItem("access_token");
       setIsSubmitting(true);
-      console.log("Access Token:", token); // Log the access token
       if (!token) {
          console.error("No access token found");
          setIsSubmitting(false);
@@ -208,18 +205,17 @@ const UserPayment = () => {
             }),
          }
       );
+      const responseData = await response.json();
       if (!response.ok) {
-         const errorData = await response.json();
-         console.log(errorData["error"]);
-         setMessage(
-            errorData["error"] || "Payment failed. Please check your amount."
-         );
+         if (responseData.error && responseData.error.includes("insufficient funds")) {
+            setMessage("Insufficient funds.");
+         } else {
+            setMessage(responseData.error || "Payment failed. Please try again.");
+         }
          setIsSubmitting(false);
-         setMessage("Insufficient funds.");
       } else {
-         const data = await response.json();
-         console.log(data);
          setMessage("Payment successful. Redirecting to dashboard.");
+         setIsModalOpen(false); 
          setTimeout(() => navigate("/userdashboard"), 2000);
       }
    };
@@ -254,8 +250,8 @@ const UserPayment = () => {
                            type="text"
                            placeholder="Amount"
                            value={amount}
-                           min="0" // No negative amounts
-                           step="0.01" // Allow decimal values
+                           min="0"
+                           step="0.01"
                            onChange={(e) => {
                               const value = e.target.value;
                               if (/^\d*\.?\d{0,2}$/.test(value)) {
@@ -359,7 +355,7 @@ const UserPayment = () => {
                         <p
                            className="text"
                            style={{
-                              display: error == "" ? "none" : "block",
+                              display: error === "" ? "none" : "block",
                               color: "red",
                               padding: "12px",
                            }}

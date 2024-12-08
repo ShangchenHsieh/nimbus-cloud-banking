@@ -58,16 +58,7 @@ const Deposit = () => {
             setIsSubmitting(false);
             return;
         }
-        if (!checkNum) {
-            setMessage("Please enter a valid check number");
-            setIsSubmitting(false);
-            return;
-        }
-        if (!checkImage) {
-            setMessage("Please upload a check image");
-            setIsSubmitting(false);
-            return;
-        }
+        
 
         try {
             const response = await fetch('http://127.0.0.1:8000/transactions/deposit', {

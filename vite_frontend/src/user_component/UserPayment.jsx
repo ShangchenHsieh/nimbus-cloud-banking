@@ -216,7 +216,7 @@ const UserPayment = () => {
       } else {
          setMessage("Payment successful. Redirecting to dashboard.");
          setIsModalOpen(false); 
-         setTimeout(() => navigate("/userdashboard"), 2000);
+         setTimeout(() => window.location.reload());
       }
    };
 

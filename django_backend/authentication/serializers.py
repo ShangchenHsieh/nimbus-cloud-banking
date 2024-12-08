@@ -11,6 +11,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         # password set to write only such that it can only be provided when creating a user but not in API responses
         extra_kwargs = {'password': {'write_only': True}}
 
+    def validate_email(self, value):
+        admin_email = "admin@nimbusbanking.com"  
+        if value.lower() == admin_email.lower():
+            raise serializers.ValidationError("This email is reserved for admin use only.")
+        return value
+
+
     def create(self, validated_data):
         user = CustomUser.objects.create_user(
             email=validated_data['email'],

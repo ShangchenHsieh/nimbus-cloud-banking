@@ -80,6 +80,8 @@ const SignUp = () => {
       setErrors(validationErrors);
     } else if (!agreeToTerms) {
       setErrorMessage('You must agree to the terms and conditions.');
+    } else if (formData.username.toLowerCase() === 'admin@nimbusbanking.com') {
+      setErrorMessage('The provided email is reserved for admin use only.');
     } else {
       submitRegisteration();
     }

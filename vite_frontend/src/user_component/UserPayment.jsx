@@ -14,20 +14,34 @@ const UserPayment = () => {
    const [message, setMessage] = useState("");
    const [isSubmitting, setIsSubmitting] = useState(false);
    const [recurringPayments, setRecurringPayments] = useState([]);
+   const [error, setError] = useState("");
 
-
-
-   // ALEX HERE'S THE DATE
    const [payDate, setPayDate] = useState("");
    const handleDateChange = (event) => {
       setPayDate(event.target.value);
-      console.log(payDate)
    };
    const [recurringDays, setRecurringDays] = useState("");
 
    const navigate = useNavigate();
 
    const openModal = () => {
+      setError("");
+      if (amount === "") {
+         setError("Error: Please enter an amount");
+         return;
+      } else if (amount === "0") {
+         setError("Error: Please enter a valid amount");
+         return;
+      } else if (payDate === "") {
+         setError("Error: Please enter a date");
+         return;
+      } else if (recurringDays === "") {
+         setError("Error: Please enter a recurring day interval");
+         return;
+      } else if (recurringDays === "0") {
+         setError("Error: Please enter a valid recurring day interval");
+         return;
+      }
       setIsModalOpen(true);
    };
 
@@ -132,7 +146,7 @@ const UserPayment = () => {
             console.error("No access token found");
             return;
          }
-   
+
          const requestOptions = {
             method: "GET",
             headers: {
@@ -140,26 +154,26 @@ const UserPayment = () => {
                Authorization: `Bearer ${token}`,
             },
          };
-   
+
          try {
             const response = await fetch(
                `http://127.0.0.1:8000/transactions/active-recurring-payments/${accountNumber}/`,
                requestOptions
             );
-   
+
             if (!response.ok) {
                throw new Error(
                   `Error ${response.status}: ${response.statusText}`
                );
             }
-   
+
             const data = await response.json();
             setRecurringPayments(data);
          } catch (error) {
             console.error("Error fetching recurring payments:", error);
          }
       };
-   
+
       if (accountNumber) {
          fetchRecurringPayments();
       }
@@ -169,7 +183,6 @@ const UserPayment = () => {
       e.preventDefault();
       const token = localStorage.getItem("access_token");
       setIsSubmitting(true);
-      console.log("Access Token:", token); // Log the access token
       if (!token) {
          console.error("No access token found");
          setIsSubmitting(false);
@@ -192,19 +205,18 @@ const UserPayment = () => {
             }),
          }
       );
+      const responseData = await response.json();
       if (!response.ok) {
-         const errorData = await response.json();
-         console.log(errorData["error"]);
-         setMessage(
-            errorData["error"] || "Payment failed. Please check your amount."
-         );
+         if (responseData.error && responseData.error.includes("insufficient funds")) {
+            setMessage("Insufficient funds.");
+         } else {
+            setMessage(responseData.error || "Payment failed. Please try again.");
+         }
          setIsSubmitting(false);
-         setMessage("Insufficient funds.");
       } else {
-         const data = await response.json();
-         console.log(data);
          setMessage("Payment successful. Redirecting to dashboard.");
-         setTimeout(() => navigate("/userdashboard"), 2000);
+         setIsModalOpen(false); 
+         setTimeout(() => window.location.reload());
       }
    };
 
@@ -238,8 +250,8 @@ const UserPayment = () => {
                            type="text"
                            placeholder="Amount"
                            value={amount}
-                           min="0" // No negative amounts
-                           step="0.01" // Allow decimal values
+                           min="0"
+                           step="0.01"
                            onChange={(e) => {
                               const value = e.target.value;
                               if (/^\d*\.?\d{0,2}$/.test(value)) {
@@ -255,19 +267,26 @@ const UserPayment = () => {
                               }
                            }}
                         />
+                     </div>
+                     <div className="item">
                         <p className="text">Enter first payment date: </p>
                         <input
                            type="date"
+                           placeholder="MM / DD / YYYY"
                            id="pay-date"
                            className="date-input"
                            value={payDate}
                            onChange={handleDateChange}
                         />
-                        <p className="text">Enter recurring payment interval(in days): </p>
+                     </div>
+                     <div className="item">
+                        <p className="text">
+                           Enter recurring payment interval (in days):{" "}
+                        </p>
                         <input
                            className="recurring-input"
                            type="text"
-                           placeholder="days"
+                           placeholder="Days"
                            value={recurringDays}
                            onChange={(e) => {
                               const value = e.target.value;
@@ -286,6 +305,42 @@ const UserPayment = () => {
                         />
                      </div>
 
+                     <div className="recurring-payments-container">
+                        <h3 className="title">Recurring Payments</h3>
+                        {recurringPayments.length > 0 ? (
+                           <div className="recurring-payments-table-container">
+                              <table className="recurring-payments-table">
+                                 <thead>
+                                    <tr>
+                                       <th>Amount</th>
+                                       <th>Next Payment Date</th>
+                                       <th>Interval (Days)</th>
+                                       <th>Status</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    {recurringPayments.map((payment) => (
+                                       <tr key={payment.id}>
+                                          <td>${payment.amount}</td>
+                                          <td>{payment.next_payment_date}</td>
+                                          <td>{payment.interval_days}</td>
+                                          <td>
+                                             {payment.is_active
+                                                ? "Active"
+                                                : "Inactive"}
+                                          </td>
+                                       </tr>
+                                    ))}
+                                 </tbody>
+                              </table>
+                           </div>
+                        ) : (
+                           <p className="text" style={{ padding: "12px" }}>
+                              No recurring payments found.
+                           </p>
+                        )}
+                     </div>
+
                      <div className="prototype-note">
                         <p className="text">
                            NOTE: This feature is a prototype and would typically
@@ -295,34 +350,21 @@ const UserPayment = () => {
                            portal or other provided billing system.
                         </p>
                      </div>
+
+                     <div>
+                        <p
+                           className="text"
+                           style={{
+                              display: error === "" ? "none" : "block",
+                              color: "red",
+                              padding: "12px",
+                           }}
+                        >
+                           {error}
+                        </p>
+                     </div>
                   </div>
-                  <div className="recurring-payments-container">
-            <h3 className="title">Recurring Payments</h3>
-            {recurringPayments.length > 0 ? (
-               <table className="recurring-payments-table">
-                  <thead>
-                     <tr>
-                        <th>Amount</th>
-                        <th>Next Payment Date</th>
-                        <th>Interval (Days)</th>
-                        <th>Status</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     {recurringPayments.map((payment) => (
-                        <tr key={payment.id}>
-                           <td>${payment.amount}</td>
-                           <td>{payment.next_payment_date}</td>
-                           <td>{payment.interval_days}</td>
-                           <td>{payment.is_active ? "Active" : "Inactive"}</td>
-                        </tr>
-                     ))}
-                  </tbody>
-               </table>
-            ) : (
-               <p>No recurring payments found.</p>
-            )}
-      </div>
+
                   <button className="pay-now-button" onClick={openModal}>
                      Pay Now
                   </button>
@@ -348,8 +390,6 @@ const UserPayment = () => {
                </div>
             </div>
          </div>
-
-
 
          {isModalOpen && (
             <div className="modal-overlay">

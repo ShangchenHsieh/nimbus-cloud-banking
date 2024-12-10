@@ -132,3 +132,9 @@ class RecurringPayment(Transaction):
             self.next_payment_date += timedelta(days=self.interval_days)
             self.save()
                 
+class CheckNumber(models.Model):
+    check_number = models.CharField(max_length=20, unique=True)  
+    created_at = models.DateTimeField(auto_now_add=True)  
+
+    def __str__(self):
+        return self.check_number

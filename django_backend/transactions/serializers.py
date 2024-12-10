@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import InternalAccountTransfer, WithdrawalTransaction, DepositTransaction, RecurringPayment
+from .models import InternalAccountTransfer, WithdrawalTransaction, DepositTransaction, RecurringPayment, CheckNumber
 from django.db import transaction
 from bank_account.models import BankAccount
 
@@ -73,32 +73,38 @@ class ProcessInternalTransferSerializer(serializers.ModelSerializer):
     
 class ProcessDepositSerializer(serializers.ModelSerializer): 
     
-    # incoming data validation
     account_number = serializers.CharField(max_length=10)
     amount = serializers.DecimalField(max_digits=10, decimal_places=2)
+    check_number = serializers.CharField(max_length=20) 
     
-    # data fields and model 
     class Meta: 
         model = DepositTransaction
-        fields = ['account_number', 'amount']
+        fields = ['account_number', 'amount', 'check_number']
     
     
     def create(self, validated_data):
         account_number = validated_data['account_number']
         amount = validated_data['amount']
-        
+        check_number = validated_data['check_number'] 
         
         try:
             account_number = BankAccount.objects.get(account_number=account_number)
         except BankAccount.DoesNotExist:
             raise serializers.ValidationError("Account number is invalid or may not exist.")
+        
         if amount <= 0: 
             raise serializers.ValidationError("Deposit amount must be greater than zero.")
+        
+        if CheckNumber.objects.filter(check_number=check_number).exists():
+            raise serializers.ValidationError("This check number has already been used.")
+        
+        CheckNumber.objects.create(check_number=check_number)
+        
         deposit = DepositTransaction.objects.create(
-                bank_account=account_number,      
-                amount=amount,
-                transaction_type='deposit',
-            )
+            bank_account=account_number,      
+            amount=amount,
+            transaction_type='deposit',
+        )
         return deposit
     
 class ProcessWithdrawalSerializer(serializers.ModelSerializer): 
